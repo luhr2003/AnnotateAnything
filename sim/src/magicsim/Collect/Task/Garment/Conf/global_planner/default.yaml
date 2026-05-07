@@ -1,0 +1,18 @@
+MoveL:
+  # planner_mode=0 + ik_check=false ⇒ MoveL bypasses curobo entirely and
+  # sends single-step world-frame targets straight to ik_dual_diff.
+  ik_check: false
+  translation_threshold: 0.005
+  rotation_threshold: 0.05
+  motiongen_distance_threshold: 0.35
+  timeout_steps: 400
+  # Linear-interpolation hyperparameter. > 0 → MoveL lerps from the eef
+  # pose at reset() to the target over this many step() calls (every
+  # phase that issues a MoveL command, regardless of distance).
+  # Set to 0 to disable and use snap-to-target (existing motiongen / IK
+  # path). Single number applied uniformly to all MoveL commands.
+  interp_steps: 150
+  debug: true
+
+ParallelGripper:
+  gripper_threshold: 0.001

@@ -1,0 +1,5 @@
+defaults:
+  - scene: insert_usb_env
+  - sim: sim_config
+  - camera: agent_camera
+  - robot: single_franka

@@ -1,0 +1,31 @@
+# Simple empty scene for camera movement test
+# room:
+#   hide_top_walls: false
+#   collision: true
+#   simple_room:
+#     usd: ["$MAGICSIM_ASSETS/Room/Collected_SimpleRoom"]
+#     random: False
+#     simple_room_1:
+#       pos: [0.0, 0.0, 0.0]
+#       ori: [0.0, 0.0, 0]
+#       scale: [1.0, 1.0, 1.0]
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr"
+  ]
+
+light:
+  light_1:
+    types: ["Dome"]
+    common:
+      initial_pos_range: [0, 0, 0, 0, 0, 0]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      color_temperature_range: [5000, 6000]
+      color_range: [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]
+    Dome:
+      intensity_range: [1000, 1000]
+
+# No objects needed for camera movement test
+objects: {}

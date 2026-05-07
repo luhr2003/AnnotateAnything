@@ -1,0 +1,34 @@
+# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# All rights reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# Default joint angles for Go2 legs
+# IMPORTANT: Order must match the actual joint order in IsaacLab:
+#   ['FL_hip_joint', 'FR_hip_joint', 'RL_hip_joint', 'RR_hip_joint',
+#    'FL_thigh_joint', 'FR_thigh_joint', 'RL_thigh_joint', 'RR_thigh_joint',
+#    'FL_calf_joint', 'FR_calf_joint', 'RL_calf_joint', 'RR_calf_joint']
+# These values match the initial joint positions in Go2.py:
+#   ".*L_hip_joint": 0.1, ".*R_hip_joint": -0.1
+#   "F[L,R]_thigh_joint": 0.8, "R[L,R]_thigh_joint": 1.0
+#   ".*_calf_joint": -1.5
+# Order: all hips (FL, FR, RL, RR), then all thighs (FL, FR, RL, RR), then all calves (FL, FR, RL, RR)
+default_angles: [0.1, -0.1, 0.1, -0.1, 0.8, 0.8, 1.0, 1.0, -1.5, -1.5, -1.5, -1.5]
+
+
+# Scaling factors
+action_scale: 0.25
+
+# Number of actions and observations
+num_actions: 12
+num_obs: 49  # Single frame observation dimension (matches training: base_lin_vel(3) + base_ang_vel(3) + projected_gravity(3) + velocity_commands(3) + height_commands(1) + joint_pos(12) + joint_vel(12) + actions(12) = 49)
+obs_history_len: 1  # No history - model expects single frame
+
+# Initial commands
+cmd_init: [0.0, 0.0, 0.4, 0.0]  # [vx, vy, base_height, yaw_rate]
+freq_cmd: 0.75  # gait frequency (Hz)
+
+# Control timestep (should match the control frequency at which compute_observation is called)
+# Training: control_dt = 0.02s (50Hz control with 200Hz physics, decimation=4)
+# If your environment uses different control frequency, adjust this accordingly
+control_dt: 0.02  # Control timestep in seconds (50Hz = 0.02s)

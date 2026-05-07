@@ -1,0 +1,23 @@
+Robot1: # This is the robot name
+  name: "novaCarter" # this is used for retreival articulation cfg
+  type: "mobile"
+  common:
+    # Initial position range (relative to environment offset)
+    initial_pos_range: [-2, 0, 0.35, -2, 0, 0.35]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+    # Initial orientation range
+    initial_ori_range: [-2, 0, 0.35, -2, 0, 0.35]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+  action: # This is used for action manager
+    base: differential_drive # differential_drive, velocity, acceleration
+  #   arm: ik_abs # ik_abs, ik_rel, osc
+  #   gripper: binary # joint pos
+
+  # eventterm # This is used for event term manager
+  reset: randomize_joint
+  planner:
+    base:
+      type: "dwb_differential"
+      max_lin_accel: 4.0
+      max_steer_rate: 4.0
+  physics:
+    wheel_base: 0.01
+    robot_radius: 0.3

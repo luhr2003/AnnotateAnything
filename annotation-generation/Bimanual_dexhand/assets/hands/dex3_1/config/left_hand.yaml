@@ -1,0 +1,143 @@
+side: "left"
+
+asset:
+  usd_path: "../asset/dex3_1_l.usd"
+  urdf_path: "../asset/dex3_1_l.urdf"
+
+root:
+  wrist_link: "left_hand_palm_link"
+  palm_link: "left_hand_palm_link"
+
+frame_convention:
+  palm_normal_local: [0.0, -1.0, 0.0]
+  finger_forward_local: [1.0, 0.0, 0.0]
+  thumb_opposition_local: [0.0, -1.0, 0.0]
+
+links:
+  tips:
+    thumb: "left_hand_thumb_2_link"
+    index: "left_hand_index_1_link"
+    middle: "left_hand_middle_1_link"
+    ring: ""
+    little: ""
+
+  contact_candidate_links:
+    - "left_hand_palm_link"
+    - "left_hand_thumb_0_link"
+    - "left_hand_thumb_1_link"
+    - "left_hand_thumb_2_link"
+    - "left_hand_middle_0_link"
+    - "left_hand_middle_1_link"
+    - "left_hand_index_0_link"
+    - "left_hand_index_1_link"
+
+  collision_link_names:
+    - "left_hand_palm_link"
+    - "left_hand_thumb_0_link"
+    - "left_hand_thumb_1_link"
+    - "left_hand_thumb_2_link"
+    - "left_hand_middle_0_link"
+    - "left_hand_middle_1_link"
+    - "left_hand_index_0_link"
+    - "left_hand_index_1_link"
+
+joints:
+  controllable:
+    - "left_hand_index_0_joint"
+    - "left_hand_middle_0_joint"
+    - "left_hand_thumb_0_joint"
+    - "left_hand_index_1_joint"
+    - "left_hand_middle_1_joint"
+    - "left_hand_thumb_1_joint"
+    - "left_hand_thumb_2_joint"
+
+  groups:
+    thumb:
+      - "left_hand_thumb_0_joint"
+      - "left_hand_thumb_1_joint"
+      - "left_hand_thumb_2_joint"
+
+    index:
+      - "left_hand_index_0_joint"
+      - "left_hand_index_1_joint"
+
+    middle:
+      - "left_hand_middle_0_joint"
+      - "left_hand_middle_1_joint"
+
+    ring: []
+
+    little: []
+
+  limits:
+    left_hand_thumb_0_joint: [-1.04719755, 1.04719755]
+    left_hand_thumb_1_joint: [-0.61086523, 1.04719755]
+    left_hand_thumb_2_joint: [0.0, 1.74532925]
+    left_hand_middle_0_joint: [-1.57079632, 0.0]
+    left_hand_middle_1_joint: [-1.74532925, 0.0]
+    left_hand_index_0_joint: [-1.57079632, 0.0]
+    left_hand_index_1_joint: [-1.74532925, 0.0]
+
+default_postures:
+  neutral:
+    left_hand_index_0_joint: 0.0
+    left_hand_middle_0_joint: 0.0
+    left_hand_thumb_0_joint: 0.0
+    left_hand_index_1_joint: 0.0
+    left_hand_middle_1_joint: 0.0
+    left_hand_thumb_1_joint: 0.0
+    left_hand_thumb_2_joint: 0.0
+
+  open_hand:
+    left_hand_index_0_joint: 0.0
+    left_hand_middle_0_joint: 0.0
+    left_hand_thumb_0_joint: 0.0
+    left_hand_index_1_joint: 0.0
+    left_hand_middle_1_joint: 0.0
+    left_hand_thumb_1_joint: 0.0
+    left_hand_thumb_2_joint: 0.0
+
+  light_close:
+    left_hand_index_0_joint: -0.5236
+    left_hand_middle_0_joint: -0.5236
+    left_hand_thumb_0_joint: 0.0
+    left_hand_index_1_joint: -0.5236
+    left_hand_middle_1_joint: -0.5236
+    left_hand_thumb_1_joint: 0.0
+    left_hand_thumb_2_joint: 0.5236
+
+  medium_close:
+    left_hand_index_0_joint: -0.7854
+    left_hand_middle_0_joint: -0.7854
+    left_hand_thumb_0_joint: 0.0
+    left_hand_index_1_joint: -0.7854
+    left_hand_middle_1_joint: -0.7854
+    left_hand_thumb_1_joint: 0.2618
+    left_hand_thumb_2_joint: 1.0471
+
+  rim_pad_close:
+    left_hand_index_0_joint: -1.0472
+    left_hand_middle_0_joint: -1.0472
+    left_hand_thumb_0_joint: 0.0
+    left_hand_index_1_joint: -0.5236
+    left_hand_middle_1_joint: -0.5236
+    left_hand_thumb_1_joint: 0.3491
+    left_hand_thumb_2_joint: 1.0471
+
+  rim_tip_hook_close:
+    left_hand_index_0_joint: -1.2217
+    left_hand_middle_0_joint: -1.2217
+    left_hand_thumb_0_joint: -0.1745
+    left_hand_index_1_joint: -0.6109
+    left_hand_middle_1_joint: -0.6109
+    left_hand_thumb_1_joint: 0.3491
+    left_hand_thumb_2_joint: 1.1345
+
+  cat2_hold_close:
+    left_hand_index_0_joint: -1.1345
+    left_hand_middle_0_joint: -1.1345
+    left_hand_thumb_0_joint: -0.1309
+    left_hand_index_1_joint: -0.5236
+    left_hand_middle_1_joint: -0.5236
+    left_hand_thumb_1_joint: 0.2182
+    left_hand_thumb_2_joint: 0.7854

@@ -1,0 +1,16 @@
+Fling:
+  robot_id: 0                 # Bimanual fling; hand_id is fixed to -1 (dual arm)
+  obj_type: garment           # scene_manager category type
+  obj_name: garment_items     # category key
+  obj_id: 0                   # index within that category
+  keypoint_group: sleeve      # bottom | sleeve | shoulder | random
+  init_limit: 100
+  max_attempt: 3
+
+Fold:
+  robot_id: 0                 # DualFranka_0; dual-arm via hand_id=-1 in the skill
+  obj_type: garment           # scene_manager category type
+  obj_name: garment_items     # category key
+  obj_id: 0                   # index within that category
+  init_limit: 100
+  max_attempt: 3

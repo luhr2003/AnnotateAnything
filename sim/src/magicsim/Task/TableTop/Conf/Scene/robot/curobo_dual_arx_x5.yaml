@@ -1,0 +1,48 @@
+DualArxX51:
+  name: "dual_arx_x5"
+  type: "dualmanipulator"
+  common:
+    initial_pos_range: [0, 0, 1.0, 0, 0, 1.0]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+    initial_joint_pos: {
+      "L_joint1": 0.0, "L_joint2": -0.5, "L_joint3": 1.0,
+      "L_joint4": 0.0, "L_joint5": 0.0, "L_joint6": 0.0,
+      "L_joint7": 0.022, "L_joint8": 0.022,
+      "R_joint1": 0.0, "R_joint2": -0.5, "R_joint3": 1.0,
+      "R_joint4": 0.0, "R_joint5": 0.0, "R_joint6": 0.0,
+      "R_joint7": 0.022, "R_joint8": 0.022,
+    }
+
+  action:
+    arm: ik_dual_curobo
+    eef: binary
+  planner:
+    dual_mode: false
+    ik:
+      # Unified single-server-per-robot layout. See MERGE_LEFT_RIGHT.md §1–§8
+      # for the flatten and §9 for paired semantics.
+      type: "dual_arx_x5"
+      enable: true
+      ik_num_instances: 1
+      ik_batch_size: 1
+      ik_num_seeds: 20
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+      eef_num: 2
+      paired: true
+    motiongen:
+      type: "dual_arx_x5"
+      enable: true
+      batch_size: 1
+      debug: false
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      eef_num: 2
+
+    arm:
+      type: "default"
+      mode: position
+    eef:
+      type: "default"

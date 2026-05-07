@@ -1,0 +1,5 @@
+defaults:
+  - scene: garment_fold_env
+  - sim: sim_config
+  - camera: agent_camera
+  - robot: dual_franka

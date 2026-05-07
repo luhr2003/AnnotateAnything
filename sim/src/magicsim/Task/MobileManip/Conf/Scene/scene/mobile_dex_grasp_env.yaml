@@ -1,0 +1,123 @@
+room:
+  # Tabletop dex-grasp scene for vega 1P + Sharpa right hand. Layout mirrors
+  # ``mobile_grasp_env`` (ridgebackFranka): desk at world origin, robot
+  # parked ~1m behind, bottle randomized on the near edge of the desk top.
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+light:
+  light_1:
+    types: ["Rect", "Sphere", "Cylinder"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+
+objects:
+  common:
+    initial_pos_range: [-0.2, -0.2, 0.5, 0.2, 0.5, 0.8]
+    initial_ori_range: [-30, -30, -30, 30, 30, 30]
+    scale: [2, 1.5, 1.0]
+
+  # Replaced the cline desk USD with a primitive cube of identical
+  # bounding box. Measured from cline_inst_base.usd default-time bounds:
+  #   size = (1.118, 2.413, 0.984), top z = 0.984m
+  # Cube is centered, so pos.z = 0.984/2 ≈ 0.492 puts the top at 0.984m
+  # (matches the original desk top exactly — bottle drop z=1.14m still
+  # lands on the surface).
+  # Name kept as ``simple_desk`` because GraspEnv.get_grasp_pose's
+  # default-target picker explicitly excludes ``"simple_desk"``.
+  simple_desk:
+    usd: ["Cube"]
+    random: false
+    num_per_env: 1
+    default_material: True
+    simple_desk_1:
+      pos: [0.0, 0.0, 0.3]
+      ori: [0.0, 0.0, 0.0]
+      visual:
+        primitive_scale: [1.118, 2.413, 0.6]
+        scale: [1.118, 2.413, 0.6]
+        color:
+          - [0.8, 0.7, 0.6]
+          - [0.6, 0.5, 0.4]
+          - [0.4, 0.3, 0.2]
+          - [0.2, 0.1, 0.0]
+      physics:
+        type: "geometry"
+        collision: true
+
+  # Sharpa-annotated bottles. Each USD ships with
+  # ``Annotation/Sharpa_grasp_pose.json`` (functional_grasp/grasp with
+  # coarse/fine/final phases for the 22-DOF Sharpa right hand). Drop on
+  # the desk's near edge (-x side, biased to -y for the right hand).
+
+  bin:
+    usd: [
+      "$MAGICSIM_ASSETS/Object/Sharpa/bin",
+    ]
+    num_per_env: 1
+    random: True
+    default_material: False
+    bin_1:
+      visual:
+
+  bottle:
+    common:
+      # IsaacLab fixed-base quirk: vega's ``initial_pos_range`` is silently
+      # ignored — the USD's ``PhysicsFixedJoint`` keeps ``vega_1p_mobile``
+      # anchored at world ~(0, 0, 0.1) regardless. So the bottle needs to
+      # spawn IN FRONT OF +X (positive x) of the world origin to be
+      # reachable by the right arm. Desk extent x ∈ [-0.56, +0.56],
+      # drop range x ∈ [+0.40, +0.50] sits on the +X side of the desk top.
+      initial_pos_range: [-0.30, -0.20, 1.14, 0, 0.0, 1.14]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      scale: [1.0, 1.0, 1.0]
+    usd: [
+      # Pinned to bottle_2 only for the open-loop coordinate-frame probe
+      # (deterministic asset → deterministic candidate idx). Re-add the
+      # other Sharpa bottles once the frame is verified.
+      "$MAGICSIM_ASSETS/Object/Sharpa/bottle_5",
+    ]
+    num_per_env: 1
+    random: True
+    default_material: False
+    bottle_1:
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        color:
+          - [1.0, 1.0, 1.0]
+          - [0.8, 0.8, 0.8]
+          - [0.9, 0.5, 0.2]
+          - [0.2, 0.6, 0.9]
+      physics:
+        type: "dynamic"
+        collision: true
+        mass: 0.1
+        physics_material:
+          static_friction: 4
+          dynamic_friction: 4
+          restitution: 0

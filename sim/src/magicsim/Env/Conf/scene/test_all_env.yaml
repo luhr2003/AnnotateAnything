@@ -1,0 +1,485 @@
+# Environment configuration for testing all object types
+
+# room:
+#   hide_top_walls: true
+#   simple_room:
+#     usd: ["$MAGICSIM_ASSETS/Room/Collected_SimpleRoom"]
+#     random: True
+#     simple_room_1:
+#       pos: [0.0, 0.0, 0.8]
+#       ori: [0.0, 0.0, 0]
+
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+light:
+  light_1:
+    types: ["Rect", "Sphere", "Cylinder", "Dome"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+  light_2:
+    types: ["Rect", "Sphere", "Cylinder", "Dome"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+      radius_range: [8.0, 12.0]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+objects:
+  #Desk objects
+  simple_desk:
+    usd: [
+      "$MAGICSIM_ASSETS/Desk/Collected_appleseed_coffeetable/appleseed_coffeetable_inst_base.usd",
+      "$MAGICSIM_ASSETS/Desk/Collected_cline/cline_inst_base.usd",
+      "$MAGICSIM_ASSETS/Desk/Collected_oaktablesmall/oaktablesmall_inst_base.usd",
+      "$MAGICSIM_ASSETS/Desk/Collected_willowbench/willowbench_inst_base.usd",
+    ]
+    random: true
+    num_per_env: 1
+    semantic_label:
+    default_material: True
+    simple_desk_1:
+      pos: [0.0, 0.0, 0.0] # z is fixed
+      ori: [0.0, 0.0, 90.0]
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        color:
+          - [0.8, 0.7, 0.6]
+          - [0.6, 0.5, 0.4]
+          - [0.4, 0.3, 0.2]
+          - [0.2, 0.1, 0.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+      physics:
+        type: "geometry" # Defines it as a static object
+        collision: true  # This is the key to enable collision
+
+  # #Articulation objects
+  articulation_items:
+    common:
+    num_per_env: 1
+    random: True
+    usd: ["$MAGICSIM_ASSETS/Object/Articulated"]
+    semantic_label:
+    articulation_items_1:
+      pos: [-1.2, -1.2, 1.5]
+      ori: [0.0, 0.0, 0.0]
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        visible: true
+        color:
+          - [1.0, 0.0, 0.0]
+          - [0.0, 1.0, 0.0]
+          - [0.0, 0.0, 1.0]
+          - [1.0, 1.0, 0.0]
+          - [1.0, 0.0, 1.0]
+          - [0.0, 1.0, 1.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+      physics:
+        type: "articulation"
+
+  #Rope objects
+  rope_items:
+    common:
+    num_per_env: 1
+    random: True
+    semantic_label:
+    rope_items_1:
+      pos: [-1.2, 1.2, 1.5]
+      ori: [0.0, 0.0, 0.0]
+      visual:
+        scale: [0.9, 0.9, 0.9]
+        visible: true
+        # color:
+        #   - [1.0, 0.0, 0.0]
+        #   - [0.0, 1.0, 0.0]
+        #   - [0.0, 0.0, 1.0]
+        #   - [1.0, 1.0, 0.0]
+        #   - [1.0, 0.0, 1.0]
+        #   - [0.0, 1.0, 1.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+      physics:
+        type: "rope"
+        ratio: 1.2
+        link_radius: 0.005
+        cone_angle_limit: 110.0
+        damping: 10.0
+        stiffness: 100
+        density: 0.0005
+        contact_offset: 2.0
+        static_friction: 0.5
+        dynamic_friction: 0.5
+        restitution: 0.0
+        rope_length: 1.5
+        num_links: 60
+
+  #Garment objects
+  garment_items:
+    common:
+      primitive_scale: [0.5, 0.5, 0.5]
+    num_per_env: 1
+    random: true
+    interaction_with_fluid: false
+    usd: ["$MAGICSIM_ASSETS/Object/Garment", "Plane"]
+    semantic_label:
+    garment_items_1:
+      pos: [1.2, -1.2, 1.5]
+      ori: [0.0, 0.0, 90.0]
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        visible: true
+        # color:
+        #   - [1.0, 0.0, 0.0]
+        #   - [0.0, 1.0, 0.0]
+        #   - [0.0, 0.0, 1.0]
+        #   - [1.0, 1.0, 0.0]
+        #   - [1.0, 0.0, 1.0]
+        #   - [0.0, 1.0, 1.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+      physics:
+        type: "garment"
+        ratio: 1.2
+        particle_system:
+          particle_system_enabled: true
+          enable_ccd: true
+          solver_position_iteration_count: 20
+          max_depenetration_velocity: null
+          global_self_collision_enabled: true
+          non_particle_collision_enabled: true
+          contact_offset: 0.010
+          rest_offset: 0.006
+          particle_contact_offset: 0.010
+          fluid_rest_offset: 0.006
+          solid_rest_offset: 0.006
+          wind: null
+          max_neighborhood: null
+          max_velocity: null
+        particle_material:
+          adhesion: 0.1
+          adhesion_offset_scale: 0.0
+          cohesion: 0.1
+          particle_adhesion_scale: 3.0
+          particle_friction_scale: 3.0
+          drag: 0.0
+          lift: 0.0
+          friction: 10.0
+          damping: 5.0
+          gravity_scale: 1.0
+          viscosity: null
+          vorticity_confinement: null
+          surface_tension: null
+        garment_config:
+          particle_mass: 5e-3
+          self_collision: true
+          self_collision_filter: true
+          stretch_stiffness: 1e12
+          bend_stiffness: 1e3
+          shear_stiffness: 1e3
+          spring_damping: 5.0
+
+  #FEM Cloth objects
+  fem_cloth:
+    common:
+      primitive_scale: [0.3, 0.3, 0.3]
+    num_per_env: 1
+    random: true
+    usd: ["Plane", "Sphere"]
+    semantic_label:
+    fem_cloth_1:
+      pos: [1.2, 1.2, 2.0]
+      ori: [0.0, 0.0, 0.0]
+      visual:
+        scale: [0.9, 0.9, 0.9]
+        visible: True
+        # color:
+        #   - [1.0, 0.0, 0.0]
+        #   - [0.0, 1.0, 0.0]
+        #   - [0.0, 0.0, 1.0]
+        #   - [1.0, 1.0, 0.0]
+        #   - [1.0, 0.0, 1.0]
+        #   - [0.0, 1.0, 1.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+      physics:
+        type: "fem_cloth"
+        ratio: 1.2
+        physics_material:
+          poissons_ratio: 0.45
+        fem_config:
+          density: 2000.0
+          thickness: 0.08
+          bending_stiffness_scale: 1500.0
+          solver_position_iteration_count: 20
+          vertex_velocity_damping: 0.5
+          self_collision: true
+
+  # Rigid objects
+  rigid_items:
+    common:
+      primitive_scale: [0.3, 0.3, 0.3]
+    num_per_env: 1
+    random: True
+    usd: ["$MAGICSIM_ASSETS/Object/Sugar_Box", "Cube"]
+    semantic_label:
+    rigid_items_1:
+      pos: [-0.4, -0.4, 2.0]
+      ori: [90.0, 0.0, 0.0]
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        visible: true
+        # color:
+        #   - [1.0, 0.0, 0.0]
+        #   - [0.0, 1.0, 0.0]
+        #   - [0.0, 0.0, 1.0]
+        #   - [1.0, 1.0, 0.0]
+        #   - [1.0, 0.0, 1.0]
+        #   - [0.0, 1.0, 1.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+      physics:
+        type: "dynamic"
+        ratio: 1.2
+        mass: 0.5
+        physics_material:
+          static_friction: 0.2
+          dynamic_friction: 1.0
+          restitution: 0.0
+        collision: True
+
+  # Geometry objects (static)
+  geometry_items:
+    common:
+      primitive_scale: [0.3, 0.3, 0.3]
+    num_per_env: 1
+    random: True
+    usd: ["$MAGICSIM_ASSETS/Object/Bleach_Cleanser", "Cube"]
+    semantic_label:
+    geometry_items_1:
+      pos: [0.4, -0.4, 1.5]
+      ori: [90.0, 0.0, 0.0]
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        visible: true
+        # color:
+        #   - [1.0, 0.0, 0.0]
+        #   - [0.0, 1.0, 0.0]
+        #   - [0.0, 0.0, 1.0]
+        #   - [1.0, 1.0, 0.0]
+        #   - [1.0, 0.0, 1.0]
+        #   - [0.0, 1.0, 1.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+      physics:
+        type: "geometry"
+        ratio: 1.2
+        physics_material:
+          static_friction: 0.2
+          dynamic_friction: 1.0
+          restitution: 0.0
+        collision: True
+
+  # Fluid objects
+  fluid_items:
+    common:
+    usd: ["$MAGICSIM_ASSETS/Object/Fluid/cube_fluid.usd", "$MAGICSIM_ASSETS/Object/Fluid/sphere_fluid.usd", "$MAGICSIM_ASSETS/Object/Fluid/cylinder_fluid.usd"]
+    num_per_env: 1
+    random: True
+    interaction_with_object: False
+    semantic_label:
+    fluid_items_1:
+      visual:
+        # color:
+        #   - [1.0, 0.0, 0.0]
+        #   - [0.0, 1.0, 0.0]
+        #   - [0.0, 0.0, 1.0]
+        #   - [1.0, 1.0, 0.0]
+        #   - [0.0, 1.0, 1.0]
+        #   - [1.0, 0.0, 1.0]
+        scale: [1.0, 1.0, 1.0]
+        container_scale: [1.0, 1.0, 1.0]
+        visual_material:
+          material_usd_folder: [
+            "./Assets/Material/Base/Textiles/Linen_Beige.mdl",
+            "./Assets/Material/Base/Textiles/Linen_White.mdl",
+            "./Assets/Material/Base/Textiles/Linen_Blue.mdl",
+            "./Assets/Material/Base/Textiles/Leather_Black.mdl",
+            "./Assets/Material/Base/Textiles/Leather_Brown.mdl",
+            "./Assets/Material/Base/Textiles/Leather_Black.mdl",
+          ]
+      pos: [2.4, 2.4, 1.2]
+      ori: [0.0, 0.0, 0.0]
+      physics:
+        type: "fluid"
+        ratio: 1.2
+        particle_system:
+          particle_contact_offset: 0.025
+          contact_offset: 0.025
+          rest_offset: 0.0225
+          fluid_rest_offset: 0.0135
+          solid_rest_offset: 0.0225
+          max_velocity: 2.5
+          smoothing: False
+          anisotropy: False
+          isosurface: True
+        particle_material:
+          adhesion: null
+          adhesion_offset_scale: null
+          cohesion: 0.01
+          particle_adhesion_scale: null
+          particle_friction_scale: null
+          drag: null
+          lift: null
+          friction: 0.1
+          damping: 0.99
+          gravity_scale: 1.0
+          viscosity: 0.0091
+          vorticity_confinement: null
+          surface_tension: 0.0074
+          density: null
+          cfl_coefficient: null
+        fluid_volumn: 1
+
+  # Inflatable objects
+  inflate_items:
+    common:
+      primitive_scale: [0.5, 0.5, 0.5]
+    num_per_env: 1
+    random: True
+    usd: ["Cube", "Sphere"]
+    semantic_label:
+    inflate_items_1:
+      pos: [-0.4, 1.0, 2.0]
+      ori: [90.0, 0.0, 45.0]
+      visual:
+        scale: [0.5, 0.5, 0.5]
+        visible: true
+        # color:
+        #   - [1.0, 0.0, 0.0]
+        #   - [0.0, 1.0, 0.0]
+        #   - [0.0, 0.0, 1.0]
+        #   - [1.0, 1.0, 0.0]
+        #   - [1.0, 0.0, 1.0]
+        #   - [0.0, 1.0, 1.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+      physics:
+        type: "inflatable"
+        ratio: 1.2
+        particle_system:
+          contact_offset: 0.02
+          rest_offset: 0.015
+        particle_material:
+          friction: 0.5
+        inflatable_config:
+          pressure: 12.0
+          particle_mass: 0.01
+          spring_stretch_stiffness: 15000.0
+          spring_bend_stiffness: 80.0
+          spring_shear_stiffness: 80.0
+          spring_damping: 0.3
+          self_collision: True
+
+  # Deformable objects
+  deformable_items:
+    common:
+      primitive_scale: [0.3, 0.3, 0.3]
+      primitive_simulation_hexahedral_resolution: 9
+    num_per_env: 1
+    random: True
+    usd: ["$MAGICSIM_ASSETS/Object/Deform", "Cube"]
+    semantic_label:
+    deformable_items_1:
+      pos: [0.4, 1.0, 1.5]
+      ori: [90.0, 0.0, 45.0]
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        visible: true
+        # color:
+        #   - [1.0, 0.0, 0.0]
+        #   - [0.0, 1.0, 0.0]
+        #   - [0.0, 0.0, 1.0]
+        #   - [1.0, 1.0, 0.0]
+        #   - [1.0, 0.0, 1.0]
+        #   - [0.0, 1.0, 1.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+      physics:
+        type: "deformable"
+        ratio: 1.2
+        deformable_material:
+          damping_scale: 0.15
+          dynamic_friction: 1.0
+          elasticity_damping: 0.0
+          poissons_ratio: 0.0
+          youngs_modulus: 1e8
+        deformable_config:
+          contact_offset: 0.01
+          rest_offset: 0.008
+          vertex_velocity_damping: 0.5
+          sleep_damping: 0.15
+          sleep_threshold: 0.15
+          settling_threshold: 0.15
+          self_collision: True
+          solver_position_iteration_count: 20
+          simulation_hexahedral_resolution: 24
+          kinematic_enabled: False
+          collision_simplification: True
+          collision_simplification_remeshing: True
+          collision_simplification_remeshing_resolution: 16

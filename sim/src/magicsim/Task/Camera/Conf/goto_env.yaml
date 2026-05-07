@@ -1,0 +1,7 @@
+defaults:
+  - Scene: goto_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination
+
+output_dir: "/home/isaac/magicsim/MagicSim/TestOutput/test_goto_env"

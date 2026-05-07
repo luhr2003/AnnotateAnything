@@ -1,0 +1,9 @@
+timeout_steps: 10000
+defaults:
+  - Scene: wave_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination
+
+# 让环境的额外抖动步数与 AtomicSkill.Wave.jitter_steps 保持一致
+extra_jitter_steps: ${atomic_skill.Wave.jitter_steps}

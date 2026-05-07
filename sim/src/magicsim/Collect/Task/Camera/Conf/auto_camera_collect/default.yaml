@@ -1,0 +1,6 @@
+task_type: camera_goto
+camera_policy:
+  camera_name: camera0
+  obj_type: geometry
+  obj_name: cube
+  obj_id: 0

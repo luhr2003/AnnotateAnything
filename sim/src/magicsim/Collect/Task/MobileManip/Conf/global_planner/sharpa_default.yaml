@@ -1,0 +1,74 @@
+MoveL:
+  translation_threshold: 0.003
+  rotation_threshold: 0.2
+  motiongen_distance_threshold: 0.2
+  timeout_steps: 50
+  debug: true
+
+MobileMoveL:
+  translation_threshold: 0.003
+  rotation_threshold: 0.2
+  motiongen_distance_threshold: 0.3
+  timeout_steps: 150
+  base_pos_threshold: 0.15
+  base_rot_threshold: 0.1
+  eef_pos_threshold: 0.03
+  eef_rot_threshold: 0.2
+  waypoint_max_steps: 5
+  reactive: false           # Disable mid-trajectory MotionGen replans
+  reactive_step: 50
+  input:
+    base_dim: 0
+    arm_dim: 14
+    eef_dim: 0
+  debug: true
+
+RetractMoveL:
+  translation_threshold: 0.003
+  rotation_threshold: 0.01
+  motiongen_distance_threshold: 0.3
+  force_free_base_distance: 0.4
+  timeout_steps: 300
+  base_pos_threshold: 0.15
+  base_rot_threshold: 0.2
+  eef_pos_threshold: 0.08
+  eef_rot_threshold: 0.2
+  base_waypoint_max_steps: 20
+  arm_waypoint_max_steps: 5
+  move_strategy_distance_threshold: 0
+  input:
+    base_dim: 0
+    arm_dim: 14
+    eef_dim: 0
+  debug: true
+
+ParallelGripper:
+  gripper_threshold: 0.001
+
+# Sharpa hand has 22 finger joints per side. Both slots are present in the
+# vega action layout (right + left), so eef_dim = 2 * 22 = 44.
+DexHand:
+  hand_threshold: 0.005
+  timeout_steps: 80
+  input:
+    base_dim: 0
+    arm_dim: 14
+    eef_dim: 44
+
+MobileServoL:
+  translation_threshold: 0.01
+  rotation_threshold: 0.3
+  done_threshold: 0.01
+  timeout_steps: 200
+  stride: 1
+  debug: true
+  eef_pos_threshold: 0.03
+  eef_rot_threshold: 0.1
+  waypoint_max_steps: 20
+
+NavTo:
+  use_absolute: true
+  translation_threshold: 0.03
+  rotation_threshold: 0.2
+  num_path_segments: 8
+  start_forward_offset: 0.0

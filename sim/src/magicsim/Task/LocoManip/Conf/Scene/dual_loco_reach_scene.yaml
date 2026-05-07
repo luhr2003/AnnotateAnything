@@ -1,0 +1,5 @@
+defaults:
+  - scene: dual_loco_reach_env
+  - sim: sim_humanoid
+  - camera: custom_camera
+  - robot: single_g1

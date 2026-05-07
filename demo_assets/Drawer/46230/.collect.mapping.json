@@ -1,0 +1,29 @@
+{
+    "version": "1.0",
+    "file_records": [
+        {
+            "source_url": "./materials/textures/texture_0.jpg",
+            "source_hash": "2cd2e0e95939a1d4f879afaeba83ca4fc58d2f74",
+            "target_url": "./materials/textures/texture_0.jpg",
+            "target_hash": "30f39bdd5c5f512319437a1d6420194e7a88a756"
+        },
+        {
+            "source_url": "./materials/textures/texture_1.jpg",
+            "source_hash": "b2b13d1ec2f6f13bdf10581e1c41e92a85d318f8",
+            "target_url": "./materials/textures/texture_1.jpg",
+            "target_hash": "edcdd2e3aae19d3f250a00d41766e57c9e0afab2"
+        },
+        {
+            "source_url": "./materials/textures/texture_2.png",
+            "source_hash": "3bc1c0349af528061b9b241f6639c5ec1b6a95e4",
+            "target_url": "./materials/textures/texture_2.png",
+            "target_hash": "8a01c8cf10d42f827540aa53297c2433072fe5bc"
+        },
+        {
+            "source_url": "./materials/textures/texture_3.jpg",
+            "source_hash": "76846c8276c85dd215fecba6cdf327628400e854",
+            "target_url": "./materials/textures/texture_3.jpg",
+            "target_hash": "11dbf138d58244126b1105cae8422e29ab6dd54f"
+        }
+    ]
+}

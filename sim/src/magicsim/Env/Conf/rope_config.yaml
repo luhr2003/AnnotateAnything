@@ -1,0 +1,3 @@
+defaults:
+  - scene: test_rope_env
+  - sim: sim_config

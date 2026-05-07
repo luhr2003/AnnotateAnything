@@ -1,0 +1,5 @@
+defaults:
+  - scene: loco_open_door_env
+  - sim: sim_humanoid
+  - camera: custom_camera
+  - robot: single_g1

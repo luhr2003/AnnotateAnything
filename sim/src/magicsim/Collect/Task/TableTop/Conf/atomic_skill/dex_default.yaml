@@ -1,0 +1,11 @@
+defaults:
+  - default
+
+DexOpenDrawer:
+  pre_grasp_offset: 0.15
+  pull_distance: 0.3
+  handle_offset: [0.0, 0.0, 0.05]
+  debug: false
+  trajectory:
+    annotation_name: xhand_open_by_handle_trajectory
+    quat_format: xyzw

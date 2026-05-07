@@ -1,0 +1,19 @@
+MoveL:
+  translation_threshold: 0.001
+  rotation_threshold: 0.001
+  motiongen_distance_threshold: 0.35
+  timeout_steps: 300
+  debug: true
+
+ParallelGripper:
+  gripper_threshold: 0.001
+
+ServoL:
+  translation_threshold: 0.01
+  rotation_threshold: 0.3
+  timeout_steps: 400
+  stride: 1
+  debug: true
+  eef_pos_threshold: 0.03
+  eef_rot_threshold: 0.1
+  waypoint_max_steps: 20

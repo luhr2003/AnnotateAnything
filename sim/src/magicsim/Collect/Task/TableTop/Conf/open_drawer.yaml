@@ -1,0 +1,8 @@
+env_string: OpenDrawerEnv-V0
+defaults:
+  - env: open_drawer_env
+  - global_planner: default
+  - atomic_skill: default
+  - auto_collect: default
+  - record: default
+  - task: default

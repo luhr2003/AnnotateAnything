@@ -1,0 +1,5 @@
+defaults:
+  - Scene: insert_usb_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination

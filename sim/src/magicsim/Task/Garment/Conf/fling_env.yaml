@@ -1,0 +1,6 @@
+timeout_steps: 100000
+defaults:
+  - Scene: garment_fold_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination

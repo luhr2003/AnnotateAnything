@@ -1,0 +1,3 @@
+defaults:
+  - scene: test_sand_env
+  - sim: sim_config

@@ -1,0 +1,170 @@
+# room:
+#   hide_top_walls: true
+#   simple_room:
+#     usd: ["$MAGICSIM_ASSETS/Room/SandRoom"]
+#     random: True
+#     simple_room_1:
+#       pos: [0.0, 0.0, 0.1]
+#       ori: [0.0, 0.0, 0]
+#       scale: [2.0, 2.0, 2.0]
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+light:
+  light_1:
+    types: ["Rect", "Sphere", "Cylinder"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+  light_2:
+    types: ["Rect", "Sphere", "Cylinder"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+      radius_range: [8.0, 12.0]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+objects:
+  sand_items:
+    common:
+      primitive_scale: [1.0, 1.0, 1.0]
+    num_per_env: 1
+    random: True
+    usd: ["$MAGICSIM_ASSETS/Object/Fluid/sphere_fluid.usd"]  # Use deformable mesh as emitter, or can use primitive
+    semantic_label: "sand"
+
+    sand_items_1:
+      pos: [0.0, -0.5, 1.0]
+      ori: [0.0, 0.0, 0.0]
+      visual:
+        scale: [0.8, 0.8, 0.8]
+        visible: true
+        color:
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+
+      physics:
+        type: "sand"
+        ratio: 1.0  # Physics parameter randomization ratio (default: 1.0)
+
+        # Emitter configuration
+        emitter_config:
+          particle_radius: 0.008  # Particle radius (should match rest_offset)
+          particle_spacing: 0.02  # Spacing between particles (should be 2-3x rest_offset)
+          max_particles: 10000  # Maximum number of particles
+          # Optional collider
+          collider:
+            enabled: false
+            usd_path: null
+
+        # Particle system configuration
+        particle_system:
+          particle_contact_offset: 0.01
+          contact_offset: 0.015
+          rest_offset: 0.008
+          fluid_rest_offset: 0.008
+          solid_rest_offset: 0.008
+          max_velocity: 10.0
+          smoothing: false
+          anisotropy: false
+          isosurface: false
+
+        # Particle material configuration (granular material properties)
+        particle_material:
+          cohesion: 0.2  # Cohesion between particles (like sand sticking together)
+          friction: 0.75  # Friction coefficient
+          damping: 0.1  # Damping factor
+          adhesion: 0.0  # Adhesion to other objects
+          particle_adhesion_scale: 0.5
+          particle_friction_scale: 0.75
+          particle_mass: 0.001  # Mass per particle
+
+    sand_items_2:
+      pos: [0.5, 0.5, 1.2]
+      ori: [0.0, 0.0, 0.0]
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        visible: true
+        color:
+          - [0.9, 0.85, 0.75]  # Lighter sand color
+        visual_material:
+          material_usd_folder: "$MAGICSIM_ASSETS/Material/Garment"
+
+      physics:
+        type: "sand"
+        ratio: 1.1  # Physics parameter randomization ratio
+
+        emitter_config:
+          particle_radius: 0.008  # Particle radius (should match rest_offset)
+          particle_spacing: 0.02  # Spacing between particles (should be 2-3x rest_offset)
+          max_particles: 5000
+
+        particle_system:
+          particle_contact_offset: 0.01
+          contact_offset: 0.015
+          rest_offset: 0.008
+          fluid_rest_offset: 0.008
+          solid_rest_offset: 0.008
+          max_velocity: 10.0
+
+        particle_material:
+          cohesion: 0.15
+          friction: 0.8
+          damping: 0.15
+          adhesion: 0.0
+          particle_adhesion_scale: 0.5
+          particle_friction_scale: 0.75
+          particle_mass: 0.001

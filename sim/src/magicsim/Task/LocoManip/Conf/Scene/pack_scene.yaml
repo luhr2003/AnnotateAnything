@@ -1,0 +1,5 @@
+defaults:
+  - scene: nav_pack
+  - sim: sim_humanoid
+  - camera: custom_camera
+  - robot: single_g1

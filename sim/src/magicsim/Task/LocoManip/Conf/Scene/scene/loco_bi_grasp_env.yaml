@@ -1,0 +1,143 @@
+room:
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+light:
+  light_1:
+    types: ["Rect", "Sphere", "Cylinder"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+  light_2:
+    types: ["Rect", "Sphere", "Cylinder"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+      radius_range: [8.0, 12.0]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+
+objects:
+  common:
+    initial_pos_range: [-0.2, -0.2, 0.5, 0.2, 0.5, 0.8]
+    initial_ori_range: [-30, -30, -30, 30, 30, 30]
+    scale: [2, 1.5, 1.0]
+
+  # Low table: shorter than loco_grasp desk (z=0.7 there → z=0.5 here).
+  simple_desk:
+    usd: [
+      "$MAGICSIM_ASSETS/Desk/Collected_cline/cline_inst_base.usd",
+    ]
+    random: true
+    num_per_env: 1
+    default_material: True
+    simple_desk_1:
+      pos: [0.0, 0.0, 0.0]
+      ori: [0.0, 0.0, 0.0]
+      visual:
+        scale: [1, 1, 0.7]
+        color:
+          - [0.8, 0.7, 0.6]
+          - [0.6, 0.5, 0.4]
+          - [0.4, 0.3, 0.2]
+          - [0.2, 0.1, 0.0]
+        visual_material:
+          material_usd_folder: "$MAGICSIM_ASSETS/Material/Garment"
+      physics:
+        type: "geometry"
+        collision: true
+
+  # Bin on the low table. No orientation randomization so the paired
+  # left/right grasp annotation stays valid per candidate. Position is
+  # fixed so the open-loop test (no mobile base) lands where the arms
+  # can reach — see :file:`Env/Test/TestLocoBiGraspEnv.py`.
+  bin:
+    common:
+      # Spawn high enough to clear the table top (table top ≈ z * 0.7 of the
+      # cline desk natural height). Bin half-height ≈ 0.07m, so 0.85 leaves
+      # room to settle onto the table without intersecting.
+      initial_pos_range: [-0.45, 0.0, 0.85, -0.45, 0.0, 0.85]
+      # No initial rotation — let the bin sit in its natural USD orientation.
+      # Grasp poses are stored in bin-local frame and transformed to world by
+      # the current bin pose in get_bimanual_grasp_pose, so IK sees correctly
+      # oriented targets regardless of how the bin lands.
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      # Scale must be [1, 1, 1] — annotation positions are in the unscaled
+      # bin-local frame; any non-unit scale stretches the mesh but leaves
+      # the annotation untouched, breaking grasp targets.
+      scale: [1.0, 1.0, 1.0]
+    usd: ["$MAGICSIM_ASSETS/Object/Bin"]
+    num_per_env: 1
+    random: True
+    default_material: False
+    bin_1:
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        color:
+          - [0.8, 0.7, 0.6]
+          - [0.6, 0.5, 0.4]
+          - [0.4, 0.3, 0.2]
+          - [0.2, 0.1, 0.0]
+          - [1.0, 0.0, 0.0]
+          - [0.0, 1.0, 0.0]
+          - [0.0, 0.0, 1.0]
+          - [1.0, 1.0, 0.0]
+          - [1.0, 0.0, 1.0]
+          - [0.0, 1.0, 1.0]
+      physics:
+        type: "dynamic"
+        collision: true
+        mass: 1
+        physics_material:
+          static_friction: 10
+          dynamic_friction: 10
+          restitution: 0.5

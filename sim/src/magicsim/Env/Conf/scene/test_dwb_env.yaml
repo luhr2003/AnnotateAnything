@@ -1,0 +1,377 @@
+# Environment configuration for testing all object types
+
+room:
+  # hide_top_walls: true
+  # simple_room:
+  #   usd: ["$MAGICSIM_ASSETS/Room/Collected_SimpleRoom"]
+  #   random: True
+  #   simple_room_1:
+  #     pos: [0.0, 0.0, 0.0]
+  #     ori: [0.0, 0.0, 0]
+
+
+# ground:
+#   axis: "Z"
+#   position: [0.0, 0.0, 0.0]
+#   base_color: [0.8, 0.8, 0.8]
+#   materials:
+#     - type: mdl
+#       mdl_path: "/home/ubuntu/MagicSim/Assets/Material/Base/Textiles/"
+#     - type: color
+#       color: [0.9, 0.85, 0.7]
+#     - type: color
+#       color: [0.3, 0.5, 0.3]
+
+ground:
+  geometry: "cube"
+  thickness: 0.1
+  materials:
+    # - type: color
+    #   color: [0.3, 0.5, 0.3]
+    - type: mdl
+      mdl_path: "$MAGICSIM_ASSETS/Material/Base/Textiles/"
+  physics_material:
+    static_friction: 1.0
+    dynamic_friction: 1.0
+    restitution: 0.0
+    friction_combine_mode: "multiply"
+    restitution_combine_mode: "multiply"
+    compliant_contact_stiffness: 0.0
+    compliant_contact_damping: 0.0
+
+
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+light:
+  light_1:
+    types: ["Rect", "Sphere", "Cylinder", "Dome"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+  light_2:
+    types: ["Rect", "Sphere", "Cylinder", "Dome"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+      radius_range: [8.0, 12.0]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+objects:
+  # #Desk objects
+  # pick_desk:
+  #   # common:
+  #   #   primitive_scale: [0.3,0.3,0.3]
+  #   #   # Initial position range (relative to environment offset)
+  #   #   initial_pos_range: [0, 0, 0, 0, 0, 0]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+  #   #   # Position range for soft reset (relative to environment offset)
+  #   #   initial_ori_range: [0, 0, 90, 0, 0, 90]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+  #   #   # Orientation range for soft reset
+  #   #   scale: [1.0, 1.0, 1.0]
+
+  #   usd: [
+  #     "$MAGICSIM_ASSETS/Desk/Collected_appleseed_coffeetable/appleseed_coffeetable_inst_base.usd",
+  #     "$MAGICSIM_ASSETS/Desk/Collected_cline/cline_inst_base.usd",
+  #     "$MAGICSIM_ASSETS/Desk/Collected_oaktablesmall/oaktablesmall_inst_base.usd",
+  #     "$MAGICSIM_ASSETS/Desk/Collected_willowbench/willowbench_inst_base.usd",
+  #   ]
+  #   random: true
+  #   num_per_env: 1
+  #   semantic_label:
+  #   default_material: True
+  #   pick_desk_1:
+  #     pos: [3, 0, 0.0] # z is fixed
+  #     ori: [0.0, 0.0, 0.0]
+  #     visual:
+  #       scale: [1.0, 1.0, 1.0]
+  #       color:
+  #         - [0.8, 0.7, 0.6]
+  #         - [0.6, 0.5, 0.4]
+  #         - [0.4, 0.3, 0.2]
+  #         - [0.2, 0.1, 0.0]
+  #       visual_material:
+  #         material_usd_folder: "$MAGICSIM_ASSETS/Material/Garment"
+  #     physics:
+  #       type: "geometry" # Defines it as a static object
+  #       collision: true  # This is the key to enable collision
+
+
+  # place_desk:
+  #   # common:
+  #   #     primitive_scale: [0.3,0.3,0.3]
+  #   #     # Initial position range (relative to environment offset)
+  #   #     initial_pos_range: [0, 0, 0, 0, 0, 0]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+  #   #     # Position range for soft reset (relative to environment offset)
+  #   #     initial_ori_range: [0, 0, 90, 0, 0, 90]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+  #   #     # Orientation range for soft reset
+  #   #     scale: [1.0, 1.0,1.0]
+  #   usd: [
+  #     "$MAGICSIM_ASSETS/Desk/Collected_appleseed_coffeetable/appleseed_coffeetable_inst_base.usd",
+  #     "$MAGICSIM_ASSETS/Desk/Collected_cline/cline_inst_base.usd",
+  #     "$MAGICSIM_ASSETS/Desk/Collected_oaktablesmall/oaktablesmall_inst_base.usd",
+  #     "$MAGICSIM_ASSETS/Desk/Collected_willowbench/willowbench_inst_base.usd",
+  #   ]
+  #   random: true
+  #   num_per_env: 1
+  #   semantic_label:
+  #   default_material: True
+  #   place_desk_1:
+  #     pos: [-3, 0, 0.0] # z is fixed
+  #     ori: [0.0, 0.0, 0.0]
+  #     visual:
+  #       scale: [1.0, 1.0, 1.0]
+  #       color:
+  #         - [0.8, 0.7, 0.6]
+  #         - [0.6, 0.5, 0.4]
+  #         - [0.4, 0.3, 0.2]
+  #         - [0.2, 0.1, 0.0]
+  #       visual_material:
+  #         material_usd_folder: "$MAGICSIM_ASSETS/Material/Garment"
+  #     physics:
+  #       type: "geometry" # Defines it as a static object
+  #       collision: true  # This is the key to enable collision
+
+  # # Rigid objects
+  # Basket:
+  #   common:
+  #     primitive_scale: [0.3, 0.3, 0.3]
+  #   num_per_env: 1
+  #   random: True
+  #   usd: ["$MAGICSIM_ASSETS/Object/Basket/basket1.usdc", "$MAGICSIM_ASSETS/Object/Basket/basket3.usdc"]
+  #   semantic_label:
+  #   Basket_1:
+  #     pos: [2.7, 0, 1.0]
+  #     ori: [0.0, 0.0, 90.0]
+  #     # visual:
+  #     #   scale: [1.0, 1.0, 1.0]
+  #     #   visible: true
+  #     #   color:
+  #     #     - [1.0, 0.0, 0.0]
+  #     #     - [0.0, 1.0, 0.0]
+  #     #     - [0.0, 0.0, 1.0]
+  #     #     - [1.0, 1.0, 0.0]
+  #     #     - [1.0, 0.0, 1.0]
+  #     #     - [0.0, 1.0, 1.0]
+  #     #   visual_material:
+  #     #     material_usd_folder: "$MAGICSIM_ASSETS/Material/Garment"
+  #     physics:
+  #       type: "dynamic"
+  #       ratio: 1.0
+  #       mass: 0.3
+  #       physics_material:
+  #         static_friction: 0.2
+  #         dynamic_friction: 1.0
+  #         restitution: 0.0
+  #       collision: True
+
+
+  # # Rigid objects
+  # mug1:
+  #   common:
+  #     primitive_scale: [0.3, 0.3, 0.3]
+  #     initial_pos_range: [3, 0.35, 1.2, 3, 0.4, 1.2]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+  #     # Position range for soft reset (relative to environment offset)
+  #     initial_ori_range: [0, 0, 0, 0, 0, 90]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+  #     # Orientation range for soft reset
+  #     scale: [1.0, 1.0, 1.0]
+  #   num_per_env: 1
+  #   random: True
+  #   # usd: ["$MAGICSIM_ASSETS/Object/Sugar_Box", "Cube"]
+  #   usd: ["$MAGICSIM_ASSETS/Object/mugs/8567"]
+  #   semantic_label:
+  #   mug1_1:
+  #     # pos: [3, 0, 1.2]
+  #     # ori: [90.0, 0.0, 0.0]
+  #     # visual:
+  #     #   scale: [1.0, 1.0, 1.0]
+  #     #   visible: true
+  #     #   color:
+  #     #     - [1.0, 0.0, 0.0]
+  #     #     - [0.0, 1.0, 0.0]
+  #     #     - [0.0, 0.0, 1.0]
+  #     #     - [1.0, 1.0, 0.0]
+  #     #     - [1.0, 0.0, 1.0]
+  #     #     - [0.0, 1.0, 1.0]
+  #     #   visual_material:
+  #     #     material_usd_folder: "$MAGICSIM_ASSETS/Material/Garment"
+  #     physics:
+  #       type: "dynamic"
+  #       ratio: 1.2
+  #       mass: 0.5
+  #       physics_material:
+  #         static_friction: 0.2
+  #         dynamic_friction: 1.0
+  #         restitution: 0.0
+  #       collision: True
+
+  # mug2:
+  #   common:
+  #     primitive_scale: [0.3, 0.3, 0.3]
+  #     initial_pos_range: [3.0, -0.4, 1.2, 3.0, -0.35, 1.2]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+  #     # Position range for soft reset (relative to environment offset)
+  #     initial_ori_range: [0, 0, 0, 0, 0, 90]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+  #     # Orientation range for soft reset
+  #     scale: [1.0, 1.0, 1.0]
+  #   num_per_env: 1
+  #   random: True
+  #   # usd: ["$MAGICSIM_ASSETS/Object/Sugar_Box", "Cube"]
+  #   usd: ["$MAGICSIM_ASSETS/Object/mugs/8583"]
+  #   semantic_label:
+  #   mug2_1:
+  #     # pos: [3, 0, 1.2]
+  #     # ori: [90.0, 0.0, 0.0]
+  #     # visual:
+  #     #   scale: [1.0, 1.0, 1.0]
+  #     #   visible: true
+  #     #   color:
+  #     #     - [1.0, 0.0, 0.0]
+  #     #     - [0.0, 1.0, 0.0]
+  #     #     - [0.0, 0.0, 1.0]
+  #     #     - [1.0, 1.0, 0.0]
+  #     #     - [1.0, 0.0, 1.0]
+  #     #     - [0.0, 1.0, 1.0]
+  #     #   visual_material:
+  #     #     material_usd_folder: "$MAGICSIM_ASSETS/Material/Garment"
+  #     physics:
+  #       type: "dynamic"
+  #       ratio: 1.2
+  #       mass: 0.5
+  #       physics_material:
+  #         static_friction: 0.2
+  #         dynamic_friction: 1.0
+  #         restitution: 0.0
+  #       collision: True
+  # cube:
+  #   common:
+  #     primitive_scale: [0.05, 0.05, 0.05]
+  #     # Initial position range (relative to environment offset)
+  #     # initial_pos_range: [-0.76, -4.89, 2.97, -0.76, -4.89, 2.97]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+  #     initial_pos_range: [-2, 0, 3, -2, 0, 3]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+
+  #     # Initial orientation range
+  #     initial_ori_range: [0, 0, 180, 0, 0, 180]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+  #     scale: [0.05, 0.05, 0.05]
+  #   usd: ["Cube"] # .usd => add reference to stage /// primitive => create
+  #   num_per_env: 1
+  #   random: True
+  #   semantic_label:
+
+  #   cube_1:
+  #     visual:
+  #       scale:
+  #       visible:
+  #       color: [1.0, 0.0, 0.0]
+  #       size:
+  #       visual_material:
+  #         material_usd_folder:
+
+  #     physics:
+  #       type: "geometry" # dynamic, geometry
+  #       mass:
+  #       density:
+  #       physics_material:
+  #         static_friction:
+  #         dynamic_friction:
+  #         restitution:
+  #       linear_velocity:
+  #       angular_velocity:
+  #       collision: False
+  #       track_contact_forces:
+  #       prepare_contact_sensor:
+  #       disable_stablization:
+  #       contact_filter_prim_paths_expr:
+
+
+  # Cylinder:
+  #   common:
+  #     primitive_scale: [0.03,0.03,10.3]
+  #     scale: [0.03,0.03,10.3]
+  #     initial_pos_range: [0, 0, 0, 0, 0, 0]
+  #     soft_reset_pos_range: [0, 0, 0, 0, 0, 0]
+  #     initial_ori_range: [0, 0, 0, 0, 0, 0]
+  #     # soft_reset_ori_range: [0, 0, 0, 0, 0, 0]
+
+
+  #   usd: ["Cylinder"]
+  #   num_per_env: 1
+  #   random: False
+  #   semantic_label: "Obstacle"
+
+  #   Cylinder_1:
+  #     pos: [1.0, 0, 0]
+  #     visual:
+  #       scale:
+  #       visible:
+  #       color: [1.0, 0.0, 0.0]
+  #       size:
+  #       visual_material:
+  #         material_usd_folder:
+
+  #     physics:
+  #       type: "geometry"
+  #       mass:
+  #       density:
+  #       physics_material:
+  #         static_friction:
+  #         dynamic_friction:
+  #         restitution:
+  #       linear_velocity:
+  #       angular_velocity:
+  #       collision: True
+  #       track_contact_forces:
+  #       prepare_contact_sensor:
+  #       disable_stablization:
+  #       contact_filter_prim_paths_expr:

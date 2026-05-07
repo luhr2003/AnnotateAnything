@@ -1,0 +1,5 @@
+defaults:
+  - scene: mobile_grasp_env
+  - sim: sim_config
+  - camera: agent_camera
+  - robot: single_ridgebackFranka

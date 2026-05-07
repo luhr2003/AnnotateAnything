@@ -1,0 +1,27 @@
+Robot1: # This is the robot name
+  name: "ridgebackFranka" # this is used for retreival articulation cfg
+  type: "mobilemanip"
+  common:
+    # Initial position range (relative to environment offset)
+    initial_pos_range: [0, 0, 0.35, 1.5, 0, 0.35]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+    # Position range for soft reset (relative to environment offset)
+    soft_reset_pos_range: [0, 0, 0.35, 1.5, 0, 0.35]  # Random position range for soft reset
+    # Initial orientation range
+    initial_ori_range: [0, 0, 0, 0, 0, 0]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+    # Orientation range for soft reset
+    soft_reset_ori_range: [0, 0, 0, 0, 0, 0]  # Random orientation range for soft reset
+  action: # This is used for action manager
+    base: holomonic_vw_action # differential_drive, velocity, acceleration
+    # arm: joint_pos # ik_abs, ik_rel, osc
+    # eef: binary # joint pos
+
+  # eventterm # This is used for event term manager
+  reset: randomize_joint
+  planner:
+    base:
+      type: "dwb_differential"
+      max_lin_accel: 20.0
+      max_steer_rate: 5.0
+  physics:
+    wheel_base: 0.01
+    robot_radius: 0.7

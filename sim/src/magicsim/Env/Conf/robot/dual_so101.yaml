@@ -1,0 +1,36 @@
+DualSO101:
+  name: "dual_so101"
+  type: "dualmanipulator"
+
+  common:
+    initial_pos_range: [0, 0, 1.0, 0, 0, 1.0]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+    initial_joint_pos: {
+      "L_shoulder_pan": 0.0,
+      "L_shoulder_lift": -0.5,
+      "L_elbow_flex": 0.8,
+      "L_wrist_flex": 0.0,
+      "L_wrist_roll": 0.0,
+      "L_joints_gripper": 0.0,
+      "R_shoulder_pan": 0.0,
+      "R_shoulder_lift": -0.5,
+      "R_elbow_flex": 0.8,
+      "R_wrist_flex": 0.0,
+      "R_wrist_roll": 0.0,
+      "R_joints_gripper": 0.0,
+    }
+
+  action:
+    arm: joint_pos
+    eef: binary
+
+  planner:
+    arm:
+      type: "default"
+    eef:
+      type: "default"
+
+  reset: default
+  randomize_joint:
+    mean: 0.0
+    std: 3

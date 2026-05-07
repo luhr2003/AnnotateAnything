@@ -1,0 +1,28 @@
+G1_Sonic_1:  # robot name
+  name: "g1_sonic"  # ROBOT_DICT key → G1_SonicCfg
+  type: "humanoid"
+  common:
+    # 抬高 0.1 m 避免生成时与 ground 穿透；sonic 训练 pelvis ≈ 0.789 m
+    initial_pos_range: [0, 0, 0.8, 0, 0, 0.8]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+
+  action:
+    base_action: wbc      # → G1SonicActionsCfg.available_action["base_action"]["wbc"] = SonicWBCActionCfg
+    arm_action: ik_abs    # → G1SonicActionsCfg.available_action["arm_action"]["ik_abs"] = SonicPinkInverseKinematicsActionCfg
+    eef_action: joint_pos
+
+  planner:
+    # 所有三路都 default 透传：action tensor 直接流到 ActionTerm，
+    # magicsim 外层 planner 不做任何预处理（SONIC 自己的 kplanner 在
+    # SonicPolicy 内部调，见 `whole_body_controller/Sonic/sonic.py`）
+    body:
+      type: default
+    arm:
+      type: default
+    eef:
+      type: default
+
+  reset: default   # default / random
+  randomize_joint:
+    mean: 0.0
+    std: 0.1

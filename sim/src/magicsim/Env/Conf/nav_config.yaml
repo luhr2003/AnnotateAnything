@@ -1,0 +1,4 @@
+defaults:
+  - sim: room_sim_config
+  - scene: empty_env
+  - nav: test_nav_env

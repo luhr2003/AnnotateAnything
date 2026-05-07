@@ -1,0 +1,6 @@
+defaults:
+  - scene: motion_env
+  - sim: sim_config
+  - camera: agent_camera
+  - nav: default
+  - anim: test_avatar_env

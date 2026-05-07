@@ -1,0 +1,5 @@
+defaults:
+  - scene: loco_bi_grasp_env
+  - sim: sim_humanoid
+  - camera: custom_camera
+  - robot: single_g1_bi_grasp

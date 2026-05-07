@@ -1,0 +1,5 @@
+defaults:
+  - scene: test_all_env
+  - sim: sim_config_multi
+  - camera: agent_camera
+  # - robot: single_franka

@@ -1,0 +1,5 @@
+defaults:
+  - scene: wave_env
+  - sim: sim_config
+  - camera: wave_camera
+  - robot: curobo_franka_umi

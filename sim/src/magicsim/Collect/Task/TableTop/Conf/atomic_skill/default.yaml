@@ -1,0 +1,87 @@
+Reach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+
+OpenDrawer:
+  pre_grasp_offset: 0.15
+  pull_distance: 0.3
+  handle_offset: [0.0, 0.0, 0.05]
+  debug: false
+  trajectory:
+    annotation_name: open_by_handle_trajectory
+    quat_format: xyzw
+
+CloseDrawer:
+  pre_push_offset: 0.15
+  handle_offset: [0.0, 0.0, 0.05]
+  debug: false
+  trajectory:
+    annotation_name: close_by_push_trajectory
+    quat_format: xyzw
+
+Grasp:
+  pre_grasp_offset: 0.15  # Distance to move backward for pre-grasp
+  retrieval_offset: 0.3    # Distance to move upward for retrieval
+  mobile: false  # if true, use MobileMoveL instead of MoveL
+
+
+BiGrasp:
+  pre_grasp_offset: 0.15
+  retrieval_offset: 0.30
+  viz_grasp: true   # draw R/L grasp axes per phase via Isaac debug-draw
+
+
+Handover:
+  # Per-phase offsets (m, along the gripper local +z = approach axis).
+  pre_grasp_offset: 0.15        # left pre-grasp = grasp - 0.15·z
+  lift_offset: 0.15             # left lifts mug along world +z by 0.15
+  right_pre_grasp_offset: 0.15  # right pre = right_grasp - 0.15·z
+  retract_offset: 0.30          # left retracts along its local -z after release.
+                                # MUST be > HandoverEnv.left_release_threshold
+                                # (default 0.20) for get_termination's
+                                # ``left_released`` flag to fire and let
+                                # the env reset between attempts.
+  # Hard-coded part split (mirror open-loop TestHandoverEnv.py):
+  # left grabs the BODY (sturdy multi-candidate pool), right grabs
+  # the HANDLE (functional grasp). Use ``null`` to fall back to
+  # "all parts pooled" — the original generic behavior.
+  left_part: body
+  right_part: handle
+  # Cap on right-arm grasp candidates fed into the paired handover IK.
+  # mug 8684 handle pool is 22 → 22 keeps all (no subsample). For
+  # objects with bigger pools, subsamples by stride.
+  max_right_pool: 22
+  # Mug-pose generator knobs. Defaults match open-loop smoke params:
+  # G = n_yaws(8) × pitch(3) × roll(3) × y(3) × z(3) × x(1) × right_pool(22)
+  #   = 432 × 22 = 9504 — under default ik_max_goalset 10000.
+  n_yaws: 8
+  pitch_degs: [-30.0, 0.0, 30.0]
+  roll_degs: [-30.0, 0.0, 30.0]
+  viz: false
+
+Wave:
+  # Grasp parameters (inherited from Grasp)
+  pre_grasp_offset: 0.15  # Distance to move backward for pre-grasp
+  retrieval_offset: 0.25  # Distance to move upward for retrieval
+  # Wave-specific parameters
+  # 抖动阶段的总步数（在抓取完成后进行随机晃动）
+  jitter_steps: 100
+  # 抖动的平移标准差（米）
+  jitter_translation_std: 0.02
+  # 抖动的旋转标准差（作用在四元数上的噪声尺度）
+  jitter_rotation_std: 0.0
+
+Push:
+  # 每段推动的步长上限（米）。轴对齐时本段距离 = min(push_distance, 到目标距离)，且至少为 min_segment_push_distance
+  push_distance: 0.1
+  # 轴对齐推动时，每段至少推动该距离（米），避免接近目标时轨迹过短、末端“变慢”；可略 overshoot，由 waypoint_tolerance 判定到达
+  min_segment_push_distance: 0.03
+  # 无目标点时的默认推动方向（世界系单位向量）；带 [target_x, target_y, target_z] 时由「物体当前位置→目标点」自动计算
+  push_direction: [1.0, 0.0, 0.0]
+  # Reach 阶段目标偏移：reach_offset_auto 为 true 时根据目标物体 bbox 自动计算，避免接近时碰撞
+  reach_offset_auto: true
+  reach_offset_margin: 0.05  # 自动计算时在 bbox 外的额外安全距离（米）
+  # 当 reach_offset_auto 为 false 或 bbox 获取失败时使用的固定偏移（米，世界坐标系）
+  # reach_offset: [-0.2, 0.0, 0.0]
+  push_steps: 200  # 每段推动的仿真步数（沿该段方向线性插值）
+  isolate: false

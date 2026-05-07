@@ -1,0 +1,8 @@
+env_string: SquatGraspEnv-V0
+defaults:
+  - env: squat_grasp_env
+  - global_planner: default
+  - atomic_skill: default
+  - auto_collect: default
+  - record: default
+  - task: default

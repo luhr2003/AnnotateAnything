@@ -1,0 +1,73 @@
+Robot1: # This is the robot name
+  name: "franka_tactile" # this is used for retreival articulation cfg
+  type: "manipulator"
+  planner_type: "Curobo" # this is used for planner
+  common:
+    # Initial position range (relative to environment offset)
+    initial_pos_range: [0, 0, 1.0, 0, 0, 1.0]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+    # Position range for soft reset (relative to environment offset)
+    soft_reset_pos_range: [0, 0, 1.0, 0, 0, 1.0]  # Random position range for soft reset
+    # Initial orientation range
+    initial_ori_range: [0, 0, 0, 0, 0, 0]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+    # Orientation range for soft reset
+    soft_reset_ori_range: [0, 0 , 0, 0, 0, 0]
+    # Initial joint position for the robot
+    initial_joint_pos: {
+      "panda_joint1": 0.0,
+      "panda_joint2": -0.785,
+      "panda_joint3": 0.0,
+      "panda_joint4": -2.356,
+      "panda_joint5": 0.0,
+      "panda_joint6": 1.571,
+      "panda_joint7": 0.785,
+      "panda_finger_joint1": 0.04,
+      "panda_finger_joint2": 0.04,
+    }
+
+
+  action: # This is used for action manager
+    arm: ik_abs # ik_abs, ik_rel, osc
+    eef: binary # joint pos
+
+  # eventterm # This is used for event term manager
+  reset: randomize_joint
+
+
+Tactile: # The logic here is tactile sensor should only attached on robot
+  Robot1:
+    left_tactile_sensor:
+      type: "gelsight_mini"
+      prim_link: "gelsight_mini_case_left"
+      config:
+        device: "cuda"
+        debug_vis: true
+        data_types: ["tactile_rgb"]
+        sensor_camera_cfg:
+          prim_path_appendix: "/Camera"
+          update_period: 0
+          resolution: [320, 240]
+          data_types: ["depth"]
+          clipping_range: [0.024, 0.034]
+        optical_sim_cfg:
+          with_shadow: false
+          device: "cuda"
+          tactile_img_res: [640, 480]
+        marker_motion_sim_cfg: null
+    right_tactile_sensor:
+      type: "gelsight_mini"
+      prim_link: "gelsight_mini_case_right"
+      config:
+        device: "cuda"
+        debug_vis: true
+        data_types: ["tactile_rgb"]
+        sensor_camera_cfg:
+          prim_path_appendix: "/Camera"
+          update_period: 0
+          resolution: [320, 240]
+          data_types: ["depth"]
+          clipping_range: [0.024, 0.034]
+        optical_sim_cfg:
+          with_shadow: false
+          device: "cuda"
+          tactile_img_res: [640, 480]
+        marker_motion_sim_cfg: null

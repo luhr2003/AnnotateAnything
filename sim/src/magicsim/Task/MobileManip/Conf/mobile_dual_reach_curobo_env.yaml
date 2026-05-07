@@ -1,0 +1,6 @@
+timeout_steps: 10000
+defaults:
+  - Scene: mobile_dual_reach_curobo_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination

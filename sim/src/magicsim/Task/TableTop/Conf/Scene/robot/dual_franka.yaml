@@ -1,0 +1,101 @@
+# DualFranka articulation (L_panda_* left arm, R_panda_* right arm).
+# Same config as Garment/Conf/Scene/robot/dual_franka.yaml. Copied here so
+# the BiGrasp scene can compose it from inside the TableTop config tree.
+DualFranka_0:
+  name: "dual_franka"
+  type: "dualmanipulator"
+  common:
+    initial_pos_range: [0.0, 0.0, 1.0, 0.0, 0.0, 1.0]
+    soft_reset_pos_range: [0.0, 0.0, 1.0, 0.0, 0.0, 1.0]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+    soft_reset_ori_range: [0, 0, 0, 0, 0, 0]
+    initial_joint_pos: {
+      "L_panda_joint1": 0.0,
+      "L_panda_joint2": -0.785,
+      "L_panda_joint3": 0.0,
+      "L_panda_joint4": -2.356,
+      "L_panda_joint5": 0.0,
+      "L_panda_joint6": 1.571,
+      "L_panda_joint7": 0.785,
+      "L_panda_finger_joint1": 0.04,
+      "L_panda_finger_joint2": 0.04,
+      "R_panda_joint1": 0.0,
+      "R_panda_joint2": -0.785,
+      "R_panda_joint3": 0.0,
+      "R_panda_joint4": -2.356,
+      "R_panda_joint5": 0.0,
+      "R_panda_joint6": 1.571,
+      "R_panda_joint7": 0.785,
+      "R_panda_finger_joint1": 0.04,
+      "R_panda_finger_joint2": 0.04,
+    }
+
+  action:
+    arm: ik_dual_diff
+    eef: binary
+
+  planner:
+    # Paired-IK enabled so the BiGrasp test can goalset-select among the
+    # basket's bi_gripper_grasp_pose pairs (the annotation has
+    # "left"/"right" keys assigned non-deterministically — sometimes the
+    # basket was yawed during labeling — so the test submits every
+    # candidate and lets curobo pick the one both arms can reach).
+    # Action-time control still goes through Isaac Lab's ``ik_dual_diff``,
+    # same as fling.
+    #
+    # ``dual_mode`` is unrelated to dual-arm IK — it's for robots whose
+    # base joints can be locked/unlocked (mobile bases). Setting it true
+    # makes PlannerManager._create_ik_server look for
+    # ``magicsim_dual_franka_mobile.yml`` which doesn't exist (dual_franka
+    # is fixed-base). Keep it false; ``paired: true`` alone suffices for
+    # paired goalset argmin (see PlannerManager.py:957 + MERGE_LEFT_RIGHT
+    # §9).
+    dual_mode: false
+    ik:
+      type: "dual_franka"
+      enable: true
+      ik_num_instances: 1
+      ik_batch_size: 1
+      ik_num_seeds: 20
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      # Bumped from default 10000 to support the Handover skill's wide
+      # paired-IK goalset: G = 864 mug poses × max_right_pool=20 ≈ 17k.
+      # BiGrasp's basket goalset (≈1.4k) is unaffected — this only
+      # extends the upper bound. Cost: ~longer first-time JIT warmup.
+      ik_max_goalset: 30000
+      microbatch_wait_ms: 400.0
+      # MUST be true for dual_franka: it's fixed-base, no virtual base
+      # joints in magicsim_dual_franka.yml, so curobo expects targets in
+      # the robot's base_link frame. Test feeds WORLD-frame targets
+      # (env.get_bigripper_grasp_pose returns world frame), so the
+      # IKServer needs to subtract the robot's world base pose before
+      # passing to curobo (IKServer.py:607 — only happens when this is
+      # True). G1 has virtual base joints so it works with `false`;
+      # dual_franka does not.
+      relative_to_world_frame: true
+      eef_num: 2
+      paired: true
+      debug: False
+    motiongen:
+      # Required by MoveL global planner (Collect/GlobalPlanner/MoveL.py)
+      # — without it MoveL._set_robot_by_id raises
+      # "MotionGenServer not found for robot 'DualFranka_0'". Same
+      # ``dual_mode: false`` reasoning as the IK section: dual_franka is
+      # fixed-base so we load only ``magicsim_dual_franka.yml``, not the
+      # nonexistent ``_mobile`` variant.
+      type: "dual_franka"
+      enable: true
+      batch_size: 1
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      relative_to_world_frame: true
+      eef_num: 2
+      debug: False
+
+    arm:
+      type: "default"
+      mode: position
+    eef:
+      type: "default"

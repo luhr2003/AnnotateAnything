@@ -1,0 +1,128 @@
+# Environment configuration
+# num_envs: 4
+# env_offset: [1.0, 1.0, 0.0]
+
+room:
+  # hide_top_walls: true
+  # simple_room:
+  #   usd: ["$MAGICSIM_ASSETS/Room/Collected_SimpleRoom"]
+  #   random: True
+  #   simple_room_1:
+  #     pos: [0.0, 0.0, 0.8]
+  #     ori: [0.0, 0.0, 0]
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+light:
+  light_1:
+    types: ["Rect", "Sphere", "Cylinder"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+
+
+objects:
+  # Container imported separately; must be created before fluid_items so fluid can reference it via ref
+  fluid_container:
+    usd: ["$MAGICSIM_ASSETS/Object/mugs/8567/Object.usd"]
+    num_per_env: 1
+    random: False
+    fluid_container_1:
+      pos: [0.0, 0.0, 1.0]
+      ori: [0.0, 0.0, 0.0]
+      visual:
+        scale: [5.0,5.0,5.0]
+      physics:
+        type: "geometry"
+
+  fluid_items:
+    common:
+    usd: ["$MAGICSIM_ASSETS/Object/Fluid/cylinder_fluid.usd"]
+    num_per_env: 1
+    random: True
+    interaction_with_object: False
+    semantic_label:
+
+    fluid_items_1:
+      visual:
+        color:
+          - [1.0, 0.0, 0.0]
+          - [0.0, 1.0, 0.0]
+          - [0.0, 0.0, 1.0]
+          - [1.0, 1.0, 0.0]
+          - [0.0, 1.0, 1.0]
+          - [1.0, 0.0, 1.0]
+
+        scale: [0.05,0.05,0.05]
+        container_scale: [0.1,0.1,0.1]
+        visual_material:
+          material_usd_folder: [
+            "./Assets/Material/Base/Textiles/Linen_Blue.mdl",
+          ]
+
+      pos: [0,0,1.0]
+      ori: [0.0,0.0,0.0]
+      physics:
+        type: "fluid"
+        ratio: 1.1  # Physics parameter randomization ratio (default: 1.0)
+        particle_system:
+          particle_contact_offset: 0.025
+          contact_offset: 0.025
+          rest_offset: 0.0225
+          fluid_rest_offset: 0.0135
+          solid_rest_offset: 0.0225
+          max_velocity: 2.5
+          smoothing: False
+          anisotropy: False
+          isosurface: True
+
+        particle_material:
+          adhesion: null
+          adhesion_offset_scale: null
+          cohesion: 0.01
+          particle_adhesion_scale: null
+          particle_friction_scale: null
+          drag: null
+          lift: null
+          friction: 0.1
+          damping: 0.99
+          gravity_scale: 1.0
+          viscosity: 0.0091
+          vorticity_confinement: null
+          surface_tension: 0.0074
+          density: null
+          cfl_coefficient: null
+
+        fluid_volumn: 0.3
+
+      # Reference the container imported above (ref: instance name, category: object category name)
+      # use_container_mesh: true means generating particles from container mesh so fluid fits container shape
+      container:
+        ref: mug_1  # Use mug as container
+        category: mug
+        use_container_mesh: true  # Enable particle generation from container mesh
+        mesh_scale_factor: 0.8

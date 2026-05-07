@@ -1,0 +1,53 @@
+output_dir: "$MAGICSIM_HOME/TestOutput/test_camera_move"
+disable_render_product: False
+render_frame_num: 1
+enable_tiled: False
+colorize_depth: True
+
+camera0:
+  camera:
+    type: camera
+    mesh: kinect
+    resolution: [512, 512]
+    frequency: 30
+    focal_length: 0.05
+    focus_distance: 10
+    mode: RGB
+    pos: [0, 0, 2]  # Initial position
+    ori: [0, 0, 0]  # Initial orientation (will be set to quaternion [1,0,0,0])
+
+    random:  # No randomization for testing
+      pos:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+      ori:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+
+    action_noise:
+      pos:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+      ori:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+
+  # Camera planner configuration
+  planner:
+    type: "gimbal"  # or "linear"
+    #type: "linear"
+    params:
+      pos_stiffness: 20.0
+      pos_damping: 8.0
+      rot_stiffness: 10.0
+      rot_damping: 4.0
+      dt: 0.0167  # 60 Hz
+      pos_target_threshold: 0.05
+      rot_target_threshold_deg: 2.0
+      # For linear planner, use these params instead:
+      # steps: 200
+      # pos_threshold: 1e-3
+      # rot_threshold_deg: 1.0
+
+  annotator:
+    enabled: False  # Disable annotation for testing

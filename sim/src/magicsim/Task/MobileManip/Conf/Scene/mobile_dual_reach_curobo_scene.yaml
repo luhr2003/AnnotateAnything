@@ -1,0 +1,8 @@
+defaults:
+  - scene: mobile_dual_reach_env
+  - sim: sim_config
+  - camera: agent_camera
+  # Same dual-reach scene (two cubes, vega parked) but with the cuRobo
+  # IK arm action variant instead of pink IK. See the robot yaml for
+  # the rationale (collision-checked per-step IK).
+  - robot: single_vega1pSharpa_curobo

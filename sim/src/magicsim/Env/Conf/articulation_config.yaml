@@ -1,0 +1,5 @@
+defaults:
+  - scene: test_articulation_env
+  - sim: sim_config
+  - camera: agent_camera
+  - robot: curobo_franka_umi

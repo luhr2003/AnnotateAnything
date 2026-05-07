@@ -1,0 +1,86 @@
+MobileReach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+  robot_id: 0
+  eef_num: 2
+  use_left_current: true
+
+RetractReach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+  robot_id: 0
+  eef_num: 2
+  use_left_current: true
+
+LocoOpenDoor:
+  pre_grasp_offset: 0.15
+  pull_distance: 0.3
+  handle_offset: [0.0, 0.0, 0.05]
+  debug: true
+  # Width of the hand-joint slot in the EEF action. dex3_1 has 7 finger joints
+  # per hand (index_0/1, middle_0/1, thumb_0/1/2). Override if the robot's
+  # hand action slot expects a different width.
+  hand_joint_dim: 7
+  # Servo phase order after pregrasp/move_to_grasp. Must match annotation phase keys.
+  #   open-by-handle (pull):  [approach, pull]
+  #   rotate-and-push:        [approach, rotate, push]
+  trajectory:
+    annotation_name: dex3_1_open_by_handle_trajectory
+    quat_format: xyzw
+    phases: [approach, pull]
+
+NavTo:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+  robot_id: 0
+  # Extra standoff beyond AABB radius along approach (meters); may be a scalar or [dx, dy] norm.
+  position_offset: 0.3
+  position_threshold: 0.15
+
+DexGrasp:
+  pre_grasp_offset: 0.1
+  retrieval_offset: 0.3
+  mobile: true  # use MobileMoveL for loco/mobile robot
+  hand_type: "dex3_1"  # dex3_1 for G1 hand, xhand for XHand
+  robot_id: 0
+  hand_id: 0  # 0=right, 1=left for dual-arm
+  debug: true  # set true to print goalset submit/result debug info
+
+Dehatch:
+  robot_id: 0
+  hand_id: -1
+  retract_distance: 0.2
+  num_standup_steps: 480
+  num_retract_steps: 250
+
+Lift:
+  robot_id: 0
+  # Geometry knobs (m, ratios). See TestLocoLiftEnv.py for what they do.
+  gap: 0.12           # wrists pressed this far inside the ±y faces at squeeze
+  pre_gap: 0.2       # wrists parked this far outside the ±y faces at pre-grasp
+  forward_ratio: -1.0 # x_local = forward_ratio * hx  (negative → wrist on robot's side of bin)
+  down_ratio: -0.5    # z_local = -down_ratio * hz    (negative = above bin center, clears table top)
+  lift_height: 0.2    # lift this much above squeeze pose at the lift phase
+  hand_joint_dim: 7
+  debug: true
+
+LocoBox:
+  robot_id: 0
+  # Geometry knobs (m). gap / pre_gap / lift_height are NOT sampled — they
+  # control the pre→squeeze→lift offsets relative to the selected pose.
+  gap: 0.05           # wrists pressed this far inside the ±y faces at squeeze
+  pre_gap: 0.15       # wrists parked this far outside the ±y faces at pre-grasp
+  lift_height: 0.25   # lift this much above squeeze pose at the lift phase
+  # Goalset sampling — translation/orientation grids over which paired IK
+  # picks. Output shape G = n_forward × n_down × n_tilt rows of (right_7d, left_7d).
+  forward_ratio_range: [-0.6,  0.2]   # x_local = fwd * hx (fraction of half-extent)
+  down_ratio_range:    [-0.2,  0.5]   # z_local = -down * hz (positive → below box center)
+  tilt_deg_range:      [45.0, 90.0]   # rotation about world Y axis (palm pitch)
+  # Denser grid for richer paired-IK selection: 10×10×20 = 2000 candidates
+  # (extra density on tilt — the angular axis matters most for slanted insertion).
+  n_forward_samples: 10
+  n_down_samples: 10
+  n_tilt_samples: 20
+  # Draw per-phase wrist target axes (right + left) when entering each phase.
+  viz_grasp: true
+  debug: false

@@ -1,0 +1,6 @@
+defaults:
+  - scene: test_navpack_env
+  - sim: sim_humanoid
+  - camera: custom_camera
+  - robot: dwb_g1
+  - nav: humanoid_nav

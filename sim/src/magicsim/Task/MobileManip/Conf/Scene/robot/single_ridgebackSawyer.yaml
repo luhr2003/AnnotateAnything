@@ -1,0 +1,81 @@
+RidgebackSawyer: # This is the robot name
+  name: "ridgebackSawyer" # this is used for retreival articulation cfg
+  type: "mobilemanip"
+  common:
+    # Initial position range (relative to environment offset)
+    initial_pos_range: [0, 0, 0.0, 0, 0, 0.0]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+    # Initial orientation range
+    initial_ori_range: [0, 0, 0, 0, 0, 0]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+    initial_joint_pos: {
+      "dummy_base_prismatic_y_joint": 0.0,
+      "dummy_base_prismatic_x_joint": 0.0,
+      "dummy_base_revolute_z_joint": 0.0,
+      "head_pan": 0.0,
+      "right_j0": 0.0,
+      "right_j1": -0.785,
+      "right_j2": 0.0,
+      "right_j3": 1.05,
+      "right_j4": 0.0,
+      "right_j5": 1.3,
+      "right_j6": 0.0,
+      "right_gripper_l_finger_joint": 0.0,
+      "right_gripper_r_finger_joint": 0.0,
+    }
+  action: # This is used for action manager
+    base_action: holonomic_action # differential_drive, velocity, acceleration
+    arm_action: ik_abs
+    eef_action: binary
+
+
+  # eventterm # This is used for event term manager
+  planner: # This is used for planner manager
+    # Dual mode configuration: enables both locked base and free base planning
+    dual_mode: true
+    base_joint_names: ["dummy_base_prismatic_x_joint", "dummy_base_prismatic_y_joint", "dummy_base_revolute_z_joint"]
+    ik:
+      type: "ridgebacksawyer"
+      enable: true
+      ik_num_instances: 1
+      ik_batch_size: 1
+      ik_num_seeds: 20
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+      relative_to_world_frame: false
+    motiongen:
+      type: "ridgebacksawyer"
+      enable: true
+      batch_size: 1
+      debug: true
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      relative_to_world_frame: false
+    body:
+      type: p_controller
+      # type: default
+      p_controller:
+        # P-controller parameters
+        kp_angular_turning_only: 5
+        kd_angular_turning_only: 1
+        kp_linear_x: 4
+        kp_linear_y: 4
+        kp_angular: 1
+        kd_linear_x: 1
+        kd_linear_y: 1
+        min_vel: -0.4
+        max_vel: 0.8
+        linear_dead_zone: 0.1
+        angular_dead_zone: 0.05
+    arm:
+      type: default
+    eef:
+      type: default
+  physics:
+    wheel_base: 0.01
+    robot_radius: 0.8
+  reset: default # default or random - default: use default joint positions, random: randomize joints with gaussian offset
+  # Parameters for random reset (only used when reset: random)
+  randomize_joint:
+    mean: 0.0  # Mean of gaussian noise
+    std: 0.1   # Standard deviation of gaussian noise

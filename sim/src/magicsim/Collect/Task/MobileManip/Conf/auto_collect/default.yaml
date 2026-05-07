@@ -1,0 +1,2 @@
+task_type: loco_reach
+reach_command: ["LocoReach", "geometry", "cube", 0]

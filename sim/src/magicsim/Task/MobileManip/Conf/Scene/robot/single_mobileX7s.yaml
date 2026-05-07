@@ -1,0 +1,70 @@
+MobileX7s: # Robot name
+  name: "mobile_x7s"  # keys into ROBOT_DICT -> MobileX7sCfg
+  type: "mobilemanip"
+  common:
+    initial_pos_range: [0.0, 0.0, 0.1, 0.0, 0.0, 0.1]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+  action:
+    base_action: holonomic_action
+    arm_action: ik_pink
+    eef_action: binary
+
+  planner:
+    # Dual-mode curobo planner: both arms planned in a shared scene, mirroring
+    # vega1p_sharpa's dual-arm setup. Right = primary link20_tip
+    # (joint14..20 / -Y branch of link2), Left = primary link11_tip
+    # (joint5..11 / +Y branch of link2).
+    dual_mode: true
+    base_joint_names: ["dummy_base_prismatic_x_joint", "dummy_base_prismatic_y_joint", "dummy_base_revolute_z_joint"]
+    ik:
+      # Unified single-server-per-robot layout. `dual_mode: true` selects
+      # DualIKServer (locked + free base pair) — orthogonal to the
+      # right/left flatten. See MERGE_LEFT_RIGHT.md §9.
+      type: "mobile_x7s"
+      enable: true
+      ik_num_instances: 1
+      ik_batch_size: 1
+      ik_num_seeds: 20
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+      relative_to_world_frame: false
+      eef_num: 2
+      debug: false
+      paired: true
+    motiongen:
+      type: "mobile_x7s"
+      enable: true
+      batch_size: 1
+      debug: true
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      relative_to_world_frame: false
+      eef_num: 2
+    body:
+      type: p_controller
+      p_controller:
+        kp_angular_turning_only: 2
+        kd_angular_turning_only: 1
+        kp_linear_x: 4
+        kp_linear_y: 4
+        kp_angular: 2
+        kd_linear_x: 1.5
+        kd_linear_y: 1.5
+        min_vel: -0.4
+        max_vel: 0.8
+        linear_dead_zone: 0.1
+        angular_dead_zone: 0.2
+        nav_heading_target: 0
+    arm:
+      type: default
+    eef:
+      type: default
+  physics:
+    wheel_base: 0.01
+    robot_radius: 0.8
+  reset: default
+  randomize_joint:
+    mean: 0.0
+    std: 0.1

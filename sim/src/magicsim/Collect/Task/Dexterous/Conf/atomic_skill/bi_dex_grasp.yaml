@@ -1,0 +1,21 @@
+Reach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+
+BiDexGrasp:
+  # Pregrasp standoff bumped to 0.25m so MobileMoveL has a clear approach
+  # corridor before the coarse_grasp pose (avoids sub-desk wrist clipping
+  # and gives the bimanual approach margin to converge symmetrically).
+  pre_grasp_offset: 0.25
+  retrieval_offset: 0.3
+  # mobile = true → pre_grasp routes through MobileMoveL (header mode 3 in
+  # _mobile_mode_for_phase) so the planner plans a full base+arm path to
+  # the standoff before switching to direct EE control for the close-up
+  # phases. Matches the parked Vega platform's mobile-manip stack.
+  mobile: true
+  hand_type: "sharpa"
+  hand_joint_dim: 22
+  robot_id: 0
+  reactive: true
+  viz_grasp: true
+  debug: true

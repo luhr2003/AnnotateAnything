@@ -1,0 +1,22 @@
+timeout_steps: 10000
+defaults:
+  - Scene: push_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination
+
+
+# 若设置 goal_position，则终止条件为「物体中心到达该位置」；不设置则沿用下方末端目标逻辑
+goal_position: [1.0, 1.0, 0.0]
+object_goal_tolerance: 0.03
+
+# 未设置 goal_position 时使用：末端到达目标位置即终止
+# 目标位置 = cube 初始位置 + push_direction * push_distance
+push_distance: ${atomic_skill.Push.push_distance}
+push_direction: ${atomic_skill.Push.push_direction}
+eef_target_tolerance: 0.04
+min_push_progress_ratio: 0.5
+
+# PushEnv 中目标物体在 scene_manager 里的类别名称
+# 默认为 "cube"，这里设置为 "mug"（与 push_scene.yaml 中的 objects.mug 对应），你可以改成其他已在 Scene 里定义的对象类别。
+target_category: mug

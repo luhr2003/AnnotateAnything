@@ -1,0 +1,57 @@
+Xtrainer1:
+  name: "xtrainer"
+  type: "dualmanipulator"
+  common:
+    initial_pos_range: [0, 0, 1, 0, 0, 1]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+    initial_joint_pos: {
+      "J1_1_joint": 0.0,
+      "J1_2_joint": 0.0,
+      "J1_3_joint": 0.0,
+      "J1_4_joint": 0.0,
+      "J1_5_joint": 0.0,
+      "J1_6_joint": 0.0,
+      "J1_7_joint": 0.0,
+      "J1_8_joint": 0.0,
+      "J2_1_joint": 0.0,
+      "J2_2_joint": 0.0,
+      "J2_3_joint": 0.0,
+      "J2_4_joint": 0.0,
+      "J2_5_joint": 0.0,
+      "J2_6_joint": 0.0,
+      "J2_7_joint": 0.0,
+      "J2_8_joint": 0.0,
+    }
+
+  action:
+    arm: ik_pink
+    eef: binary
+  planner:
+    dual_mode: false
+    ik:
+      # Unified single-server-per-robot layout. See MERGE_LEFT_RIGHT.md §1–§8 / §9.
+      type: "xtrainer"
+      enable: true
+      ik_num_instances: 1
+      ik_batch_size: 1
+      ik_num_seeds: 20
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+      eef_num: 2
+      paired: true
+    motiongen:
+      type: "xtrainer"
+      enable: true
+      batch_size: 1
+      debug: true
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      eef_num: 2
+
+    arm:
+      type: "default"
+      mode: position
+    eef:
+      type: "default"

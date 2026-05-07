@@ -1,0 +1,8 @@
+env_string: HandoverEnv-V0
+defaults:
+  - env: handover_env
+  - global_planner: default
+  - atomic_skill: default
+  - auto_collect: default
+  - record: default
+  - task: default

@@ -1,0 +1,12 @@
+hydra:
+  searchpath:
+    - pkg://magicsim.Task.Garment.Conf
+
+env_string: GarmentFoldEnv-V0
+defaults:
+  - /garment_fold_env@env
+  - global_planner: default
+  - atomic_skill: default
+  - auto_collect: default
+  - record: default
+  - task: default

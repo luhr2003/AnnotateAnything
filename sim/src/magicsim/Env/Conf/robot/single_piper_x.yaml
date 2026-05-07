@@ -1,0 +1,25 @@
+Piper1: # This is the robot name
+  name: "piper_x" # this is used for retreival articulation cfg
+  type: "manipulator"
+  common:
+    initial_pos_range: [0, 0, 1.0, 0, 0, 1.0]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+    initial_joint_pos: {
+      "joint1": 0.0,
+      "joint2": 1.2,
+      "joint3": -1.2,
+      "joint4": 0.0,
+      "joint5": 0.7,
+      "joint6": 0.0,
+      "joint7": 0.025,
+      "joint8": -0.025,
+    }
+
+  action: # arm options: joint_pos, ik_abs, ik_pink, ik_curobo
+    arm: joint_pos
+    eef: joint_pos
+
+  reset: default
+  randomize_joint:
+    mean: 0.0
+    std: 3

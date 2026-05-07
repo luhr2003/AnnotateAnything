@@ -1,0 +1,2 @@
+task_type: loco_retract_reach
+reach_command: ["LocoRetractReach", "geometry", "cube", 0]

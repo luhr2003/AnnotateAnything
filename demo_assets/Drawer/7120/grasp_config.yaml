@@ -1,0 +1,38 @@
+grasp_phases:
+- joint_drive_targets:
+    /World/Envs/env_0/Flying_hand_probe_pro/ref/panda_hand/panda_finger_joint1: 0.04
+  name: Open
+  simulation_step_dt: 0.016666666666666666
+  simulation_steps: 32
+- joint_drive_targets:
+    /World/Envs/env_0/Flying_hand_probe_pro/ref/panda_hand/panda_finger_joint1: 0.0
+  name: Close
+  simulation_step_dt: 0.016666666666666666
+  simulation_steps: 32
+gripper_path: /World/Envs/env_0/Flying_hand_probe_pro
+joint_pregrasp_states:
+  /World/Envs/env_0/Flying_hand_probe_pro/ref/panda_hand/panda_finger_joint1: 0.039737965911626816
+  /World/Envs/env_0/Flying_hand_probe_pro/ref/panda_hand/panda_finger_joint2: 0.03973797708749771
+num_orientations: 5
+object_path: /World/Envs/env_0/Object/ref/link_2/visuals/visual_mesh_13/World/mesh
+sampler_config:
+  grasp_align_axis:
+  - 0
+  - 1
+  - 0
+  gripper_approach_direction:
+  - 0
+  - 0
+  - 1
+  gripper_maximum_aperture: 0.08
+  gripper_standoff_fingertips: 0.17
+  lateral_sigma: 0.05
+  num_candidates: 500
+  num_orientations: 3
+  orientation_sample_axis:
+  - 0
+  - 1
+  - 0
+  random_seed: 42
+  sampler_type: antipodal
+  verbose: false

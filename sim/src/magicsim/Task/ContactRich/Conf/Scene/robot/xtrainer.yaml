@@ -1,0 +1,35 @@
+XtrainerDualArm:
+  name: "xtrainer"
+  type: "manipulator"
+  planner_type: "Curobo"
+
+  common:
+    initial_pos_range: [-0.5, 0.2, 0.98, -0.5, 0.2, 0.98]
+    initial_ori_range: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    initial_joint_pos: {
+      "J1_1_joint": 0.0,
+      "J1_2_joint": 0.0,
+      "J1_3_joint": 0.0,
+      "J1_4_joint": 0.0,
+      "J1_5_joint": 0.0,
+      "J1_6_joint": 0.0,
+      "J1_7_joint": 0.0,
+      "J1_8_joint": 0.0,
+      "J2_1_joint": 0.0,
+      "J2_2_joint": 0.0,
+      "J2_3_joint": 0.0,
+      "J2_4_joint": 0.0,
+      "J2_5_joint": 0.0,
+      "J2_6_joint": 0.0,
+      "J2_7_joint": 0.0,
+      "J2_8_joint": 0.0,
+    }
+
+  action:
+    arm: joint_pos
+    eef: binary
+
+  reset: default
+  randomize_joint:
+    mean: 0.0
+    std: 3.0

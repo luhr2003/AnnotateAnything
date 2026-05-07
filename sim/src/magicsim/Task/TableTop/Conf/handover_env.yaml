@@ -1,0 +1,27 @@
+timeout_steps: 100000
+target_obj_name: mug
+# Handover mug-pose center (world frame). After the dual_franka spacing
+# reduction (USD/URDF y=±0.5 instead of ±0.7), right base is at y=-0.5
+# and left at y=+0.5. With yaw=+90° on the right arm, its forward
+# direction = +y and sweet-spot reach is y∈[-0.3, 0.0] (≈0.2-0.5m
+# forward of base). y=-0.10 puts the mug ≈40 cm forward of right base
+# — well inside dexterous workspace, no Jacobian singularity. From
+# the LEFT arm at y=+0.5, the same point is ≈0.6m away — reachable
+# with the candidate pool's roll/pitch sweep (≤45°) borrowing some
+# offset back into +y.
+handover_center: [0.0, -0.10, 1.25]
+# Termination: right has the mug and left has let go, mug still aloft.
+# Left release threshold must be SMALLER than the atomic skill's
+# retract_offset (default 0.30) so the released-flag actually fires
+# after left_retract finishes — otherwise the env never sees
+# ``terminated=True`` and the AutoCollect loop spawns a new Handover
+# atomic skill on top of the previous final state instead of resetting.
+lift_threshold: 1.05
+fall_threshold: 0.5
+right_close_threshold: 0.20
+left_release_threshold: 0.20
+defaults:
+  - Scene: handover_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination

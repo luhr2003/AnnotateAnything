@@ -1,0 +1,24 @@
+G1_FixedHand_1:  # robot name
+  name: "g1_fixed_hand"  # ROBOT_DICT key → G1_FixedHandCfg
+  type: "humanoid"
+  common:
+    initial_pos_range: [0, 0, 0.8, 0, 0, 0.8]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+
+  action:
+    base_action: wbc          # Homie WBC (g1_fixed_hand variant — 29-joint table)
+    arm_action: ik_abs        # Pink IK on *_hand_palm_link, 14-dim (2 × xyz+xyzw)
+    eef_action: placeholder   # 1-dim no-op (rigid rubber_hand has no real DoFs)
+
+  planner:
+    body:
+      type: default
+    arm:
+      type: default
+    eef:
+      type: default
+
+  reset: default
+  randomize_joint:
+    mean: 0.0
+    std: 0.1

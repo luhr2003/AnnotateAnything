@@ -1,0 +1,6 @@
+[submodule "Third_Party/IsaacLab"]
+	path = Third_Party/IsaacLab
+	url = https://github.com/luhr2003/IsaacLab.git
+[submodule "Third_Party/curobo"]
+	path = Third_Party/curobo
+	url = https://github.com/luhr2003/curobo.git

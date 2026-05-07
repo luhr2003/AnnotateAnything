@@ -1,0 +1,4 @@
+defaults:
+  - scene: test_robotbase_env
+  - sim: sim_config
+  - camera: agent_camera

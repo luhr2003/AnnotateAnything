@@ -1,0 +1,5 @@
+defaults:
+  - scene: close_drawer_env
+  - sim: sim_config
+  - camera: grasp_camera
+  - robot: curobo_franka_umi

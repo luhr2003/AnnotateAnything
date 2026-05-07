@@ -1,0 +1,75 @@
+MoveL:
+  translation_threshold: 0.003
+  rotation_threshold: 0.2
+  motiongen_distance_threshold: 0.2
+  timeout_steps: 50
+  debug: true
+
+MobileMoveL:
+  translation_threshold: 0.003
+  rotation_threshold: 0.2
+  motiongen_distance_threshold: 0
+  timeout_steps: 100
+  reactive: false
+  base_pos_threshold: 0.15
+  base_rot_threshold: 0.1
+  eef_pos_threshold: 0.2
+  eef_rot_threshold: 0.2
+  waypoint_max_steps: 20
+  debug: true
+
+RetractMoveL:
+  translation_threshold: 0.003
+  rotation_threshold: 0.2
+  motiongen_distance_threshold: 0
+  timeout_steps: 50
+  base_pos_threshold: 0.3
+  base_rot_threshold: 0.1
+  eef_pos_threshold: 0.2
+  eef_rot_threshold: 0.2
+  arm_waypoint_max_steps: 5
+  base_waypoint_max_steps: 10
+  move_strategy_distance_threshold: 0.1
+  debug: true
+
+ParallelGripper:
+  gripper_threshold: 0.001
+
+MobileServoL:
+  translation_threshold: 0.01
+  rotation_threshold: 0.3
+  done_threshold: 0.01
+  timeout_steps: 200
+  stride: 1
+  debug: true
+  eef_pos_threshold: 0.03
+  eef_rot_threshold: 0.1
+  base_pos_threshold: 0.15
+  # Acts as a ticks-per-waypoint metronome in arm-stream mode: arm advances
+  # to the next waypoint on arrive OR after this many ticks. 3 ticks at
+  # 60 Hz ≈ 20 Hz waypoint cadence. For OpenDrawer pull (200 waypoints
+  # over 30 cm, ~1.5 mm per waypoint) this lets the arm drag the handle
+  # at a sane pace without waiting 20 ticks per waypoint when physics
+  # carries it there slower than the pos threshold.
+  waypoint_max_steps: 3
+  force_free_base_distance: 0.4
+  motiongen_distance_threshold: 0.05
+  embedded_direct_lock_layout: trailing
+  # Linear-base-synth lookahead (metres). When IK at the last EEF waypoint
+  # fails and ``planner_mode=0``, MobileServoL synthesizes a base trajectory
+  # that linearly translates current → current+EEF_delta. To prevent the
+  # PController dead zone (typically a few cm) from stalling tiny per-row
+  # base deltas, each base target is pushed `linear_synth_lookahead` metres
+  # ahead of the arm waypoint progress along `delta`. This keeps PD output
+  # non-zero so the base tracks smoothly. Should be > robot's
+  # ``p_controller.linear_dead_zone`` (5cm here) with margin.
+  linear_synth_lookahead: 0.10
+  # Downsample input arm trajectory to at most this many waypoints when
+  # synthesizing the linear base trajectory. The PController's
+  # ``linear_dead_zone`` is a *velocity* cutoff: PD output below it is
+  # clamped to 0. Streaming the synth at 1 row/tick, the per-tick base
+  # target delta = |delta| / N. Smaller N → larger deltas → higher target
+  # velocity → PD output well above dead zone → smooth tracking. With 10
+  # waypoints over a typical 30 cm pull/push, base moves at ~max_vel
+  # (saturated) and the whole motion completes in ~0.4 s.
+  linear_synth_max_waypoints: 10

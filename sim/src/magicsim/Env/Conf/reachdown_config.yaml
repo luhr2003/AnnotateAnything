@@ -1,0 +1,7 @@
+env: RobotReach-V0
+defaults:
+  - robot: franka
+  - object: cube_env_reach
+  - scene: llm_reach
+  - physics: sim_config
+  - sensor: front_top.yaml

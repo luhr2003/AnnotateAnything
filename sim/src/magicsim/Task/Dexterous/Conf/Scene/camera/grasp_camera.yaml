@@ -1,0 +1,164 @@
+enable_tiled: True
+colorize_depth: True
+camera0:
+  camera:
+    type: camera
+    mesh: kinect
+    # clipping_range: [0.1, 5]
+    resolution: [512, 512]  # Reduced from 512x512 to save GPU memory (4x reduction)
+    frequency: 30
+    focal_length: 0.05
+    focus_distance: 10
+    mode: RGB
+    pos: [1.5, -1 ,1.5]
+    ori: [0,0,45]
+
+    random: # randomization parameters
+      pos:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+      ori:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+
+    action_noise:
+      pos:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+      ori:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+
+  planner:
+    type: "gimbal"  # or "linear"
+    params:
+      pos_stiffness: 20.0
+      pos_damping: 8.0
+      rot_stiffness: 10.0
+      rot_damping: 4.0
+      dt: 0.0167  # 60 Hz
+      pos_target_threshold: 0.05
+      rot_target_threshold_deg: 2.0
+      # steps: 200
+      # pos_threshold: 0.001
+      # rot_threshold_deg: 1.0
+  annotator:
+    enabled: True
+    rgb_capture:
+      type: rgb
+      device: cpu
+    # rgb_capture1:
+    #   type: rgb
+    #   device: cuda
+    # normals_capture:
+    #   type: normals
+    #   device: cpu
+    # normals_capture1:
+    #   type: normals
+    #   device: cuda
+    # distance_to_camera_capture:
+    #   type: distance_to_camera
+    #   device: cpu
+    # distance_to_camera_capture1:
+    #   type: distance_to_camera
+    #   device: cuda
+    distance_to_image_plane_capture:
+      type: distance_to_image_plane
+      device: cpu
+    # distance_to_image_plane_capture1:
+    #   type: distance_to_image_plane
+    #   device: cuda
+    # semantic_segmentation_capture:
+    #   type: semantic_segmentation
+    #   device: cpu
+    #   colorize: True
+    #   semantic_types: None
+    #   semantic_filter_predicate: None
+    # semantic_segmentation_capture1:
+    #   type: semantic_segmentation
+    #   device: cuda
+    #   colorize: True
+    #   semantic_types: None
+    #   semantic_filter_predicate: None
+    # instance_id_segmentation_capture:
+    #   type: instance_id_segmentation
+    #   device: cpu
+    #   colorize: True
+    #   semantic_types: None
+    # #   semantic_filter_predicate: None
+    # instance_id_segmentation_fast_capture:
+    #   type: instance_id_segmentation_fast
+    #   device: cuda
+    #   colorize: True
+    #   semantic_types: None
+    #   semantic_filter_predicate: None
+
+    # instance_segmentation_fast_capture:
+    #   type: instance_segmentation_fast
+    #   device: cuda
+    #   colorize: True
+    #   semantic_types: None
+    #   semantic_filter_predicate: None
+
+
+    # instance_id_segmentation_capture1:
+    #   type: instance_id_segmentation
+    #   device: cuda
+    #   colorize: True
+    #   semantic_types: None
+    #   semantic_filter_predicate: None
+    # instance_segmentation_capture:
+    #   type: instance_segmentation
+    #   device: cpu
+    #   colorize: True
+    #   semantic_types: None
+    #   semantic_filter_predicate: None
+    # instance_segmentation_capture1:
+    #   type: instance_segmentation
+    #   device: cuda
+    #   colorize: True
+    #   semantic_types: None
+    #   semantic_filter_predicate: None
+    # motion_vectors_capture:
+    #   type: motion_vectors
+    #   device: cpu
+    # motion_vectors_capture1:
+    #   type: motion_vectors
+    #   device: cuda
+    # occlusion_capture:
+    #   type: occlusion
+    #   device: cpu
+    # occlusion_capture1:
+    #   type: occlusion
+    #   device: cuda
+    # bounding_box_3d_capture: # Note that all annotator related to bounding_box doesn't support cuda
+    #   type: bounding_box_3d
+    #   device: cpu
+    # bounding_box_2d_loose_capture:
+    #   type: bounding_box_2d_loose
+    #   device: cpu
+    # bounding_box_2d_tight_capture:
+    #   type: bounding_box_2d_tight
+    #   device: cpu
+    # camera_params_capture:
+    #   type: camera_params
+    #   device: cpu
+    # camera_params_capture1:
+    #   type: camera_params
+    #   device: cuda
+    # pointcloud_capture:
+    #   type: pointcloud
+    #   device: cpu
+    #   includeUnlabelled: True
+    # pointcloud_capture1:
+    #   type: pointcloud
+    #   device: cuda
+    #   includeUnlabelled: False
+    # skeleton_data_capture:
+    #   type: skeleton_data
+    #   device: cpu
+    #   useSkelJoints: False
+    # skeleton_data_capture1:
+    #   type: skeleton_data
+    #   device: cuda
+    #   useSkelJoints: False

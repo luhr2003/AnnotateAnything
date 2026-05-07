@@ -1,0 +1,89 @@
+Reach:
+  # Reach 高层任务配置
+  # 这里将目标设置为刚体集合里的第一个 mug（与 push 场景中的 objects.mug 对应）
+  obj_type: geometry
+  obj_name: cube
+  obj_id: 0
+
+
+Grasp:
+  obj_type: "rigid"  # Object type: "rigid", "articulated", etc.
+  obj_name: "apple"    # Object name (must match the object name in scene config)
+  obj_id: 0          # Object ID (0 for first instance)
+  functional_grasp: true # whether to use functional grasp (True or False)
+  functional_part: null  # Part name for functional grasp (e.g., "body", "handle")
+  init_limit: 50     # Number of steps to wait before starting grasp
+  max_attempt: 2     # Maximum number of attempts
+
+
+Wave:
+  # Wave 高层任务配置：抓取后进行随机晃动
+  # 与 Grasp 相同的目标，但使用 Wave AtomicSkill（抓取+抖动）
+  obj_type: rigid
+  obj_name: mug
+  obj_id: 0
+
+
+Push:
+  # Push 高层任务配置：将目标物体推到 goal_position（MPC 规划路径点序列，逐段推动）
+  obj_type: rigid
+  obj_name: mug
+  obj_id: 0
+  # 物体目标位置 [x, y, z]（世界系），例如 [1,1,0] 表示先推到 (1,0,0) 再推到 (1,1,0)
+  goal_position: [0.5, 0.5, 1.2]
+  goal_tolerance: 0.03   # 物体与目标距离小于此值视为到达
+  waypoint_tolerance: 0.02  # 物体与当前路径点距离小于此值则进入下一路径点
+  goal_use_z: false      # 是否在 z 方向也规划路径点（桌面任务通常 false）
+
+DualReach:
+  right_obj_type: geometry
+  right_obj_name: cube_right
+  right_obj_id: 0
+  left_obj_type: geometry
+  left_obj_name: cube_left
+  left_obj_id: 0
+
+
+OpenDrawer:
+  robot_id: 0
+  hand_id: 0
+  obj_type: "articulation"
+  obj_name: "articulation_items"
+  obj_id: 0
+  joint_id: 2  # -1: all joints, 0/1/2: specific joint
+  init_limit: 50
+  max_attempt: 2
+
+
+CloseDrawer:
+  robot_id: 0
+  hand_id: 0
+  obj_type: "articulation"
+  obj_name: "articulation_items"
+  obj_id: 0
+  joint_id: 2  # -1: all joints, 0/1/2: specific joint
+  init_limit: 50
+  max_attempt: 2
+
+
+BiGrasp:
+  robot_id: 0
+  obj_type: "rigid"
+  obj_name: "basket"
+  obj_id: 0
+  functional_grasp: true
+  # right_part / left_part default to None — let single-arm IK pick a
+  # reachable pose from the flattened body pool (BiGraspEnv.get_grasp_pose).
+  init_limit: 50
+  max_attempt: 2
+
+
+Handover:
+  # Bimanual handover. Generic over rigid objects with grasp_pose.json
+  # annotations — single- or multi-part. Default: mug 8684 (handle+body).
+  robot_id: 0
+  obj_type: "rigid"
+  obj_name: "mug"
+  obj_id: 0
+  init_limit: 50
+  max_attempt: 2

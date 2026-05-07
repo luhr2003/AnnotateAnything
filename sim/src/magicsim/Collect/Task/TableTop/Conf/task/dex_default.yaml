@@ -1,0 +1,12 @@
+defaults:
+  - default
+
+DexOpenDrawer:
+  robot_id: 0
+  hand_id: 0
+  obj_type: "articulation"
+  obj_name: "articulation_items"
+  obj_id: 0
+  joint_id: 1
+  init_limit: 50
+  max_attempt: 2

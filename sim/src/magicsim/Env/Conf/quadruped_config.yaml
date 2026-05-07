@@ -1,0 +1,5 @@
+defaults:
+  - scene: test_robotbase_env
+  - sim: sim_humanoid
+  - camera: agent_camera
+  - robot: single_go2

@@ -1,0 +1,90 @@
+Fling:
+  # Bimanual fling skill. All distances in meters; grasp_quat is wxyz.
+  # Action form: ["Fling", robot_id, group]  or  ["Fling", robot_id, left_kp, right_kp]
+  # Defaults mirror :mod:`magicsim.Task.Garment.Env.Test.TestFlingEnv`.
+  lift_height: 0.28        # Fingertip height above pick keypoint after grasp (m)
+  fling_distance: -0.10    # X translation during fling (toward neckline at -X)
+  fling_apex: 0.1          # Extra height at fling apex on top of lift_height (m)
+  drop_distance: -0.20     # X translation at drop — past fling end (more -X) so the cloth lays out
+  drop_height: 0.05        # Fingertip z above pick keypoint at drop (m)
+  reach_z_offset: -0.022   # Fingertip z relative to kp at reach (negative = press in)
+  gripper_length: 0.2      # panda_hand → fingertip; added to every phase z
+
+  # Keypoint adjustments before commanding the arms.
+  inward_shift: 0.05       # Pull each kp along LR segment toward midline (m)
+  grasp_kp_x_shift: 0.02   # Push each kp along world +X (away from neckline) (m)
+
+  # Per-phase gravity scaling on the garment particle_material. Cloth
+  # stays quasi-suspended through lift → fling → drop so the fabric
+  # trails the gripper smoothly along the diagonal-down drop trajectory;
+  # gravity is restored at open_gripper so the cloth settles onto the
+  # table.
+  gravity_scale_default: 1.0
+  gravity_scale_fling: 0.05
+  phases_with_low_gravity: ["lift_up", "fling_forward", "drop"]
+
+  # Trajectory smoothing lives in MoveL's own config — see
+  # ``Collect/Task/Garment/Conf/global_planner/default.yaml``
+  # (``MoveL.interp_steps``). One number applies to every phase that
+  # issues a MoveL command.
+
+  grasp_quat: [0.0, 1.0, 0.0, 0.0]  # wxyz, world-frame "forward-facing" gripper
+  # dual_franka URDF yaws the two arm roots vs base_link by ±90°. We
+  # rotate the world-frame grasp_quat by Rz(arm_yaw) per arm so each
+  # panda_hand ends up facing world ±Y (its natural forward).
+  left_arm_yaw_deg: -90.0
+  right_arm_yaw_deg: 90.0
+
+  visualize: true   # red pick-keypoint spheres + phase-colored target points + target axes
+  debug: true
+
+Fold:
+  # Bimanual two-stage fold on the DualFranka scene (single
+  # ``dualmanipulator`` robot with two EEFs). Action form:
+  # ["Fold", robot_id, obj_type, obj_name, obj_id].
+  # MoveL takes world-frame targets via IK abs (set ``ik_check: true``
+  # on MoveL). See Env/Planner/Services/README.md §2 / §5.
+  # Heights below describe FINGERTIP clearance above the keypoint;
+  # ``gripper_length`` is added internally so the panda_hand wrist is
+  # commanded that much higher.
+  lift_height: 0.1        # Fingertip z above pick keypoint after grasp / during transport (m)
+  drop_height: 0.03       # Fingertip z above place target when releasing (m)
+  retract_height: 0.15    # Fingertip clearance above place point after release (m)
+  gripper_length: 0.2     # panda_hand origin → fingertip; offset along per-arm approach direction (Franka default 0.2)
+
+  # Insertion knobs. With a tilted gripper (see ``tilt_deg``) the
+  # fingertip slides INTO the cloth along the approach direction. The
+  # skill plans a pre_reach phase that hovers ``pre_reach_distance`` back
+  # along approach, then reach slides forward to fingertip
+  # ``insertion_depth`` past the keypoint (positive = pressed in).
+  pre_reach_distance: 0.06
+  insertion_depth: 0.015
+
+  # Keypoint adjustments before commanding the arms (Fling-style knobs).
+  inward_shift: 0.05      # Pull each pick along LR segment toward midline (m)
+  grasp_kp_x_shift: 0.02  # Push each pick along world +X (m)
+  min_lr_separation: 0.20 # Min world-Y gap between L/R place targets so the panda_hands don't collide
+  # Top-down grasp in each arm's ROOT-LINK frame (Rx 180° = gripper Z
+  # points "down" relative to that arm). World-frame per-arm targets are
+  # built as Rz(arm_yaw) ⊗ arm_local_grasp_quat, because L_panda_link0
+  # and R_panda_link0 are yawed vs world.
+  arm_local_grasp_quat: [0.0, 1.0, 0.0, 0.0]  # wxyz
+  right_arm_yaw_deg:  90.0   # R_panda_link0 yaw in world (dual_franka URDF)
+  left_arm_yaw_deg:  -90.0   # L_panda_link0 yaw in world
+  # Slant the gripper instead of pointing straight down. Rx in arm-local
+  # frame composed BEFORE the world yaw lift; positive tips the approach
+  # forward toward the arm's reach direction. Same value for both arms
+  # = symmetric outward tilt. Applied through every phase.
+  tilt_deg: 45.0
+  # Escape hatch: override the world-frame per-arm quat directly if you
+  # need an asymmetric wrist yaw. Unset -> derived from arm_local_grasp_quat.
+  # grasp_quat_right: null
+  # grasp_quat_left:  null
+  # Per-phase target visualization (VisualSpheres under /debug_fold/env_<id>).
+  # Red spheres mark the pick target during reach/close/lift; green mark
+  # the place target during move/drop/open/retract.
+  visualize: true
+  viz_radius: 0.025
+  viz_pick_color:  [1.0, 0.2, 0.2]
+  viz_place_color: [0.2, 1.0, 0.2]
+  debug: true

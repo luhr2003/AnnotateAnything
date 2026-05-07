@@ -1,0 +1,5 @@
+defaults:
+  - scene: dex_grasp_env
+  - sim: sim_config
+  - camera: grasp_camera
+  - robot: curobo_franka_xhand

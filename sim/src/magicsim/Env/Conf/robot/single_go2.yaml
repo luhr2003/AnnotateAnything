@@ -1,0 +1,16 @@
+Robot1: # This is the robot name
+  name: "go2" # this is used for retreival articulation cfg
+  type: "quadruped"
+  common:
+    # Initial position range (relative to environment offset)
+    initial_pos_range: [1, -1, 0.4, 1, -1, 0.4]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+    # Initial orientation range
+    initial_ori_range: [0, 0, 0, 0, 0, 0]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+    # Initial joint position for the robot (can be empty for now)
+    initial_joint_pos:
+
+  action: # This is used for action manager
+    base_action: wbc
+
+  reset: default # default or random - default: use default joint positions, random: randomize joints with gaussian offset
+  # Parameters for random reset (only used when reset: random)

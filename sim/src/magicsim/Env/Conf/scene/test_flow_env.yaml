@@ -1,0 +1,96 @@
+# Flow Effects Environment Configuration
+# Demonstrates Smoke, Steam, and Dust effects
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+  ]
+
+light: {}
+
+# Flow configuration (smoke, steam, dust)
+flow:
+  # ========== SMOKE EXAMPLE ==========
+  smoke_1:
+    type: "smoke"                # Type: smoke, steam, or dust
+    pos: [-6.0, 0.0, 0.0]       # World position [x, y, z]
+    scale: 0.1                   # Overall scale factor
+    layer: 4                     # Render layer (default: 4 for smoke)
+    intensity: 1.0               # Emission intensity multiplier
+    color_brightness: 0.1        # For smoke: 0.05=very dark, 0.1=dark, 0.3=light gray
+
+    # Optional overrides (defaults are already set for smoke)
+    radius: 1.0                # Emitter radius
+    # cell_size: 1.0             # Simulation resolution
+    # vorticity: 2.8             # Turbulence (high for chaotic smoke)
+    # fade: 0.4                  # Smoke lifetime (lower = longer)
+
+  # ========== STEAM EXAMPLE ==========
+  steam_1:
+    type: "steam"                # White/wispy vapor
+    pos: [0.0, 0.0, 0.0]        # World position
+    scale: 1.0
+    layer: 2                     # Render layer (default: 2 for steam)
+    intensity: 2.0               # Steam emission intensity (INCREASE for visibility!)
+
+    # VISIBILITY SETTINGS (CRITICAL for seeing steam!)
+    radius: 1.0                  # Emitter radius
+    attenuation: 0.8             # Shadow opacity (0.045 default is too low! Use 0.5-1.0)
+    raymarch_attenuation: 0.8    # Raymarch opacity (0.05 default is too low! Use 0.5-1.0)
+
+    # Optional overrides
+    # cell_size: 0.5             # Fine detail simulation
+    # vorticity: 0.6             # Low turbulence (gentle movement)
+    # fade: 0.65                 # Quick dissipation
+
+  # ========== DUST EXAMPLE ==========
+  dust_1:
+    type: "dust"                 # Particle cloud
+    pos: [6.0, 0.0, 0.0]        # World position
+    scale: 1.0
+    layer: 1                     # Render layer (default: 1 for dust)
+    intensity: 1.0               # Base intensity multiplier
+    dust_type: "gray"            # Options: "tan", "brown", "gray", "dark"
+
+    # EMISSION SETTINGS (CRITICAL for dust visibility!)
+    smoke_emit: 15.0             # Direct smoke emission (default 0.5 is too low!)
+    radius: 2.0                  # Larger emitter = more visible
+
+    # VISIBILITY SETTINGS
+    attenuation: 1.0             # Shadow opacity (higher = more visible)
+    raymarch_attenuation: 1.0    # Raymarch opacity (higher = more visible)
+
+    # Optional overrides
+    # cell_size: 2.0             # Coarser simulation
+    # vorticity: 1.4             # Medium turbulence
+    # fade: 0.15                 # Long lifetime
+    # buoyancy_per_smoke: -0.5   # NEGATIVE = dust falls!
+
+  # # ========== MULTIPLE TYPES EXAMPLE ==========
+  # smoke_heavy:
+  #   type: "smoke"
+  #   pos: [-3.0, 3.0, 0.0]
+  #   scale: 0.5
+  #   layer: 5
+  #   intensity: 2.0               # Heavy smoke (2x emission)
+  #   color_brightness: 0.05       # Very dark
+
+  # steam_light:
+  #   type: "steam"
+  #   pos: [3.0, 3.0, 0.0]
+  #   scale: 0.8
+  #   layer: 6
+  #   intensity: 0.5               # Light steam
+
+  # dust_brown:
+  #   type: "dust"
+  #   pos: [0.0, -3.0, 0.0]
+  #   scale: 1.2
+  #   layer: 7
+  #   intensity: 1.5
+  #   dust_type: "brown"           # Dark brown dirt dust
+
+# Empty objects configuration (required by SceneManager)
+objects: {}

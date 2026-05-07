@@ -1,0 +1,3 @@
+defaults:
+  - scene: test_deform_env
+  - sim: sim_config

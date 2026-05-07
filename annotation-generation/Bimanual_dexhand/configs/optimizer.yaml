@@ -1,0 +1,586 @@
+global:
+  sdf:
+    voxel_size: 0.005
+    padding_voxels: 8
+    force_rebuild: false
+
+  solver:
+    max_iterations: 140
+    ftol: 1.0e-8
+    gtol: 1.0e-8
+    eps: 1.0e-4
+    maxls: 80
+
+  collision:
+    non_active_margin: 0.004
+    palm_margin: 0.010
+    self_collision_margin: 0.002
+
+cat1:
+  contact_model:
+    cat1_sample_blend:
+      pregrasp: 0.10
+      grasp: 0.30
+      squeeze: 0.55
+    cat1_local_axis_weights:
+      pregrasp: [0.10, 1.00, 0.45]
+      grasp: [0.18, 1.00, 0.65]
+      squeeze: [0.28, 1.00, 0.80]
+    cat1_tip_support:
+      enabled: true
+      grasp_weight: 0.8
+      squeeze_weight: 8.0
+      grasp_clearance: 0.003
+      squeeze_clearance: -0.002
+      grasp_tolerance: 0.004
+      squeeze_tolerance: 0.003
+      grasp_required_contacts: 0
+      squeeze_required_contacts: 1
+
+  final_contact_seek:
+    enabled: true
+    max_attempts: 8
+    wrist_step: 0.004
+    joint_close_step: 0.25
+    limit_close_blend: 0.35
+    active_clearance_multiplier: 8.0
+    active_target_position_multiplier: 0.05
+    active_normal_alignment_multiplier: 0.05
+    opposition_multiplier: 0.10
+    wrist_translation_prior_multiplier: 0.10
+    wrist_rotation_prior_multiplier: 0.15
+    joint_prior_multiplier: 0.05
+    palm_collision_multiplier: 0.85
+    non_active_collision_multiplier: 0.85
+    self_collision_multiplier: 0.90
+    max_iterations: 220
+    max_translation_from_reference: 0.045
+    max_translation_from_coarse: 0.060
+    max_rotation_from_reference_deg: 22.0
+    max_rotation_from_coarse_deg: 30.0
+    min_reference_palm_alignment_dot: 0.35
+    max_active_target_position_factor: 4.0
+    max_active_target_position_slack: 0.020
+
+  stage_init:
+    open_posture_name: "open_hand"
+    close_posture_name: "rim_pad_close"
+    pregrasp_alpha: 0.20
+    pregrasp_alignment_mode: "translation_only"
+    pregrasp_roll_refine_enabled: true
+    pregrasp_roll_max_deg: 35.0
+    pregrasp_roll_num_steps: 25
+    pregrasp_roll_regularization: 0.01
+    pregrasp_roll_thumb_weight: 2.0
+    pregrasp_pitch_refine_enabled: true
+    pregrasp_pitch_max_deg: 20.0
+    pregrasp_pitch_num_steps: 17
+    pregrasp_pitch_regularization: 0.015
+    pregrasp_pitch_thumb_weight: 1.5
+    pregrasp_alignment_max_translation: 0.05
+    pregrasp_alignment_max_rotation_deg: 35.0
+    grasp_refine_enabled: true
+    grasp_roll_max_deg: 12.0
+    grasp_pitch_max_deg: 8.0
+    grasp_alignment_mode: "rigid_clamped"
+    grasp_alignment_max_translation: 0.045
+    grasp_alignment_max_rotation_deg: 10.0
+    squeeze_refine_enabled: true
+    squeeze_roll_max_deg: 10.0
+    squeeze_pitch_max_deg: 8.0
+    squeeze_alignment_mode: "rigid_clamped"
+    squeeze_alignment_max_translation: 0.04
+    squeeze_alignment_max_rotation_deg: 8.0
+    pregrasp_preserve_seed_palm_hemisphere: true
+    pregrasp_min_palm_alignment_dot: 0.0
+    grasp_alpha: 0.64
+    squeeze_alpha: 0.90
+    grasp_approach_scale: 0.95
+    squeeze_approach_scale: 0.80
+    grasp_shift_min: 0.008
+    squeeze_shift_min: 0.005
+    grasp_wrist_blend_alpha: 0.35
+    grasp_joint_blend_alpha: 0.75
+    squeeze_wrist_blend_alpha: 0.0
+    squeeze_joint_blend_alpha: 0.88
+
+  stage_weights:
+    pregrasp:
+      active_clearance: 6.0
+      active_target_position: 2.5
+      active_normal_alignment: 0.5
+      thumb_active_multiplier: 1.0
+      opposition: 0.5
+      non_active_collision: 12.0
+      palm_collision: 16.0
+      self_collision: 4.0
+      wrist_translation_prior: 3.0
+      wrist_rotation_prior: 3.0
+      joint_prior: 2.5
+      avoid_clearance: 1.0
+
+    grasp:
+      active_clearance: 12.0
+      active_target_position: 8.0
+      active_normal_alignment: 1.5
+      thumb_active_multiplier: 1.8
+      opposition: 3.0
+      non_active_collision: 10.0
+      palm_collision: 18.0
+      self_collision: 5.0
+      wrist_translation_prior: 1.25
+      wrist_rotation_prior: 1.5
+      joint_prior: 0.9
+      avoid_clearance: 2.5
+
+    squeeze:
+      active_clearance: 18.0
+      active_target_position: 12.0
+      active_normal_alignment: 2.25
+      thumb_active_multiplier: 2.8
+      opposition: 3.5
+      non_active_collision: 9.0
+      palm_collision: 20.0
+      self_collision: 5.0
+      wrist_translation_prior: 1.0
+      wrist_rotation_prior: 1.2
+      joint_prior: 0.25
+      avoid_clearance: 3.0
+
+  stage_completion:
+    grasp:
+      active_contact_tolerance: 0.010
+      thumb_contact_tolerance: 0.008
+    squeeze:
+      active_contact_tolerance: 0.006
+      thumb_contact_tolerance: 0.004
+
+cat2:
+  contact_model:
+    cat2_sample_blend:
+      pregrasp: 0.10
+      grasp: 0.22
+      squeeze: 0.32
+    cat2_local_axis_weights:
+      pregrasp: [0.55, 0.30, 0.70]
+      grasp: [0.85, 0.40, 0.95]
+      squeeze: [1.00, 0.50, 1.10]
+    cat2_thumb_side_guard:
+      enabled: true
+      pregrasp: 120.0
+      grasp: 320.0
+      squeeze: 420.0
+      min_side_distance: 0.006
+      side_fraction: 0.60
+      patch_radius_fraction: 0.18
+      min_local_z: 0.0
+      z_weight_scale: 0.75
+    cat2_palm_support:
+      enabled: true
+      grasp_weight: 2.5
+      squeeze_weight: 8.0
+      grasp_position_weight: 1.2
+      squeeze_position_weight: 3.0
+    cat2_finger_support:
+      enabled: true
+      grasp_weight: 5.0
+      squeeze_weight: 24.0
+      grasp_clearance: 0.002
+      squeeze_clearance: 0.0000
+      grasp_tolerance: 0.0020
+      squeeze_tolerance: 0.0010
+      grasp_required_contacts: 1
+      squeeze_required_contacts: -1
+    cat2_active_stability:
+      enabled: true
+      grasp_weight: 28.0
+      squeeze_weight: 42.0
+      thumb_multiplier: 0.35
+    cat2_global_penetration:
+      enabled: true
+      grasp_weight: 560.0
+      squeeze_weight: 920.0
+
+  final_contact_seek:
+    enabled: true
+    max_attempts: 6
+    wrist_step: 0.003
+    joint_close_step: 0.12
+    limit_close_blend: 0.20
+    active_clearance_multiplier: 5.0
+    active_target_position_multiplier: 0.14
+    active_normal_alignment_multiplier: 0.08
+    opposition_multiplier: 0.20
+    wrist_translation_prior_multiplier: 0.04
+    wrist_rotation_prior_multiplier: 0.06
+    joint_prior_multiplier: 0.40
+    palm_collision_multiplier: 1.20
+    non_active_collision_multiplier: 1.20
+    self_collision_multiplier: 1.00
+    max_iterations: 220
+    max_translation_from_reference: 0.040
+    max_translation_from_coarse: 0.050
+    max_rotation_from_reference_deg: 16.0
+    max_rotation_from_coarse_deg: 22.0
+    min_reference_palm_alignment_dot: 0.20
+    max_active_target_position_factor: 2.5
+    max_active_target_position_slack: 0.010
+
+  stage_init:
+    open_posture_name: "open_hand"
+    close_posture_name: "cat2_hold_close"
+    pregrasp_alpha: 0.15
+    grasp_alpha: 0.55
+    squeeze_alpha: 0.74
+    grasp_approach_scale: 0.75
+    squeeze_approach_scale: 0.55
+    grasp_shift_min: 0.004
+    squeeze_shift_min: 0.0025
+    grasp_wrist_blend_alpha: 0.50
+    grasp_joint_blend_alpha: 0.65
+    squeeze_wrist_blend_alpha: 0.25
+    squeeze_joint_blend_alpha: 0.70
+
+  stage_weights:
+    pregrasp:
+      active_clearance: 6.0
+      active_target_position: 4.0
+      active_normal_alignment: 0.75
+      thumb_active_multiplier: 1.0
+      opposition: 0.5
+      non_active_collision: 12.0
+      palm_collision: 16.0
+      self_collision: 4.0
+      wrist_translation_prior: 2.4
+      wrist_rotation_prior: 2.4
+      joint_prior: 3.0
+      avoid_clearance: 1.0
+
+    grasp:
+      active_clearance: 16.0
+      active_target_position: 18.0
+      active_normal_alignment: 1.8
+      thumb_active_multiplier: 0.70
+      opposition: 0.25
+      non_active_collision: 36.0
+      palm_collision: 44.0
+      self_collision: 5.0
+      wrist_translation_prior: 0.55
+      wrist_rotation_prior: 0.65
+      joint_prior: 0.40
+      avoid_clearance: 6.0
+
+    squeeze:
+      active_clearance: 26.0
+      active_target_position: 28.0
+      active_normal_alignment: 2.5
+      thumb_active_multiplier: 0.55
+      opposition: 0.15
+      non_active_collision: 42.0
+      palm_collision: 54.0
+      self_collision: 5.0
+      wrist_translation_prior: 0.35
+      wrist_rotation_prior: 0.45
+      joint_prior: 0.30
+      avoid_clearance: 8.0
+
+  stage_completion:
+    grasp:
+      active_contact_tolerance: 0.008
+      thumb_contact_tolerance: 0.006
+      max_global_penetration: 0.0003
+    squeeze:
+      active_contact_tolerance: 0.0045
+      thumb_contact_tolerance: 0.0035
+      max_global_penetration: 0.00015
+cat3:
+  contact_model:
+    cat3_sample_blend:
+      pregrasp: 0.10
+      grasp: 0.35
+      squeeze: 0.55
+    cat3_local_axis_weights:
+      pregrasp: [0.50, 0.85, 1.00]
+      grasp: [0.70, 1.00, 1.15]
+      squeeze: [0.85, 1.05, 1.25]
+    cat3_global_penetration:
+      enabled: true
+      pregrasp_weight: 20000.0
+      grasp_weight: 40000.0
+      squeeze_weight: 80000.0
+    cat3_bottom_clearance:
+      enabled: true
+      pregrasp_weight: 80000.0
+      grasp_weight: 140000.0
+      squeeze_weight: 140000.0
+      margin: 0.0
+      tolerance: 0.0
+    cat3_frame_alignment:
+      enabled: true
+      grasp_weight: 10.0
+      squeeze_weight: 18.0
+      palm_multiplier: 1.2
+    cat3_fast_pose_search:
+      enabled: true
+      snap_rotation_to_contact_frame: true
+      direct_target_translation: true
+      direct_alignment_max_translation: 0.090
+      contact_joint_posture: "cat3_palm_first"
+      grasp_joint_close_blend: 0.0
+      squeeze_base_posture: "cat3_side_press"
+      squeeze_joint_close_blend: 0.0
+      squeeze_toward_limit_close: false
+      squeeze_collision_evaluation: false
+      refine_toward_base_steps: 8
+      approach_offsets: [-0.060, -0.052, -0.044, -0.042, -0.034, -0.026, -0.018, -0.010, -0.004, 0.0, 0.004, 0.010, 0.018, 0.026, 0.034, 0.042, 0.044, 0.052, 0.060]
+      side_offsets: [0.0]
+      vertical_offsets: [-0.060, -0.048, -0.036, -0.024, -0.012, -0.006, 0.0, 0.006]
+      palm_roll_offsets_deg: [0.0, -30.0, 30.0]
+      priority_approach_count: 7
+      include_joint_only_squeeze_bottom_clearance: true
+      pregrasp_from_contact: true
+      pregrasp_retreat_offsets: [0.045, 0.060, 0.030, 0.075, 0.015, 0.090, 0.0]
+      pregrasp_vertical_offsets: [0.0, 0.006, 0.012, 0.024]
+      pregrasp_preferred_retreat: 0.045
+      pregrasp_min_retreat: 0.020
+      pregrasp_preferred_vertical_offset: 0.0
+      pregrasp_min_vertical_offset: 0.0
+      pregrasp_max_evaluations: 8
+      max_pose_candidates: 180
+
+  final_contact_seek:
+    enabled: true
+    max_attempts: 6
+    wrist_step: 0.003
+    joint_close_step: 0.16
+    limit_close_blend: 0.22
+    active_clearance_multiplier: 6.0
+    active_target_position_multiplier: 0.10
+    active_normal_alignment_multiplier: 0.08
+    opposition_multiplier: 0.20
+    wrist_translation_prior_multiplier: 0.08
+    wrist_rotation_prior_multiplier: 0.12
+    joint_prior_multiplier: 0.10
+    palm_collision_multiplier: 0.95
+    non_active_collision_multiplier: 0.95
+    self_collision_multiplier: 0.95
+    max_iterations: 180
+    max_translation_from_reference: 0.030
+    max_translation_from_coarse: 0.040
+    max_rotation_from_reference_deg: 14.0
+    max_rotation_from_coarse_deg: 20.0
+    min_reference_palm_alignment_dot: 0.15
+    max_active_target_position_factor: 3.0
+    max_active_target_position_slack: 0.012
+
+  stage_init:
+    open_posture_name: "open_hand"
+    close_posture_name: "medium_close"
+    pregrasp_alpha: 0.16
+    grasp_alpha: 0.40
+    squeeze_alpha: 0.62
+    grasp_approach_scale: 0.20
+    squeeze_approach_scale: 0.10
+    grasp_shift_min: 0.002
+    squeeze_shift_min: 0.001
+    grasp_wrist_blend_alpha: 0.10
+    grasp_joint_blend_alpha: 0.55
+    squeeze_wrist_blend_alpha: 0.05
+    squeeze_joint_blend_alpha: 0.72
+
+  stage_weights:
+    pregrasp:
+      active_clearance: 6.0
+      active_target_position: 3.0
+      active_normal_alignment: 0.7
+      thumb_active_multiplier: 1.0
+      opposition: 0.6
+      non_active_collision: 14.0
+      palm_collision: 20.0
+      self_collision: 4.0
+      wrist_translation_prior: 3.2
+      wrist_rotation_prior: 3.4
+      joint_prior: 2.0
+      avoid_clearance: 1.2
+
+    grasp:
+      active_clearance: 14.0
+      active_target_position: 10.0
+      active_normal_alignment: 1.8
+      thumb_active_multiplier: 1.15
+      opposition: 2.2
+      non_active_collision: 32.0
+      palm_collision: 44.0
+      self_collision: 5.0
+      wrist_translation_prior: 1.8
+      wrist_rotation_prior: 2.0
+      joint_prior: 0.8
+      avoid_clearance: 5.0
+
+    squeeze:
+      active_clearance: 20.0
+      active_target_position: 15.0
+      active_normal_alignment: 2.4
+      thumb_active_multiplier: 1.35
+      opposition: 2.8
+      non_active_collision: 40.0
+      palm_collision: 58.0
+      self_collision: 5.0
+      wrist_translation_prior: 1.4
+      wrist_rotation_prior: 1.6
+      joint_prior: 0.35
+      avoid_clearance: 7.0
+
+  stage_completion:
+    pregrasp:
+      max_global_penetration: 0.00025
+    grasp:
+      active_contact_tolerance: 0.009
+      thumb_contact_tolerance: 0.007
+      max_global_penetration: 0.00025
+    squeeze:
+      active_contact_tolerance: 0.005
+      thumb_contact_tolerance: 0.004
+      max_global_penetration: 0.00010
+
+cat4:
+  contact_model:
+    cat4_sample_blend:
+      pregrasp: 0.10
+      grasp: 0.90
+      squeeze: 1.00
+    cat4_tip_sample_blend:
+      pregrasp: 0.20
+      grasp: 0.55
+      squeeze: 0.85
+    cat4_tip_priority:
+      grasp_multiplier: 1.8
+      grasp_non_tip_multiplier: 0.70
+      squeeze_multiplier: 2.6
+      squeeze_non_tip_multiplier: 0.55
+    cat4_local_axis_weights:
+      pregrasp: [0.20, 1.00, 0.30]
+      grasp: [0.45, 1.00, 0.55]
+      squeeze: [0.60, 1.05, 0.75]
+    cat4_thumb_outside:
+      enabled: false
+      thumb_blend_multiplier: 0.35
+      grasp_weight: 24.0
+      squeeze_weight: 38.0
+      y_slack: 0.001
+    cat4_global_penetration:
+      enabled: true
+      grasp_weight: 60000.0
+      squeeze_weight: 100000.0
+
+  final_contact_seek:
+    enabled: false
+    max_attempts: 6
+    wrist_step: 0.0035
+    joint_close_step: 0.16
+    limit_close_blend: 0.25
+    active_clearance_multiplier: 5.5
+    active_target_position_multiplier: 0.10
+    active_normal_alignment_multiplier: 0.08
+    opposition_multiplier: 0.20
+    wrist_translation_prior_multiplier: 0.08
+    wrist_rotation_prior_multiplier: 0.10
+    joint_prior_multiplier: 0.10
+    palm_collision_multiplier: 1.00
+    non_active_collision_multiplier: 1.00
+    self_collision_multiplier: 0.95
+    max_iterations: 220
+    max_translation_from_reference: 0.045
+    max_translation_from_coarse: 0.055
+    max_rotation_from_reference_deg: 18.0
+    max_rotation_from_coarse_deg: 25.0
+    min_reference_palm_alignment_dot: 0.15
+    max_active_target_position_factor: 3.0
+    max_active_target_position_slack: 0.012
+
+  stage_init:
+    open_posture_name: "open_hand"
+    close_posture_name: "medium_close"
+    pregrasp_alpha: 0.18
+    grasp_alpha: 0.22
+    squeeze_alpha: 0.38
+    cat4_squeeze_close_multiplier: 1.05
+    cat4_grasp_thumb_close_boost: 0.10
+    cat4_squeeze_thumb_close_boost: 0.15
+    grasp_approach_scale: 0.0
+    squeeze_approach_scale: 0.0
+    grasp_shift_min: 0.0
+    squeeze_shift_min: 0.0
+    grasp_wrist_blend_alpha: 0.0
+    grasp_joint_blend_alpha: 0.35
+    squeeze_wrist_blend_alpha: 1.0
+    squeeze_joint_blend_alpha: 0.45
+
+  stage_motion_bounds:
+    pregrasp:
+      translation: 0.004
+      rotation_deg: 4.0
+      joint_delta: 0.20
+    grasp:
+      translation: 0.0015
+      rotation_deg: 1.5
+      joint_delta: 0.55
+      joint_opening_slack: 0.015
+    squeeze:
+      translation: 0.0020
+      rotation_deg: 2.0
+      joint_delta: 0.65
+      joint_opening_slack: 0.010
+
+  stage_weights:
+    pregrasp:
+      active_clearance: 6.0
+      active_target_position: 3.0
+      active_normal_alignment: 0.7
+      thumb_active_multiplier: 1.2
+      opposition: 0.8
+      non_active_collision: 12.0
+      palm_collision: 16.0
+      self_collision: 4.0
+      wrist_translation_prior: 3.0
+      wrist_rotation_prior: 3.0
+      joint_prior: 2.2
+      avoid_clearance: 1.0
+
+    grasp:
+      active_clearance: 36.0
+      active_target_position: 3.0
+      active_normal_alignment: 1.2
+      thumb_active_multiplier: 1.7
+      opposition: 1.5
+      non_active_collision: 28.0
+      palm_collision: 36.0
+      self_collision: 5.0
+      wrist_translation_prior: 18.0
+      wrist_rotation_prior: 18.0
+      joint_prior: 0.90
+      avoid_clearance: 4.0
+
+    squeeze:
+      active_clearance: 52.0
+      active_target_position: 4.0
+      active_normal_alignment: 1.4
+      thumb_active_multiplier: 2.2
+      opposition: 2.0
+      non_active_collision: 34.0
+      palm_collision: 46.0
+      self_collision: 5.0
+      wrist_translation_prior: 20.0
+      wrist_rotation_prior: 18.0
+      joint_prior: 1.00
+      avoid_clearance: 6.0
+
+  stage_completion:
+    grasp:
+      active_contact_tolerance: 0.009
+      thumb_contact_tolerance: 0.007
+      max_global_penetration: 0.0002
+    squeeze:
+      active_contact_tolerance: 0.006
+      thumb_contact_tolerance: 0.0045
+      max_global_penetration: 0.0001

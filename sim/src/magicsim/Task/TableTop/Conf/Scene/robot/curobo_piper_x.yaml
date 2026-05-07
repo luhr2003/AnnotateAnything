@@ -1,0 +1,44 @@
+Piper1: # robot name
+  name: "piper_x" # articulation cfg key (maps to PiperXCfg via ROBOT_DICT)
+  type: "manipulator"
+  common:
+    initial_pos_range: [0, 0, 1.0, 0, 0, 1.0]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+    initial_joint_pos: {
+      "joint1": 0.0,
+      "joint2": 1.2,
+      "joint3": -1.2,
+      "joint4": 0.0,
+      "joint5": 0.7,
+      "joint6": 0.0,
+      "joint7": 0.025,
+      "joint8": -0.025,
+    }
+
+  action: # This is used for action manager
+    arm: ik_curobo
+    eef: binary
+
+  planner:
+    ik:
+      type: "piper_x"
+      enable: true
+      ik_num_instances: 2
+      ik_batch_size: 8
+      ik_num_seeds: 20
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+    motiongen:
+      type: "piper_x"
+      enable: true
+      batch_size: 8
+      debug: false
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+    arm:
+      type: "default"
+      mode: position
+    eef:
+      type: "default"

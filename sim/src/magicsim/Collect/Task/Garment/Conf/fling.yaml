@@ -1,0 +1,12 @@
+hydra:
+  searchpath:
+    - pkg://magicsim.Task.Garment.Conf
+
+env_string: FlingEnv-V0
+defaults:
+  - /fling_env@env
+  - global_planner: default
+  - atomic_skill: default
+  - auto_collect: default
+  - record: default
+  - task: default

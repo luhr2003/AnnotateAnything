@@ -1,0 +1,69 @@
+Vega1pSharpa: # Robot name — parked-base variant for open-loop tabletop grasps.
+  name: "vega1p_sharpa"  # keys into ROBOT_DICT -> Vega1pSharpaCfg
+  type: "mobilemanip"
+  common:
+    # Park the holonomic base ~1.3m behind the desk centered at world origin.
+    # Bumped from 1.0m so MobileMoveL has room for a wide pre_grasp standoff
+    # (pre_grasp_offset 0.25m along approach × 2 arms) without the body
+    # intersecting the table on the way in.
+    # ±5cm in xy adds parked-base diversity for data collection without
+    # crossing the safety margin on either side.
+    initial_pos_range: [-1.5, -0.5, 0.01, -1.25, 0.5, 0.01]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+  action:
+    base_action: holonomic_action
+    arm_action: ik_pink
+    eef_action: joint_pos
+
+  planner:
+    dual_mode: true
+    base_joint_names: ["dummy_base_prismatic_x_joint", "dummy_base_prismatic_y_joint", "dummy_base_revolute_z_joint"]
+    ik:
+      type: "vega1p_sharpa"
+      enable: true
+      ik_num_instances: 1
+      ik_batch_size: 1
+      ik_num_seeds: 32
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+      relative_to_world_frame: false
+      eef_num: 2
+      debug: true
+      paired: true
+    motiongen:
+      type: "vega1p_sharpa"
+      enable: true
+      batch_size: 1
+      debug: true
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      relative_to_world_frame: false
+      eef_num: 2
+    body:
+      type: p_controller
+      p_controller:
+        kp_angular_turning_only: 2
+        kd_angular_turning_only: 1
+        kp_linear_x: 4
+        kp_linear_y: 4
+        kp_angular: 2
+        kd_linear_x: 1.5
+        kd_linear_y: 1.5
+        min_vel: -0.4
+        max_vel: 0.8
+        linear_dead_zone: 0.1
+        angular_dead_zone: 0.2
+        nav_heading_target: 0
+    arm:
+      type: default
+    eef:
+      type: default
+  physics:
+    wheel_base: 0.01
+    robot_radius: 0.8
+  reset: default
+  randomize_joint:
+    mean: 0.0
+    std: 0.1

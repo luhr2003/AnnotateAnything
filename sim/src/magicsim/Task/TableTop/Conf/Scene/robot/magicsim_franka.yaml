@@ -1,0 +1,24 @@
+Franka1: # This is the robot name
+  name: "franka" # this is used for retrieval of articulation cfg
+  type: "manipulator"
+  common:
+    # Initial position range (relative to environment offset)
+    initial_pos_range: [0, 0, 1.0, 0, 0, 1.0]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+    # Initial orientation range
+    initial_ori_range: [0, 0, 0, 0, 0, 0]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+    # Initial joint position for the robot
+    initial_joint_pos: {
+      "panda_joint1": 0.0,
+      "panda_joint2": -0.785,
+      "panda_joint3": 0.0,
+      "panda_joint4": -2.356,
+      "panda_joint5": 0.0,
+      "panda_joint6": 1.571,
+      "panda_joint7": 0.785,
+      "panda_finger_joint1": 0.04,
+      "panda_finger_joint2": 0.04,
+    }
+
+  action: # This is used for action manager
+    arm: ik_curobo  # batched GPU IK via CuRobo — fast and parallel
+    eef: binary     # binary gripper open/close

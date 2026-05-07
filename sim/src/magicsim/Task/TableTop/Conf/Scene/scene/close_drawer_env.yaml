@@ -1,0 +1,54 @@
+background:
+  intensity: [1500, 1500]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+  ]
+
+light:
+  light_1:
+    types: ["Rect"]
+    common:
+      initial_pos_range: [0, 0, 0, 0, 0, 0]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      color_temperature_range: [5000, 5000]
+      color_range: [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]
+    Rect:
+      intensity_range: [3000, 3000]
+      width_range: [2.0, 2.0]
+      height_range: [2.0, 2.0]
+
+objects:
+  simple_desk:
+    usd: [
+      "$MAGICSIM_ASSETS/Desk/Collected_cline/cline_inst_base.usd",
+    ]
+    random: false
+    num_per_env: 1
+    default_material: true
+    simple_desk_1:
+      pos: [0.0, 0.0, 0.0]
+      ori: [0.0, 0.0, 90.0]
+      visual:
+        scale: [2, 1.5, 1.0]
+        color:
+          - [0.6, 0.5, 0.4]
+      physics:
+        type: "geometry"
+        collision: true
+
+  articulation_items:
+    common:
+      initial_pos_range: [1.2, -0.3, 1.4, 0.8, 0.2, 1.4]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      scale: [1, 1, 1]
+    usd: ["$MAGICSIM_ASSETS/Articulated/Drawer/46230/Object.usd"]
+    num_per_env: 1
+    random: false
+    default_material: true
+    articulation_items_1:
+      visual:
+        scale: [1, 1, 1]
+      physics:
+        type: "articulation"
+        collision: true
+        fixed_base: false

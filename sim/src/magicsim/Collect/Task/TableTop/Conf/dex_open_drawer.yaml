@@ -1,0 +1,8 @@
+env_string: DexOpenDrawerEnv-V0
+defaults:
+  - env: dex_open_drawer_env
+  - global_planner: default
+  - atomic_skill: dex_default
+  - auto_collect: default
+  - record: default
+  - task: dex_default

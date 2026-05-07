@@ -1,0 +1,42 @@
+# LocoOpenDoor (push variant): g1 at (0,0,0), push-door asset.
+background:
+  intensity: [1500, 1500]
+  texture:
+    - "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr"
+
+light:
+  light_1:
+    types: ["Rect"]
+    common:
+      initial_pos_range: [0, 0, 0, 0, 0, 0]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      color_temperature_range: [5000, 5000]
+      color_range: [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]
+    Rect:
+      intensity_range: [3000, 3000]
+      width_range: [2.0, 2.0]
+      height_range: [2.0, 2.0]
+
+objects:
+  articulation_items:
+    common:
+      # door_push USD bbox: x ∈ [-1.07, 1.07], z ∈ [-0.09, 2.79]; asset's
+      # annotated bottom_center is at local z=-0.09. Placing the object at
+      # world z = 0.09 puts the door's bottom on the ground and the annotated
+      # handle (local z ≈ 0.87) at world z ≈ 0.96 — a normal doorknob height.
+      # x=1.0 puts the door 1m in front of the g1 spawn range; joint axis is
+      # the world z (revolute hinge_joint).
+      initial_pos_range: [1.0, 0.0, 0.09, 1.0, 0.0, 0.09]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      scale: [1, 1, 1]
+    usd: ["$MAGICSIM_ASSETS/Articulated/door_push/Object.usd"]
+    num_per_env: 1
+    random: false
+    default_material: true
+    articulation_items_1:
+      visual:
+        scale: [1, 1, 1]
+      physics:
+        type: "articulation"
+        collision: true
+        fixed_base: false

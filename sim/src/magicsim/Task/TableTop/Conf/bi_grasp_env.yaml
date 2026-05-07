@@ -1,0 +1,17 @@
+timeout_steps: 100000
+target_obj_name: basket
+# Termination thresholds — see BiGraspEnv.__init__ for the geometry
+# rationale. Basket settles at world z ≈ 0.99 with prim origin at the
+# bottom; handles are 0.36 m above and 0.30+ m lateral, so eef-to-origin
+# at a successful grasp is ~0.57 m.
+lift_threshold: 1.20         # ~21 cm vertical lift triggers success
+                              # — retrieval offset is 0.30 m so basket
+                              # tops out near 1.29; 1.20 demands a real
+                              # carry, not a first-cm twitch off the table.
+eef_close_threshold: 0.70    # both eefs within 70 cm of basket origin
+fall_threshold: 0.5          # basket bottom z < 0.5 → fell off table
+defaults:
+  - Scene: bi_grasp_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination

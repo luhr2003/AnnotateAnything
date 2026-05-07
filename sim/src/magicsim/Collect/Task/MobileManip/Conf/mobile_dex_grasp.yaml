@@ -1,0 +1,8 @@
+env_string: MobileDexGraspEnv-V0
+defaults:
+  - env: mobile_dex_grasp_env
+  - global_planner: sharpa_default
+  - atomic_skill: dex_grasp
+  - auto_collect: default
+  - record: default
+  - task: dex_grasp

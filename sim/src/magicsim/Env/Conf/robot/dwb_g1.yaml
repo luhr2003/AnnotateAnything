@@ -1,0 +1,77 @@
+Robot1: # This is the robot name
+  name: "g1" # this is used for retreival articulation cfg
+  type: "humanoid"
+  common:
+    # Initial position range (relative to environment offset)
+    initial_pos_range: [-2, 0, 0.9, -2, 0, 0.9]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+    # Initial orientation range
+    initial_ori_range: [0, 0, 0, 0, 0, 0]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+    # Initial joint position for the robot (can be empty for now)
+    initial_joint_pos: {}
+
+  action: # This is used for action manager
+    base_action: wbc
+    arm_action: ik_abs
+    eef_action: joint_pos
+  planner: # This is used for planner manager
+    # Dual mode configuration: enables both locked base and free base planning
+    dual_mode: true
+    base_joint_names: ["base_x", "base_y", "base_h", "base_z"]  # Virtual base joint names in FREE config
+    ik:
+      type: "g1"
+      enable: false
+      ik_num_instances: 1
+      ik_batch_size: 8
+      ik_num_seeds: 20
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+      relative_to_world_frame: false
+    motiongen:
+      type: "g1"
+      enable: false
+      batch_size: 1
+      debug: false
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      relative_to_world_frame: false
+    body:
+      type: nav
+      dwb_holonomic:        # dwb_type 自动识别
+        max_accel_vx: 13.5
+        max_accel_vy: 13.5
+        max_yaw_accel: 13.5
+        w_goal: 4.0
+        w_path: 2.6
+        w_vy: 2.6
+        num_rollout_steps: 120
+        dilate_radius: 0.4
+        robot_type: humanoid
+      p_controller:
+        kp_linear_x: 6
+        kp_linear_y: 4
+        kp_angular: 2
+        kd_linear_x: 1
+        kd_linear_y: 1
+        min_vel: -0.4
+        max_vel: 0.8
+        linear_dead_zone: 0.1
+        angular_dead_zone: 0.05
+    # arm:
+    #   type: default
+    # eef:
+    #   type: default
+    arm:
+      type:
+    eef:
+      type:
+
+  reset: default # default or random - default: use default joint positions, random: randomize joints with gaussian offset
+  # Parameters for random reset (only used when reset: random)
+  randomize_joint:
+    mean: 0.0  # Mean of gaussian noise
+    std: 0.1   # Standard deviation of gaussian noise
+  physics:
+    wheel_base: 0.5
+    robot_radius: 0.46

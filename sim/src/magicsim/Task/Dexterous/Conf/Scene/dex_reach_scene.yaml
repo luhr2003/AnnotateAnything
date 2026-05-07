@@ -1,0 +1,5 @@
+defaults:
+  - scene: dex_reach_env
+  - sim: sim_config
+  - camera: grasp_camera
+  - robot: single_franka_xhand

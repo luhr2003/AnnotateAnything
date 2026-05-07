@@ -1,0 +1,8 @@
+env_string: BiDexGraspEnv-V0
+defaults:
+  - env: bi_dex_grasp_env
+  - global_planner: sharpa_default
+  - atomic_skill: bi_dex_grasp
+  - auto_collect: default
+  - record: default
+  - task: bi_dex_grasp

@@ -1,0 +1,6 @@
+timeout_steps: 2000000
+defaults:
+  - Scene: loco_nav_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination

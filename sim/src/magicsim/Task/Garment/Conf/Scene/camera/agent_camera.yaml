@@ -1,0 +1,34 @@
+enable_tiled: False
+colorize_depth: True
+camera0:
+  camera:
+    type: camera
+    mesh: kinect
+    resolution: [512, 512]
+    frequency: 30
+    focal_length: 0.05
+    focus_distance: 10
+    mode: RGB
+    pos: [0, 0, 2.5]
+    ori: [0, 0, 0]
+
+    random:
+      pos:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+      ori:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+
+    action_noise:
+      pos:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+      ori:
+        min: [0, 0, 0]
+        max: [0, 0, 0]
+  annotator:
+    enabled: True
+    rgb_capture:
+      type: rgb
+      device: cpu

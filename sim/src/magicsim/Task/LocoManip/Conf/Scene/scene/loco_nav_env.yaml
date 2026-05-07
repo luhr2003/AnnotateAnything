@@ -1,0 +1,86 @@
+# Scene for LocoNav: single table randomized within env space.
+
+room:
+  # No interior room; bake just the ground + lights + one target table.
+
+ground:
+  geometry: "cube"
+  thickness: 0.1
+  materials:
+    - type: mdl
+      mdl_path: "$MAGICSIM_ASSETS/Material/Base/Textiles/"
+  physics_material:
+    static_friction: 1.0
+    dynamic_friction: 1.0
+    restitution: 0.0
+    friction_combine_mode: "multiply"
+    restitution_combine_mode: "multiply"
+    compliant_contact_stiffness: 0.0
+    compliant_contact_damping: 0.0
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr",
+  ]
+
+light:
+  light_1:
+    types: ["Rect", "Sphere", "Cylinder", "Dome"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+
+objects:
+  target_table:
+    common:
+      # Randomize the table pose inside env_space each reset.
+      # x/y anywhere in a 6x6 square around the origin; z fixed at 0 (on ground).
+      # Yaw ∈ [0, 360°); roll/pitch zero.
+      initial_pos_range: [-3.0, -3.0, 0.0, 3.0, 3.0, 0.0]
+      initial_ori_range: [0.0, 0.0, 0.0, 0.0, 0.0, 360.0]
+    usd: [
+      "$MAGICSIM_ASSETS/Desk/Collected_appleseed_coffeetable/appleseed_coffeetable_inst_base.usd",
+      "$MAGICSIM_ASSETS/Desk/Collected_cline/cline_inst_base.usd",
+      "$MAGICSIM_ASSETS/Desk/Collected_oaktablesmall/oaktablesmall_inst_base.usd",
+      "$MAGICSIM_ASSETS/Desk/Collected_willowbench/willowbench_inst_base.usd",
+    ]
+    random: true
+    num_per_env: 1
+    semantic_label:
+    default_material: True
+    target_table_1:
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        color:
+          - [0.8, 0.7, 0.6]
+          - [0.6, 0.5, 0.4]
+          - [0.4, 0.3, 0.2]
+          - [0.2, 0.1, 0.0]
+        visual_material:
+          material_usd_folder: "$MAGICSIM_ASSETS/Material/Garment"
+      physics:
+        type: "geometry"
+        collision: true

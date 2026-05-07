@@ -1,0 +1,8 @@
+env_string: LocoReachEnv-V0
+defaults:
+  - env: loco_reach_env
+  - global_planner: default
+  - atomic_skill: default
+  - auto_collect: default
+  - record: default
+  - task: default

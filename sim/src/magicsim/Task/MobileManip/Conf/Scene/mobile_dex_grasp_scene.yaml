@@ -1,0 +1,10 @@
+defaults:
+  - scene: mobile_dex_grasp_env
+  - sim: sim_config
+  - camera: agent_camera
+  # cuRobo IK arm action variant — same 14-D ``[right(7) | left(7)]``
+  # API as pink IK but each sim step's IK is collision-checked against
+  # the scene world (the desk pushed in via ``update_obstacles``) and
+  # robot self-collision spheres. Switched in to stop pink IK clipping
+  # the sharpa fingers through the table during the dex-grasp drive.
+  - robot: single_vega1pSharpa_curobo

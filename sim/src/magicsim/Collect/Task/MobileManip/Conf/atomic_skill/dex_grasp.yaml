@@ -1,0 +1,38 @@
+Reach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+
+MobileReach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+  robot_id: 0
+  eef_num: 2
+  use_left_current: true
+  robot_type: mobilemanip
+
+RetractReach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+  robot_id: 0
+  eef_num: 2
+  use_left_current: true
+
+# DexGrasp on vega 1P + Sharpa right hand. Sharpa annotations carry 22-DOF
+# joint targets per phase, so ``hand_joint_dim=22``. ``hand_id=0`` selects
+# the right arm (vega convention: 0=right, 1=left).
+DexGrasp:
+  pre_grasp_offset: 0.1
+  retrieval_offset: 0.2
+  mobile: true
+  hand_type: "sharpa"
+  hand_joint_dim: 22
+  robot_id: 0
+  hand_id: 0
+  # ``reactive=True`` makes DexGrasp re-fetch coarse/fine/final poses
+  # from the current bottle world pose on entry to each phase
+  # (``_update_poses_from_object_pose``). NOT the same as
+  # ``MobileMoveL.reactive`` (which mid-trajectory re-plans MotionGen
+  # every 50 steps and was the actual L_arm-drawing-circles culprit —
+  # that one stays off in global_planner/sharpa_default.yaml).
+  reactive: true
+  debug: true

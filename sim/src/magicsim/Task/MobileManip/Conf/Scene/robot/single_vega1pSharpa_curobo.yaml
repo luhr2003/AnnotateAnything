@@ -1,0 +1,73 @@
+Vega1pSharpa: # Robot name
+  name: "vega1p_sharpa"  # keys into ROBOT_DICT -> Vega1pSharpaCfg
+  type: "mobilemanip"
+  common:
+    initial_pos_range: [-1, 0.0, 0.01, -1, 0.0, 0.01]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+  action:
+    base_action: holonomic_action
+    # cuRobo IK variant — same 14-D ``[right_pose(7) | left_pose(7)]``
+    # input shape as ``ik_pink`` but each sim step runs cuRobo's
+    # ``InverseKinematics`` (vega1psharpa.py:769 ``DualCuroboIKActionCfg``)
+    # which DOES check self-collision + scene-collision per step, unlike
+    # pink IK. Use this variant when the pink-IK trajectory clips
+    # through the table or self-collides during dex-grasp.
+    arm_action: ik_dual_curobo
+    eef_action: joint_pos
+
+  planner:
+    # Same planner config as ``single_vega1pSharpa.yaml`` — the cuRobo IK
+    # action term has its OWN solver internal to the action; PlannerManager's
+    # DualIKServer / DualMotionGenServer here are still useful for goalset
+    # IK and trajectory planning the dex-grasp skill consumes upstream.
+    dual_mode: true
+    base_joint_names: ["dummy_base_prismatic_x_joint", "dummy_base_prismatic_y_joint", "dummy_base_revolute_z_joint"]
+    ik:
+      type: "vega1p_sharpa"
+      enable: true
+      ik_num_instances: 1
+      ik_batch_size: 1
+      ik_num_seeds: 32
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+      relative_to_world_frame: false
+      eef_num: 2
+      debug: true
+      paired: true
+    motiongen:
+      type: "vega1p_sharpa"
+      enable: true
+      batch_size: 1
+      debug: true
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      relative_to_world_frame: false
+      eef_num: 2
+    body:
+      type: p_controller
+      p_controller:
+        kp_angular_turning_only: 2
+        kd_angular_turning_only: 1
+        kp_linear_x: 4
+        kp_linear_y: 4
+        kp_angular: 2
+        kd_linear_x: 1.5
+        kd_linear_y: 1.5
+        min_vel: -0.4
+        max_vel: 0.8
+        linear_dead_zone: 0.1
+        angular_dead_zone: 0.2
+        nav_heading_target: 0
+    arm:
+      type: default
+    eef:
+      type: default
+  physics:
+    wheel_base: 0.01
+    robot_radius: 0.8
+  reset: default
+  randomize_joint:
+    mean: 0.0
+    std: 0.1

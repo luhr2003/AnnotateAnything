@@ -1,0 +1,38 @@
+room:
+  hide_top_walls: true
+  simple_room:
+    usd: ["$MAGICSIM_ASSETS/Room/Collected_SimpleRoom"]
+    random: True
+    simple_room_1:
+      pos: [0.0, 0.0, 0.0]
+      ori: [0.0, 0.0, 0]
+    annotation: "Annotation"
+
+navmesh:
+  # USD structure
+  geometry_root: "/Root"
+  volume_parent: "/Root"
+  volume_type: 0  # 0 = include volume
+
+  # Baking parameters
+  bake_timeout_s: 600.0
+
+  # Agent parameters (in centimeters and degrees)
+  agent_height_cm: 100.0
+  agent_radius_cm: 25.0
+  max_step_height_cm: 25.0
+  max_floor_slope_deg: 30.0
+  agent_island_radius_cm: 5
+
+  # NavMesh behavior
+  auto_exclude_rigid_bodies: False
+
+  # NavMesh transform offset (in meters)
+  navmesh_offset_x_m: 0.0
+  navmesh_offset_y_m: 0.0
+  navmesh_offset_z_m: -1
+
+  # Logging
+  verbose: True
+
+occupancymap:

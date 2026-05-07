@@ -1,0 +1,249 @@
+# ============================================================
+# Category configuration for grasp generation
+# ============================================================
+
+# ============================================================
+# cat1: edge_rim
+#
+# Intended for:
+# - boxes
+# - bins
+# - bowls with rims
+# - trays with rims
+# - open containers
+#
+# Main idea:
+# - detect top or outer rim / edge regions
+# - thumb opposes fingers across the edge or rim
+# - palm should stay away
+# ============================================================
+cat1:
+  region_proposal:
+    mode: "top_rim_or_edge"
+    top_band_ratio: 0.20
+    prefer_boundary_points: true
+    prefer_high_normal_variation: true
+    prefer_outer_perimeter: true
+    require_accessibility: true
+    min_segment_length: 0.05
+    max_regions: 100
+    anchor_nms_radius: 0.01
+    # Keep only anchors whose surface normal points within 45° of straight up.
+    # Selects top-rim / basket-edge geometry; change to a horizontal vector
+    # (e.g. [1,0,0]) to target XY-plane edges instead.
+    # k_neighbors: how many surface points form the local neighborhood.
+    # Needs to be large enough that the neighborhood spans both sides of the
+    # rim (wall + top face), so the PCA of neighbor normals captures the
+    # horizontal→vertical transition.
+    # Sample densely then discard the bottom 70 % before the expensive kNN /
+    # descriptor pass — keeps ~30 000 rim-zone points out of 100 000 sampled.
+    pre_filter_top_ratio: 0.30
+    k_neighbors: 64
+    # Own-normal direction filter: keep anchors whose surface normal points within
+    # normal_filter_tol_deg of normal_filter_dir.  [0,0,1] selects top-facing
+    # normals — points on the top rim surface where neighbourhood normals flip
+    # from wall-outward to top-face-upward.  Set to null to disable.
+    normal_filter_dir: [0, 0, 1]
+    normal_filter_tol_deg: 60.0
+    # Maximum edge thickness the hand can straddle (~6 cm for a heavy basket rim).
+    # No minimum — thinner edges are always acceptable.
+    grasp_width_max: 0.06
+
+  contact_logic:
+    contact_template: "edge_rim"
+    require_thumb_opposition: true
+    require_palm_clearance: true
+    require_edge_thickness_check: true
+    adaptive_contact_mode: true
+    cat1_contact_mode: "auto"
+    pad_contact_min_width_ratio: 0.55
+    pad_contact_min_local_width: 0.024
+
+  seed_logic:
+    seed_template: "edge_rim"
+    default_num_seeds_per_region: 8
+    approach_family:
+      - "outside_in"
+      - "slightly_top_down"
+
+  optimization_logic:
+    objective_template: "edge_rim"
+
+  filtering:
+    reject_if_no_valid_thumb_opposition: true
+    reject_if_palm_collision: true
+    keep_top_k_per_region: 10
+
+
+# ============================================================
+# cat2: bottom_band
+#
+# Intended for:
+# - monitor-like panels
+# - slab-like objects with accessible lower edge
+# - tray lips
+# - plate-like objects only when lower band is finger-accessible
+#
+# Main idea:
+# - fingers support mainly from below
+# - thumb stabilizes or opposes
+# - palm is not the main support
+# ============================================================
+cat2:
+  region_proposal:
+    mode: "bottom_band"
+    bottom_clearance_from_min_z: 0.06
+    pre_filter_bottom_clearance: 0.06
+    max_regions: 100
+    anchor_nms_radius: 0.01
+    k_neighbors: 64
+    grasp_width_min: 0.004
+    grasp_width_max: 0.08
+    accessibility_min: 0.05
+    perimeter_min: 0.10
+    down_score_min: 0.0
+    z_outlier_band_width: 0.04
+    # Allow side-facing (XY) and downward-facing (-Z) anchors, but reject
+    # upward-facing (+Z) ones.
+    normal_max_z: 0.10
+
+  contact_logic:
+    contact_template: "bottom_band"
+    require_thumb_opposition: true
+    require_from_below_bias: true
+    require_palm_clearance: true
+
+  seed_logic:
+    seed_template: "bottom_band"
+    default_num_seeds_per_region: 10
+    approach_family:
+      - "from_below"
+      - "below_and_forward"
+
+  optimization_logic:
+    objective_template: "bottom_band"
+
+  filtering:
+    reject_if_no_under_support: true
+    reject_if_palm_collision: true
+    keep_top_k_per_region: 10
+
+
+# ============================================================
+# cat3: side_wrap
+#
+# Intended for:
+# - large jars
+# - cylinders
+# - thick bottles
+# - canisters
+# - bulky objects held from the side
+#
+# Main idea:
+# - lateral thumb-finger enclosure around a side region
+# - use side band / cylindrical patch logic
+# - palm may be near, but is not the primary support assumption
+# ============================================================
+cat3:
+  region_proposal:
+    mode: "side_band"
+    side_height_range_ratio: [0.25, 0.75]
+    require_wrap_suitability: true
+    require_accessibility: true
+    min_segment_area: 0.01
+    max_regions: 120
+    anchor_nms_radius: 0.02
+    k_neighbors: 48
+    grasp_width_min: 0.015
+    grasp_width_max: 0.20
+    side_score_min: 0.55
+    perimeter_min: 0.05
+    accessibility_min: 0.10
+    wrap_balance_min: 0.35
+    uniform_azimuth_bins: 12
+    uniform_height_bins: 4
+    # Side-wrap normals point outward from all horizontal directions, so no
+    # single reference direction applies — filter disabled.
+    normal_filter_dir: null
+    normal_filter_tol_deg: 45.0
+
+  contact_logic:
+    contact_template: "side_wrap"
+    require_thumb_opposition: true
+    require_lateral_wrap: true
+    require_radius_check: true
+
+  seed_logic:
+    seed_template: "side_wrap"
+    default_num_seeds_per_region: 10
+    approach_family:
+      - "side_in"
+      - "side_wrap"
+
+  optimization_logic:
+    objective_template: "side_wrap"
+
+  filtering:
+    reject_if_wrap_too_shallow: true
+    keep_top_k_per_region: 10
+
+
+# ============================================================
+# cat4: convex_hold
+#
+# Intended for:
+# - convex bottles
+# - cans
+# - jars
+# - rounded appliance shells
+# - other one-hand convex-like holds
+#
+# Main idea:
+# - use the direct USD mesh, not convex piece assets
+# - pick smooth accessible side anchors on the convex outer band
+# - seed a one-hand thumb-finger-palm hold around that side patch
+# ============================================================
+cat4:
+  region_proposal:
+    mode: "convex_hold"
+    side_height_range_ratio: [0.18, 0.82]
+    top_height_range_ratio: [0.72, 1.00]
+    max_regions: 40
+    anchor_nms_radius: 0.02
+    k_neighbors: 48
+    grasp_width_min: 0.01
+    grasp_width_max: 0.16
+    top_grasp_enabled: true
+    side_score_min: 0.45
+    top_normal_min_z: 0.55
+    perimeter_min: 0.05
+    accessibility_min: 0.10
+    top_accessibility_min: 0.05
+    support_min: 0.52
+    top_support_min: 0.35
+    uniform_azimuth_bins: 12
+    uniform_height_bins: 3
+    top_uniform_azimuth_bins: 8
+    top_region_fraction: 0.35
+    min_top_regions_if_available: 4
+
+  contact_logic:
+    contact_template: "convex_hold"
+    require_thumb_opposition: true
+    allow_palm_support: true
+    use_direct_usd_surface: true
+
+  seed_logic:
+    seed_template: "convex_hold"
+    default_num_seeds_per_region: 16
+    approach_family:
+      - "side_in"
+      - "side_wrap"
+      - "top_down"
+
+  optimization_logic:
+    objective_template: "convex_hold"
+
+  filtering:
+    reject_if_no_thumb_opposition: true
+    keep_top_k_per_region: 10

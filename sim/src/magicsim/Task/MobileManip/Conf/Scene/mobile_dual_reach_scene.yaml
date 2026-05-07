@@ -1,0 +1,8 @@
+defaults:
+  - scene: mobile_dual_reach_env
+  - sim: sim_config
+  - camera: agent_camera
+  # Aligned with ``mobile_dex_grasp_scene`` so dual-reach and dex-grasp
+  # share the same vega config — pink IK arm action (no cuRobo IK action),
+  # ``initial_pos_range=(0,0,0.1)``, identical actuator + planner blocks.
+  - robot: single_vega1pSharpa

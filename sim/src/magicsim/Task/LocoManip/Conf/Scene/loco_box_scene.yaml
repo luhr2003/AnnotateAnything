@@ -1,0 +1,6 @@
+defaults:
+  - scene: loco_box_env
+  - sim: sim_humanoid
+  - camera: custom_camera
+  - robot: single_g1_loco_box
+  - nav: default

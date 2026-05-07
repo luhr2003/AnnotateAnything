@@ -1,0 +1,135 @@
+# Fire Environment Configuration
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+light: {}
+  # light_1:
+  #   types: ["Rect", "Sphere", "Cylinder"]
+  #   common:
+  #     initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+  #     initial_ori_range: [-30, -30, -30, 30, 30, 30]
+  #     color_temperature_range: [3000, 9000]
+  #     color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+  #   Rect:
+  #     intensity_range: [2000, 5000]
+  #     width_range: [1.0, 3.0]
+  #     height_range: [1.0, 3.0]
+  #   Sphere:
+  #     intensity_range: [5000, 10000]
+  #     radius_range: [0.1, 0.5]
+  #   Cylinder:
+  #     intensity_range: [4000, 8000]
+  #     radius_range: [0.1, 0.3]
+  #     length_range: [1.0, 2.0]
+
+# Fire configuration (lowercase 'fire')
+fire:
+  fire_1:
+    # ========== Transform ==========
+    pos: [-3.0, 0.0, 5.0]       # World position [x, y, z]
+    scale: 0.1                   # Overall scale factor (SMALL fire)
+
+    # ========== Render Layer ==========
+    layer: 0                     # Flow render layer (must be unique per fire)
+
+    # ========== Emitter Geometry ==========
+    radius: 1.0                 # Emitter radius (size of emission area)
+
+    # ========== Emitter Physics (CRITICAL!) ==========
+    # These parameters control how fire particles are emitted
+    velocity: 150.0              # Initial upward velocity in Z direction (higher = faster rising)
+                                 # Note: This is converted to [0, 0, velocity] vector internally
+                                 # Recommended: 50-200 for scale=0.1, 20-80 for scale=1.0
+    temperature: 3.0             # Heat value (affects buoyancy and color)
+                                 # Recommended: 2.0-5.0
+    density_emit: 400.0          # Emission intensity (higher = more visible fire)
+                                 # Recommended: 200-500 for scale=0.1, 100-300 for scale=1.0
+
+    # ========== Simulation Physics (Makes fire look alive!) ==========
+    # These parameters control fire behavior during simulation
+    buoyancy: 2.0                # Rising force from heat (higher = stronger upward motion)
+                                 # Recommended: 1.0-3.0
+    vorticity: 40.0              # Turbulent swirling (higher = more chaotic motion)
+                                 # Recommended: 20-50 for realistic fire
+    dissipation: 0.15            # Cooling/fading rate (lower = longer lasting flames)
+                                 # Recommended: 0.1-0.3
+    divergence: -150.0           # Expansion force (negative = expansion, positive = contraction)
+                                 # Recommended: -80 to -200
+    cell_size: 0.5               # Simulation resolution (smaller = finer detail, slower)
+                                 # Recommended: 0.5 for scale=0.1, 0.05-0.1 for scale=1.0
+
+    # ========== Rendering ==========
+    # These parameters affect visual appearance
+    temperature_scale: 1.5       # Temperature-based brightness multiplier
+                                 # Recommended: 1.0-2.0
+    density_scale: 2.0           # Density-based visibility multiplier
+                                 # Recommended: 1.0-3.0
+
+    # ========== Color ==========
+    colormap: "fire"             # Color preset: "fire", "blue", "green", "purple", "white"
+                                 # Or provide custom RGBA points as list
+
+  fire_2:
+    pos: [-1.0, 0.0, 5.0]
+    scale: 0.5                   # MEDIUM fire (5x larger than fire_1)
+    layer: 1
+    radius: 1.0
+    velocity: 80.0               # Reduced from 150 (roughly 2x smaller)
+    temperature: 3.0
+    density_emit: 250.0          # Reduced from 400 (roughly 1.6x smaller)
+    buoyancy: 2.0
+    vorticity: 40.0
+    dissipation: 0.15
+    divergence: -150.0
+    cell_size: 0.2               # Reduced from 0.5 (2.5x smaller for better detail)
+    temperature_scale: 1.5
+    density_scale: 2.0
+    colormap: "blue"
+
+  fire_3:
+    pos: [1.0, 0.0, 5.0]
+    scale: 1.0                   # LARGE fire (10x larger than fire_1)
+    layer: 2
+    radius: 1.0
+    velocity: 50.0               # Reduced from 150 (3x smaller)
+    temperature: 3.0
+    density_emit: 200.0          # Reduced from 400 (2x smaller)
+    buoyancy: 2.0
+    vorticity: 40.0
+    dissipation: 0.15
+    divergence: -150.0
+    cell_size: 0.1               # Reduced from 0.5 (5x smaller for finer detail)
+    temperature_scale: 1.5
+    density_scale: 2.0
+    colormap: "green"
+
+  fire_4:
+    pos: [3.0, 0.0, 5.0]
+    scale: 0.1
+    layer: 3
+    radius: 1.0
+    velocity: 150.0
+    temperature: 3.0
+    density_emit: 400.0
+    buoyancy: 2.0
+    vorticity: 40.0
+    dissipation: 0.15
+    divergence: -150.0
+    cell_size: 0.5
+    temperature_scale: 1.5
+    density_scale: 2.0
+    colormap: "purple"
+
+# Empty objects configuration (required by SceneManager)
+objects: {}

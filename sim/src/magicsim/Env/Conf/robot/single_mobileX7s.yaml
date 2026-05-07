@@ -1,0 +1,12 @@
+MobileX7s: # Robot name
+  name: "mobile_x7s" # Used to retrieve the articulation cfg from ROBOT_DICT
+  type: "mobilemanip"
+  common:
+    initial_pos_range: [0, 0, 0.1, 0, 0, 0.1]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+  action:
+    base_action: holonomic_action
+    arm_action: joint_pos
+    eef_action: joint_pos
+  reset: randomize_joint
+  planner:

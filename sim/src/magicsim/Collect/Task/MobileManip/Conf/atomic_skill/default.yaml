@@ -1,0 +1,43 @@
+Reach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+
+MobileReach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+  robot_id: 0
+  eef_num: 2
+  use_left_current: true
+  robot_type: mobilemanip
+
+RetractReach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+  robot_id: 0
+  eef_num: 2
+  use_left_current: true
+
+Grasp:
+  pre_grasp_offset: 0.15
+  retrieval_offset: 0.2
+  mobile: true
+  reactive: true
+
+OpenDrawer:
+  pre_grasp_offset: 0.15
+  pull_distance: 0.3
+  handle_offset: [0.0, 0.0, 0.05]
+  mobile: true
+  debug: false
+  trajectory:
+    annotation_name: open_by_handle_trajectory
+    quat_format: xyzw
+
+CloseDrawer:
+  pre_push_offset: 0.15
+  handle_offset: [0.0, 0.0, 0.05]
+  mobile: true
+  debug: false
+  trajectory:
+    annotation_name: close_by_push_trajectory
+    quat_format: xyzw

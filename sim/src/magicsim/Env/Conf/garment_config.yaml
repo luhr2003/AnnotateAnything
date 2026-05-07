@@ -1,0 +1,5 @@
+defaults:
+  - scene: test_garment_env
+  - sim: sim_config
+  # - robot: single_franka_umi
+  # - camera: agent_camera

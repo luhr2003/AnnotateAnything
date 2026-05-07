@@ -1,0 +1,43 @@
+Franka1: # This is the robot name
+  name: "franka_xhand" # this is used for retrieval articulation cfg
+  type: "dexterous"
+  common:
+    # Initial position range (relative to environment offset)
+    initial_pos_range: [0, 0, 1.0, 0, 0, 1.0]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+    # Initial orientation range
+    initial_ori_range: [0, 0, 0, 0, 0, 0]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+    # Initial joint position for the robot
+    initial_joint_pos: {
+      "panda_joint1": 0.0,
+      "panda_joint2": -0.785,
+      "panda_joint3": 0.0,
+      "panda_joint4": -2.356,
+      "panda_joint5": 0.0,
+      "panda_joint6": 1.571,
+      "panda_joint7": 0.785,
+      "right_hand_thumb_rota_joint1": 0.0,
+      "right_hand_thumb_rota_joint2": 0.0,
+      "right_hand_thumb_bend_joint": 0.0,
+      "right_hand_index_bend_joint": 0.0,
+      "right_hand_index_joint1": 0.0,
+      "right_hand_index_joint2": 0.0,
+      "right_hand_mid_joint1": 0.0,
+      "right_hand_mid_joint2": 0.0,
+      "right_hand_ring_joint1": 0.0,
+      "right_hand_ring_joint2": 0.0,
+      "right_hand_pinky_joint1": 0.0,
+      "right_hand_pinky_joint2": 0.0,
+    }
+
+  action: # This is used for action manager
+    base_action:  null
+    arm_action: joint_pos
+    eef_action: joint_pos
+
+  planner:
+    arm:
+      type: "default"
+    eef:
+      type: "default"
+
+  reset: default

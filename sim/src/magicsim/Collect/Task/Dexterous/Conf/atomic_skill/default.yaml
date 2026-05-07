@@ -1,0 +1,20 @@
+Reach:
+  translation_threshold: 0.003
+  rotation_threshold: 0.025
+
+# DexGrasp on Franka + Xhand right hand (fixed base).
+# xhand annotations carry 12-DOF joint targets per phase. ``hand_id=0``
+# selects the only hand on a single-arm setup. ``mobile=false`` since the
+# base is fixed — uses MoveL (not MobileMoveL).
+DexGrasp:
+  pre_grasp_offset: 0.1
+  retrieval_offset: 0.2
+  mobile: false
+  hand_type: "xhand"
+  hand_joint_dim: 12
+  robot_id: 0
+  hand_id: 0
+  # ``reactive=True`` re-fetches coarse/fine/final poses from the current
+  # object pose on entry to each phase.
+  reactive: true
+  debug: true

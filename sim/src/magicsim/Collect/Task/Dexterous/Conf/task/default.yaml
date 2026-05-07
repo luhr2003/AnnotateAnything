@@ -1,0 +1,13 @@
+Reach:
+  obj_type: geometry
+  obj_name: cube
+  obj_id: 0
+
+DexGrasp:
+  obj_type: "rigid"
+  obj_name: "bottle"
+  obj_id: 0
+  functional_grasp: True
+  functional_part: null
+  init_limit: 50
+  max_attempt: 2

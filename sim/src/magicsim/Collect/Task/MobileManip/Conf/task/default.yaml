@@ -1,0 +1,52 @@
+MobileReach:
+  obj_type: geometry
+  obj_name: cube
+  obj_id: 0
+  init_limit: 0
+
+MobileDualReach:
+  right_obj_type: geometry
+  right_obj_name: cube
+  right_obj_id: 1
+  left_obj_type: geometry
+  left_obj_name: cube
+  left_obj_id: 0
+  init_limit: 50
+
+MobileGrasp:
+  obj_type: "rigid"
+  obj_name: "apple"
+  obj_id: 0
+  functional_grasp: false
+  functional_part: null
+  init_limit: 50
+  max_attempt: 2
+
+Grasp:
+  obj_type: "rigid"
+  obj_name: "apple"
+  obj_id: 0
+  functional_grasp: true
+  functional_part: null
+  init_limit: 50
+  max_attempt: 2
+
+MobileOpenDrawer:
+  robot_id: 0
+  hand_id: 0
+  obj_type: "articulation"
+  obj_name: "articulation_items"
+  obj_id: 0
+  joint_id: 2  # -1: all joints, 0/1/2: specific joint
+  init_limit: 50
+  max_attempt: 2
+
+MobileCloseDrawer:
+  robot_id: 0
+  hand_id: 0
+  obj_type: "articulation"
+  obj_name: "articulation_items"
+  obj_id: 0
+  joint_id: 2  # -1: all joints, 0/1/2: specific joint
+  init_limit: 50
+  max_attempt: 2

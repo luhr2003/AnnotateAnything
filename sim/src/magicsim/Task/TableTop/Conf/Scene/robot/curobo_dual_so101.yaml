@@ -1,0 +1,45 @@
+DualSO1011:
+  name: "dual_so101"
+  type: "dualmanipulator"
+  common:
+    initial_pos_range: [0, 0, 1.0, 0, 0, 1.0]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+    initial_joint_pos: {
+      "L_shoulder_pan": 0.0, "L_shoulder_lift": -0.5, "L_elbow_flex": 0.8,
+      "L_wrist_flex": 0.0, "L_wrist_roll": 0.0, "L_joints_gripper": 0.0,
+      "R_shoulder_pan": 0.0, "R_shoulder_lift": -0.5, "R_elbow_flex": 0.8,
+      "R_wrist_flex": 0.0, "R_wrist_roll": 0.0, "R_joints_gripper": 0.0,
+    }
+
+  action:
+    arm: ik_dual_curobo
+    eef: binary
+  planner:
+    dual_mode: false
+    ik:
+      # Unified single-server-per-robot layout. See MERGE_LEFT_RIGHT.md §1–§8 / §9.
+      type: "dual_so101"
+      enable: true
+      ik_num_instances: 1
+      ik_batch_size: 1
+      ik_num_seeds: 20
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+      eef_num: 2
+      paired: true
+    motiongen:
+      type: "dual_so101"
+      enable: true
+      batch_size: 1
+      debug: false
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      eef_num: 2
+
+    arm:
+      type: "default"
+      mode: position
+    eef:
+      type: "default"

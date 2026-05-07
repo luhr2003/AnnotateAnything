@@ -1,0 +1,8 @@
+env_string: DexReachEnv-V0
+defaults:
+  - env: dex_reach_env
+  - global_planner: xhand_default
+  - atomic_skill: default
+  - auto_collect: default
+  - record: default
+  - task: default

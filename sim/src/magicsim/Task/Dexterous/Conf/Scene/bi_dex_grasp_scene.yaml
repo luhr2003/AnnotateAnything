@@ -1,0 +1,5 @@
+defaults:
+  - scene: bi_dex_grasp_env
+  - sim: sim_config
+  - camera: grasp_camera
+  - robot: single_vega1pSharpa_parked

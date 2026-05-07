@@ -1,0 +1,45 @@
+Franka1:
+  name: "franka_umi"  # FrankaUMICfg — UMI gripper, see Cfg/Manipulator/FrankaUMI.py
+  type: "manipulator"
+  common:
+    # Mounted further along -x than the original (-0.30 → -0.50) so the
+    # franka has room to swing the carried garment toward the rack at
+    # +x without the wrist colliding with the cloth pre-grasp. Reach to
+    # the rack apex (≈ +0.10, +0.20, 1.65) is sqrt(0.6² + 0.2² + 0.65²)
+    # ≈ 0.89 m — at the edge of the 0.855 m envelope; the test driver
+    # only approaches the apex from a -x pullback so the wrist target
+    # stays inside reach.
+    initial_pos_range: [-0.50, 0.0, 1.0, -0.50, 0.0, 1.0]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+    # Joint init left to FRANKA_UMI_CFG defaults (panda_joint2=-1.3,
+    # panda_joint4=-2.5, panda_joint6=1.0, panda_joint7=0.0,
+    # finger=0.04). Different from the standard franka because the UMI
+    # gripper is longer / heavier and needs a more upright posture to
+    # avoid clipping itself at home.
+
+  action:
+    # ``ik_abs`` consumes the 7-vec action as the panda_hand WORLD pose
+    # directly — quat ``[0, 1, 0, 0]`` therefore drives panda_hand +z to
+    # world -z (top-down approach), no extra composition like ``ik_curobo``
+    # would apply.
+    arm: ik_abs
+    eef: binary
+
+  planner:
+    # The arm action is ``ik_abs`` (IsaacLab DLS DiffIK) which solves IK
+    # in-process every tick — no curobo planner needed. Disable both the
+    # batch IK server and motion-gen server here so they don't spin up
+    # JIT warmup / processes for nothing. (Atomic skills like Fold /
+    # Grasp re-enable these per-task; this hang demo drives the wrist
+    # pose directly, so they stay off.)
+    ik:
+      type: "franka_umi"
+      enable: false
+    motiongen:
+      type: "franka_umi"
+      enable: false
+    arm:
+      type: "default"
+      mode: position
+    eef:
+      type: "default"

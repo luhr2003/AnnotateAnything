@@ -1,0 +1,6 @@
+defaults:
+  - scene: layout_env
+  - sim: sim_config
+  - nav: test_nav_env
+  - anim: test_avatar_env
+  - camera: spatial_camera

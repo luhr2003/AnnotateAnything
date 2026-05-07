@@ -1,0 +1,215 @@
+# Canonical Sharpa collision spheres from:
+# Source collision sphere template, mirrored for the right hand.
+default_joint_positions:
+  right_thumb_CMC_FE: 0.0
+  right_thumb_CMC_AA: 0.0
+  right_thumb_MCP_FE: 0.0
+  right_thumb_MCP_AA: 0.0
+  right_thumb_IP: 0.0
+  right_index_MCP_FE: 0.0
+  right_index_MCP_AA: 0.0
+  right_index_PIP: 0.0
+  right_index_DIP: 0.0
+  right_middle_MCP_FE: 0.0
+  right_middle_MCP_AA: 0.0
+  right_middle_PIP: 0.0
+  right_middle_DIP: 0.0
+  right_ring_MCP_FE: 0.0
+  right_ring_MCP_AA: 0.0
+  right_ring_PIP: 0.0
+  right_ring_DIP: 0.0
+  right_pinky_CMC: 0.0
+  right_pinky_MCP_FE: 0.0
+  right_pinky_MCP_AA: 0.0
+  right_pinky_PIP: 0.0
+  right_pinky_DIP: 0.0
+
+collision:
+  geometry: "collision_spheres"
+
+self_collision:
+  geometry: "collision_spheres"
+  ignore:
+    right_hand_C_MC:
+      - "right_index_MCP_VL"
+      - "right_middle_MCP_VL"
+      - "right_pinky_MC"
+      - "right_ring_MCP_VL"
+      - "right_thumb_CMC_VL"
+    right_index_MCP_VL:
+      - "right_index_PP"
+      - "right_middle_MCP_VL"
+      - "right_pinky_MC"
+      - "right_ring_MCP_VL"
+      - "right_thumb_CMC_VL"
+    right_index_PP:
+      - "right_index_MP"
+    right_index_MP:
+      - "right_index_DP"
+    right_index_DP:
+      - "right_index_elastomer"
+    right_index_elastomer:
+      - "right_index_fingertip"
+    right_middle_MCP_VL:
+      - "right_middle_PP"
+      - "right_pinky_MC"
+      - "right_ring_MCP_VL"
+      - "right_thumb_CMC_VL"
+    right_middle_PP:
+      - "right_middle_MP"
+    right_middle_MP:
+      - "right_middle_DP"
+    right_middle_DP:
+      - "right_middle_elastomer"
+    right_middle_elastomer:
+      - "right_middle_fingertip"
+    right_pinky_MC:
+      - "right_pinky_MCP_VL"
+      - "right_ring_MCP_VL"
+      - "right_thumb_CMC_VL"
+    right_pinky_MCP_VL:
+      - "right_pinky_PP"
+    right_pinky_PP:
+      - "right_pinky_MP"
+    right_pinky_MP:
+      - "right_pinky_DP"
+    right_pinky_DP:
+      - "right_pinky_elastomer"
+    right_pinky_elastomer:
+      - "right_pinky_fingertip"
+    right_ring_MCP_VL:
+      - "right_ring_PP"
+      - "right_thumb_CMC_VL"
+    right_ring_PP:
+      - "right_ring_MP"
+    right_ring_MP:
+      - "right_ring_DP"
+    right_ring_DP:
+      - "right_ring_elastomer"
+    right_ring_elastomer:
+      - "right_ring_fingertip"
+    right_thumb_CMC_VL:
+      - "right_thumb_MC"
+    right_thumb_MC:
+      - "right_thumb_MCP_VL"
+    right_thumb_MCP_VL:
+      - "right_thumb_PP"
+    right_thumb_PP:
+      - "right_thumb_DP"
+    right_thumb_DP:
+      - "right_thumb_elastomer"
+    right_thumb_elastomer:
+      - "right_thumb_fingertip"
+  buffer:
+    right_hand_C_MC: 0.0
+    right_thumb_MC: 0.0
+    right_thumb_PP: 0.0
+    right_thumb_DP: 0.0
+    right_index_PP: 0.0
+    right_index_MP: 0.0
+    right_index_DP: 0.0
+    right_middle_PP: 0.0
+    right_middle_MP: 0.0
+    right_middle_DP: 0.0
+    right_ring_PP: 0.0
+    right_ring_MP: 0.0
+    right_ring_DP: 0.0
+    right_pinky_MC: 0.0
+    right_pinky_PP: 0.0
+    right_pinky_MP: 0.0
+    right_pinky_DP: 0.0
+
+geometry:
+  collision_spheres:
+    spheres:
+      right_index_PP:
+        - center: [0.023, -0.001, -0.001]
+          radius: 0.012
+        - center: [0.039, 0.0, -0.005]
+          radius: 0.0112
+      right_index_MP:
+        - center: [0.014, -0.001, 0.0]
+          radius: 0.0096
+        - center: [0.024, -0.005, 0.0]
+          radius: 0.0096
+      right_index_DP:
+        - center: [0.017, -0.003, 0.0]
+          radius: 0.0079
+        - center: [0.007, -0.003, -0.001]
+          radius: 0.0079
+      right_middle_PP:
+        - center: [0.019, 0.0, -0.001]
+          radius: 0.011
+        - center: [0.039, 0.0, -0.004]
+          radius: 0.0102
+      right_middle_MP:
+        - center: [0.011, -0.001, 0.0]
+          radius: 0.0096
+        - center: [0.024, -0.004, 0.0]
+          radius: 0.0096
+      right_middle_DP:
+        - center: [0.006, -0.003, -0.001]
+          radius: 0.0079
+        - center: [0.016, -0.003, 0.0]
+          radius: 0.0079
+      right_pinky_PP:
+        - center: [0.024, 0.0, -0.001]
+          radius: 0.011
+        - center: [0.04, 0.0, -0.002]
+          radius: 0.0102
+      right_pinky_MP:
+        - center: [0.01, -0.002, 0.0]
+          radius: 0.0096
+        - center: [0.025, -0.003, 0.0]
+          radius: 0.0096
+      right_pinky_DP:
+        - center: [0.005, -0.003, 0.001]
+          radius: 0.0079
+        - center: [0.015, -0.003, 0.0]
+          radius: 0.0079
+      right_ring_PP:
+        - center: [0.022, 0.0, -0.001]
+          radius: 0.011
+        - center: [0.036, 0.0, -0.003]
+          radius: 0.0102
+      right_ring_MP:
+        - center: [0.014, -0.001, 0.0]
+          radius: 0.0096
+        - center: [0.024, -0.005, 0.0]
+          radius: 0.0096
+      right_ring_DP:
+        - center: [0.015, -0.003, 0.0]
+          radius: 0.0079
+        - center: [0.006, -0.003, -0.001]
+          radius: 0.0079
+      right_thumb_PP:
+        - center: [0.017, 0.0, -0.002]
+          radius: 0.0116
+        - center: [0.03, 0.0, -0.003]
+          radius: 0.0109
+      right_thumb_MC:
+        - center: [0.045, -0.01, 0.008]
+          radius: 0.018
+        - center: [0.03, -0.008, 0.012]
+          radius: 0.0167
+      right_thumb_DP:
+        - center: [0.007, -0.002, 0.0]
+          radius: 0.0086
+        - center: [0.018, -0.004, -0.001]
+          radius: 0.008
+      right_hand_C_MC:
+        - center: [-0.004, -0.005, 0.059]
+          radius: 0.0227
+        - center: [-0.005, -0.002, 0.021]
+          radius: 0.0227
+        - center: [-0.007, 0.016, 0.057]
+          radius: 0.0212
+        - center: [-0.005, -0.022, 0.018]
+          radius: 0.0197
+      right_pinky_MC:
+        - center: [0.006, 0.002, -0.041]
+          radius: 0.0148
+        - center: [0.005, 0.007, -0.026]
+          radius: 0.0142
+        - center: [0.008, 0.007, -0.012]
+          radius: 0.0142

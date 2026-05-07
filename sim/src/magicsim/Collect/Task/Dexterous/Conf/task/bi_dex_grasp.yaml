@@ -1,0 +1,9 @@
+BiDexGrasp:
+  robot_id: 0
+  obj_type: "rigid"
+  obj_name: "bin"
+  obj_id: 0
+  functional_grasp: True
+  functional_part: null
+  init_limit: 100
+  max_attempt: 2

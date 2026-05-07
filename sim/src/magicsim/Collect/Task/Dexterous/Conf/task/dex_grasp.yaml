@@ -1,0 +1,8 @@
+DexGrasp:
+  obj_type: "rigid"
+  obj_name: "bottle"
+  obj_id: 0
+  functional_grasp: True   # whether to use functional grasp (True or False)
+  functional_part: null   # Part name for functional grasp (e.g., "body", "handle")
+  init_limit: 50
+  max_attempt: 2

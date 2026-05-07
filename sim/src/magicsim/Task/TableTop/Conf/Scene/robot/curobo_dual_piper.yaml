@@ -1,0 +1,51 @@
+DualPiper1: # robot name
+  name: "dual_piper" # articulation cfg key (maps to DualPiperCfg via ROBOT_DICT)
+  type: "dualmanipulator"
+  common:
+    initial_pos_range: [0, 0, 1.0, 0, 0, 1.0]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+    initial_joint_pos: {
+      "L_joint1": 0.0, "L_joint2": 1.2, "L_joint3": -1.2,
+      "L_joint4": 0.0, "L_joint5": 0.7, "L_joint6": 0.0,
+      "L_joint7": 0.025, "L_joint8": -0.025,
+      "R_joint1": 0.0, "R_joint2": 1.2, "R_joint3": -1.2,
+      "R_joint4": 0.0, "R_joint5": 0.7, "R_joint6": 0.0,
+      "R_joint7": 0.025, "R_joint8": -0.025,
+    }
+
+  action:
+    arm: ik_dual_curobo
+    eef: binary
+  planner:
+    dual_mode: false
+    ik:
+      # Unified single-server-per-robot layout (MERGE_LEFT_RIGHT.md §1–§8).
+      # `type: dual_piper` resolves to magicsim_dual_piper.yml which
+      # declares BOTH tool_frames. `hand_id` in AtomicSkill/GlobalPlanner
+      # actions now only drives target-packing (NaN for the inactive
+      # arm), not server selection.
+      type: "dual_piper"
+      enable: true
+      ik_num_instances: 1
+      ik_batch_size: 1
+      ik_num_seeds: 20
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+      eef_num: 2
+      paired: true               # see MERGE_LEFT_RIGHT.md §9
+    motiongen:
+      type: "dual_piper"
+      enable: true
+      batch_size: 1
+      debug: true
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      eef_num: 2
+
+    arm:
+      type: "default"
+      mode: position
+    eef:
+      type: "default"

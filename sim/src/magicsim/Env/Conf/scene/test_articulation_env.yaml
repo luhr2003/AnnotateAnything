@@ -1,0 +1,111 @@
+# room:
+#   hide_top_walls: true
+#   simple_room:
+#     usd: ["$MAGICSIM_ASSETS/Room/Collected_SimpleRoom"]
+#     random: True
+#     simple_room_1:
+#       pos: [0.0, 0.0, 0.8]
+#       ori: [0.0, 0.0, 0]
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+light:
+  light_1:
+      types: ["Rect", "Sphere", "Cylinder", "Dome"]
+      common:
+        initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+        initial_ori_range: [-30, -30, -30, 30, 30, 30]
+        color_temperature_range: [3000, 9000]
+        color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+      Dome:
+        intensity_range: [800, 1500]
+      Rect:
+        intensity_range: [2000, 5000]
+        width_range: [1.0, 3.0]
+        height_range: [1.0, 3.0]
+      Distant:
+        intensity_range: [2000, 5000]
+        angle_range: [0.5, 2.0]
+      Sphere:
+        intensity_range: [5000, 10000]
+        radius_range: [0.1, 0.5]
+      Cylinder:
+        intensity_range: [4000, 8000]
+        radius_range: [0.1, 0.3]
+        length_range: [1.0, 2.0]
+      Disk:
+        intensity_range: [6000, 12000]
+        radius_range: [0.2, 0.8]
+
+  light_2:
+    types: ["Rect", "Sphere", "Cylinder", "Dome"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+      radius_range: [8.0, 12.0]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+objects:
+  simple_desk:
+    usd: [
+      "$MAGICSIM_ASSETS/Desk/Collected_cline/cline_inst_base.usd",
+    ]
+    random: false
+    num_per_env: 1
+    default_material: true
+    simple_desk_1:
+      pos: [0.0, 0.0, 0.0]
+      ori: [0.0, 0.0, 90.0]
+      visual:
+        scale: [2, 1.5, 1.0]
+        color:
+          - [0.6, 0.5, 0.4]
+      physics:
+        type: "geometry"
+        collision: true
+
+  articulation_items:
+    common:
+      initial_pos_range: [-0.75, -1.0, 2.8, 0.75, 1.0, 2.8]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      scale: [1, 1, 1]
+    usd: ["$MAGICSIM_ASSETS/Articulated/Drawer/46230"]
+    num_per_env: 1
+    random: false
+    default_material: true
+    articulation_items_1:
+      visual:
+        scale: [1, 1, 1]
+      physics:
+        type: "articulation"

@@ -1,0 +1,22 @@
+env_string: LocoOpenDoorEnv-V0
+defaults:
+  - env: loco_push_door_env
+  - global_planner: default
+  - atomic_skill: default
+  - auto_collect: default
+  - record: default
+  - task: default
+  - _self_
+
+# Override LocoOpenDoor atomic_skill for rotate+push annotation
+atomic_skill:
+  LocoOpenDoor:
+    trajectory:
+      annotation_name: dex3_1_rotate_and_push_trajectory
+      quat_format: xyzw
+      phases: [approach, rotate, push]
+
+# door_push asset uses a single "hinge_joint" (not joint_<id>) — disable joint filter.
+task:
+  LocoOpenDoor:
+    joint_id: -1

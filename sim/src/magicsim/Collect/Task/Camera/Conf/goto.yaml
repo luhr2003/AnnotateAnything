@@ -1,0 +1,8 @@
+env_string: GoToEnv-V0
+defaults:
+  - env: goto_env
+  - camera_global_planner: default
+  - camera_atomic_skill: default
+  - auto_camera_collect: default
+  - record: default
+  - task: default

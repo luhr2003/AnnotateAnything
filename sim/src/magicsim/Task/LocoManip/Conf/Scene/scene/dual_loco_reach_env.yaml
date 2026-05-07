@@ -1,0 +1,144 @@
+room:
+
+background:
+  intensity: [1000, 2000]
+
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+
+light:
+  light_1:
+
+    types: ["Rect", "Sphere", "Cylinder"]
+
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+
+    Dome:
+      intensity_range: [800, 1500]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+  light_2:
+
+    types: ["Rect", "Sphere", "Cylinder"]
+
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+
+    Dome:
+      intensity_range: [800, 1500]
+      radius_range: [8.0, 12.0]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+
+objects:
+  common:
+    initial_pos_range: [-0.2, -0.2, 0.7, 0.2, 0.5, 0.7]
+    initial_ori_range: [-30, -30, -30, 30, 30, 30]
+    scale: [2, 1.5, 1.0]
+
+  cube:
+    common:
+      primitive_scale: [0.05, 0.05, 0.05]
+      initial_pos_range: [-0.5, -0.15, 0.8, -0.5, -0.15, 0.8]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      scale: [0.05, 0.05, 0.05]
+    usd: ["Cube"]
+    num_per_env: 2
+    random: False
+    semantic_label:
+
+    # Right cube (for right arm) - red, at Y=-0.15
+    cube_1:
+      pos: [-0.5, -0.15, 0.8]
+      visual:
+        scale:
+        visible:
+        color: [1.0, 0.0, 0.0]
+        size:
+        visual_material:
+          material_usd_folder:
+      physics:
+        type: "geometry"
+        mass:
+        density:
+        physics_material:
+          static_friction:
+          dynamic_friction:
+          restitution:
+        linear_velocity:
+        angular_velocity:
+        collision: False
+        track_contact_forces:
+        prepare_contact_sensor:
+        disable_stablization:
+        contact_filter_prim_paths_expr:
+
+    # Left cube (for left arm) - blue, at Y=+0.15
+    cube_2:
+      pos: [-0.5, 0.15, 0.8]
+      visual:
+        scale:
+        visible:
+        color: [0.0, 0.0, 1.0]
+        size:
+        visual_material:
+          material_usd_folder:
+      physics:
+        type: "geometry"
+        mass:
+        density:
+        physics_material:
+          static_friction:
+          dynamic_friction:
+          restitution:
+        linear_velocity:
+        angular_velocity:
+        collision: False
+        track_contact_forces:
+        prepare_contact_sensor:
+        disable_stablization:
+        contact_filter_prim_paths_expr:

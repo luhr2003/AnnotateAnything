@@ -1,0 +1,5 @@
+defaults:
+  - scene: reach_dual_env
+  - sim: sim_config
+  - camera: grasp_camera
+  - robot: curobo_dual_piper

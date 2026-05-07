@@ -1,0 +1,74 @@
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+  ]
+
+light:
+  light_1:
+    types: ["Rect"]
+    common:
+      initial_pos_range: [0, 0, 0.5, 0, 0, 0.5]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      color_temperature_range: [5000, 6500]
+      color_range: [[1.0, 1.0, 1.0], [1.0, 1.0, 1.0]]
+    Rect:
+      intensity_range: [3000, 5000]
+      width_range: [2.0, 3.0]
+      height_range: [2.0, 3.0]
+
+objects:
+  # Coffee table base. Same asset as the garment fling scene; sits at z=0
+  # so the dual_franka chest at z=1.0 reaches the basket on top.
+  simple_desk:
+    usd: [
+      "$MAGICSIM_ASSETS/Desk/Collected_appleseed_coffeetable/appleseed_coffeetable_inst_base.usd",
+    ]
+    random: false
+    default_material: True
+    num_per_env: 1
+    semantic_label: table
+    simple_desk_1:
+      pos: [0.0, 0.0, 0.0]
+      ori: [0.0, 0.0, 0.0]
+      visual:
+        scale: [2.5, 2.5, 1.0]
+        color:
+          - [0.6, 0.5, 0.4]
+      physics:
+        type: "geometry"
+        collision: true
+
+  # Basket on the table. Position / orientation fixed so the paired
+  # left/right grasp annotation stays valid per candidate. The annotation's
+  # ``left``/``right`` keys are assigned non-deterministically (the basket
+  # was sometimes yawed during labeling), so ~half the candidates have
+  # JSON ``right`` at world +y; the test submits all candidates to paired
+  # IK and lets curobo pick a reachable one — no scene-side yaw needed.
+  #
+  # basket_21 chosen over basket_1: per-pair |y| widest 0.345 (vs. 0.306)
+  # with 1360 bilateral candidates (vs. 500) — gives paired IK enough
+  # reachable pairs to converge for dual_franka's 1.8m-spaced arms.
+  basket:
+    common:
+      initial_pos_range: [0.0, 0.0, 1.05, 0.0, 0.0, 1.05]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      scale: [1.0, 1.0, 1.0]
+    usd: ["$MAGICSIM_ASSETS/Object/basket/basket_21"]
+    num_per_env: 1
+    random: False
+    default_material: False
+    basket_21:
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        color:
+          - [0.8, 0.7, 0.6]
+      physics:
+        type: "dynamic"
+        collision: true
+        mass: 0.5
+        physics_material:
+          static_friction: 10
+          dynamic_friction: 10
+          restitution: 0.2

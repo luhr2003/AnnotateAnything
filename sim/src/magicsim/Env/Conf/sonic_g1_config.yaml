@@ -1,0 +1,11 @@
+# Top-level hydra config for the minimal SONIC G1 static-standing test.
+# 拉起 G1_SonicCfg，arm_action=ik_abs（Pink IK 双手 rest pose），
+# base_action=wbc（SonicWBCAction，5D `[vx, vy, ang_vel, height, mode]`）。
+# Action tensor shape = [N, 5 + 14] = [N, 19]，静站下值全 0 + height/mode=-1。
+
+defaults:
+  - scene: test_navpack_env
+  - sim: sim_humanoid
+  - camera: agent_camera
+  - robot: single_sonic_g1
+  - nav: humanoid_nav

@@ -1,0 +1,21 @@
+Robot1: # This is the robot name
+  name: "leatherback" # this is used for retreival articulation cfg
+  type: "mobile"
+  common:
+    # Initial position range (relative to environment offset)
+    initial_pos_range: [-2, 0, 0.35, -2, 0, 0.35]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+    # Initial orientation range
+    initial_ori_range: [-2, 0, 0.35, -2, 0, 0.35]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+  action: # This is used for action manager
+    base: ackermann_drive # differential_drive, velocity, acceleration
+
+  # eventterm # This is used for event term manager
+  reset: randomize_joint
+  planner:
+    base:
+      type: "dwb"
+      max_lin_accel: 25.0
+      max_steer_rate: 25.0
+  physics:
+    wheel_base: 0.8
+    robot_radius: 0.4

@@ -1,0 +1,8 @@
+env_string: MobileOpenDrawerEnv-V0
+defaults:
+  - env: mobile_open_drawer_env
+  - global_planner: default
+  - atomic_skill: default
+  - auto_collect: default
+  - record: default
+  - task: default

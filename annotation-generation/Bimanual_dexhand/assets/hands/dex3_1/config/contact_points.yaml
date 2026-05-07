@@ -1,0 +1,233 @@
+# ============================================================
+# Semantic contact point definitions for grasp generation
+#
+# Notes:
+# - Each semantic point is attached to one collision sphere.
+# - source_sphere_index is 0-based within the sphere list of source_link
+#   in left_collision.yaml / right_collision.yaml.
+# - left_points / right_points define side-specific geometry.
+# - cat1 / cat2 / cat3 / cat4 define side-agnostic category usage.
+# ============================================================
+
+left_points:
+  thumb_tip_main:
+    source_type: "sphere"
+    source_link: "left_hand_thumb_2_link"
+    source_sphere_index: 2
+    role_tags: ["thumb_tip", "contact"]
+
+  thumb_pad_main:
+    source_type: "sphere"
+    source_link: "left_hand_thumb_1_link"
+    source_sphere_index: 1
+    role_tags: ["thumb_pad", "contact"]
+
+  index_tip_main:
+    source_type: "sphere"
+    source_link: "left_hand_index_1_link"
+    source_sphere_index: 2
+    role_tags: ["index_tip", "contact"]
+
+  index_pad_main:
+    source_type: "sphere"
+    source_link: "left_hand_index_0_link"
+    source_sphere_index: 2
+    role_tags: ["index_pad", "contact"]
+
+  middle_tip_main:
+    source_type: "sphere"
+    source_link: "left_hand_middle_1_link"
+    source_sphere_index: 2
+    role_tags: ["middle_tip", "contact"]
+
+  middle_pad_main:
+    source_type: "sphere"
+    source_link: "left_hand_middle_0_link"
+    source_sphere_index: 2
+    role_tags: ["middle_pad", "contact"]
+
+  index_side_main:
+    source_type: "sphere"
+    source_link: "left_hand_index_0_link"
+    source_sphere_index: 2
+    role_tags: ["index_side", "contact"]
+
+  middle_side_main:
+    source_type: "sphere"
+    source_link: "left_hand_middle_0_link"
+    source_sphere_index: 2
+    role_tags: ["middle_side", "contact"]
+
+  palm_avoid_center:
+    source_type: "sphere"
+    source_link: "left_hand_palm_link"
+    source_sphere_index: 4
+    role_tags: ["palm", "avoid"]
+
+  palm_support_center:
+    source_type: "sphere"
+    source_link: "left_hand_palm_link"
+    source_sphere_index: 4
+    role_tags: ["palm", "support", "contact", "main"]
+
+  palm_avoid_lower:
+    source_type: "sphere"
+    source_link: "left_hand_palm_link"
+    source_sphere_index: 7
+    role_tags: ["palm", "avoid"]
+
+
+right_points:
+  thumb_tip_main:
+    source_type: "sphere"
+    source_link: "right_hand_thumb_2_link"
+    source_sphere_index: 2
+    role_tags: ["thumb_tip", "contact"]
+
+  thumb_pad_main:
+    source_type: "sphere"
+    source_link: "right_hand_thumb_1_link"
+    source_sphere_index: 1
+    role_tags: ["thumb_pad", "contact"]
+
+  index_tip_main:
+    source_type: "sphere"
+    source_link: "right_hand_index_1_link"
+    source_sphere_index: 2
+    role_tags: ["index_tip", "contact"]
+
+  index_pad_main:
+    source_type: "sphere"
+    source_link: "right_hand_index_0_link"
+    source_sphere_index: 2
+    role_tags: ["index_pad", "contact"]
+
+  middle_tip_main:
+    source_type: "sphere"
+    source_link: "right_hand_middle_1_link"
+    source_sphere_index: 2
+    role_tags: ["middle_tip", "contact"]
+
+  middle_pad_main:
+    source_type: "sphere"
+    source_link: "right_hand_middle_0_link"
+    source_sphere_index: 2
+    role_tags: ["middle_pad", "contact"]
+
+  index_side_main:
+    source_type: "sphere"
+    source_link: "right_hand_index_0_link"
+    source_sphere_index: 2
+    role_tags: ["index_side", "contact"]
+
+  middle_side_main:
+    source_type: "sphere"
+    source_link: "right_hand_middle_0_link"
+    source_sphere_index: 2
+    role_tags: ["middle_side", "contact"]
+
+  palm_avoid_center:
+    source_type: "sphere"
+    source_link: "right_hand_palm_link"
+    source_sphere_index: 4
+    role_tags: ["palm", "avoid"]
+
+  palm_support_center:
+    source_type: "sphere"
+    source_link: "right_hand_palm_link"
+    source_sphere_index: 4
+    role_tags: ["palm", "support", "contact", "main"]
+
+  palm_avoid_lower:
+    source_type: "sphere"
+    source_link: "right_hand_palm_link"
+    source_sphere_index: 7
+    role_tags: ["palm", "avoid"]
+
+
+# ============================================================
+# cat1: edge_rim
+# - thumb opposes index/middle across top edge or rim
+# - palm should stay away
+# ============================================================
+cat1:
+  active_points:
+    - "thumb_pad_main"
+    - "index_pad_main"
+    - "middle_pad_main"
+
+  avoid_points:
+    - "palm_avoid_center"
+    - "palm_avoid_lower"
+
+  opposition_pairs:
+    - ["thumb_pad_main", "index_pad_main"]
+    - ["thumb_pad_main", "middle_pad_main"]
+
+
+# ============================================================
+# cat2: bottom_band
+# - fingers support mainly from below
+# - thumb stabilizes/opposes
+# - palm should stay away
+# ============================================================
+cat2:
+  active_points:
+    - "thumb_pad_main"
+    - "index_pad_main"
+    - "index_tip_main"
+    - "middle_pad_main"
+    - "middle_tip_main"
+
+  avoid_points:
+    - "palm_avoid_center"
+    - "palm_avoid_lower"
+
+  opposition_pairs:
+    - ["thumb_pad_main", "index_pad_main"]
+    - ["thumb_pad_main", "middle_pad_main"]
+
+
+# ============================================================
+# cat3: side_wrap
+# - thumb opposes side-facing finger contacts
+# - side enclosure / wrap behavior
+# ============================================================
+cat3:
+  active_points:
+    - "thumb_pad_main"
+    - "index_side_main"
+    - "middle_side_main"
+
+  avoid_points:
+    - "palm_avoid_center"
+    - "palm_avoid_lower"
+
+  opposition_pairs:
+    - ["thumb_pad_main", "index_side_main"]
+    - ["thumb_pad_main", "middle_side_main"]
+
+
+# ============================================================
+# cat4: convex_hold
+# - BODex-like single-hand hold on a convex side patch
+# - direct USD mesh input, no convex piece requirement
+# - front finger/thumb contacts drive the hold
+# - palm support is optional and should arise naturally
+# ============================================================
+cat4:
+  active_points:
+    - "palm_support_center"
+    - "thumb_pad_main"
+    - "thumb_tip_main"
+    - "index_pad_main"
+    - "index_tip_main"
+    - "middle_pad_main"
+    - "middle_tip_main"
+
+  avoid_points:
+    - "palm_avoid_lower"
+
+  opposition_pairs:
+    - ["thumb_pad_main", "index_pad_main"]
+    - ["thumb_pad_main", "middle_pad_main"]

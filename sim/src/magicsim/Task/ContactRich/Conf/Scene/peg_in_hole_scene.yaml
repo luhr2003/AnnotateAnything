@@ -1,0 +1,6 @@
+defaults:
+  - scene: peg_in_hole_env
+  - sim: sim_config
+  - camera: agent_camera
+  # - robot: single_franka
+  - robot: xtrainer

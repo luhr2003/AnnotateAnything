@@ -1,0 +1,7 @@
+timeout_steps: 10000
+target_obj_name: hanger
+defaults:
+  - Scene: hang_garment_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination

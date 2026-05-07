@@ -1,0 +1,106 @@
+MobileReach:
+  obj_type: geometry
+  obj_name: cube
+  obj_id: 0
+
+LocoReach:
+  obj_type: geometry
+  obj_name: cube
+  obj_id: 0
+
+LocoOpenDoor:
+  init_limit: 20
+  max_attempt: 2
+  robot_id: 0
+  hand_id: 0
+  obj_type: articulation
+  obj_name: articulation_items
+  obj_id: 0
+  joint_id: -1
+
+NavTo:
+  robot_id: 0
+  obj_type: geometry
+  obj_name: target_table
+  obj_id: 0
+
+DexGrasp:
+  robot_id: 0
+  hand_id: 0  # 0=right, 1=left for dual-arm
+  obj_type: "rigid"
+  obj_name: "bottle"
+  obj_id: 0
+  functional_grasp: True
+  functional_part: null
+  init_limit: 20
+  max_attempt: 2
+
+LocoDexGrasp:
+  obj_type: "rigid"
+  obj_name: "bottle"
+  obj_id: 0
+  functional_grasp: True
+  functional_part: null
+  init_limit: 100
+  max_attempt: 2
+
+LocoDexBiGrasp:
+  robot_id: 0
+  obj_type: "rigid"
+  obj_name: "bin"
+  obj_id: 0
+  functional_grasp: True
+  functional_part: null
+  init_limit: 100
+  max_attempt: 2
+
+LocoLift:
+  robot_id: 0
+  obj_type: "rigid"
+  obj_name: "bin"
+  obj_id: 0
+  # Longer init so the bin has time to fully settle on the table before
+  # Lift.reset snapshots its pose to build the squeeze targets. If
+  # targets are captured mid-fall, the wrist-world-z drifts with the bin.
+  init_limit: 300
+  max_attempt: 2
+
+LocoBox:
+  robot_id: 0
+  obj_type: "rigid"
+  obj_name: "bin"
+  obj_id: 0
+  # 50 ticks (~1s at 50 Hz ctrl) is plenty for the cube primitive to
+  # settle on the cube ground — it spawns flush at z≈0.13.
+  init_limit: 50
+  max_attempt: 2
+
+SquatDexGrasp:
+  obj_type: "rigid"
+  obj_name: "bottle"
+  obj_id: 0
+  functional_grasp: True
+  functional_part: null
+  init_limit: 100
+  max_attempt: 2
+
+DualLocoReach:
+  right_obj_type: geometry
+  right_obj_name: cube
+  right_obj_id: 0
+  left_obj_type: geometry
+  left_obj_name: cube
+  left_obj_id: 1
+
+DualLocoRetractReach:
+  right_obj_type: geometry
+  right_obj_name: cube
+  right_obj_id: 0
+  left_obj_type: geometry
+  left_obj_name: cube
+  left_obj_id: 1
+
+LocoRetractReach:
+  obj_type: geometry
+  obj_name: cube
+  obj_id: 0

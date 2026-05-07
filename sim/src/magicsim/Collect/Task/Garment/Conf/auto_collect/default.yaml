@@ -1,0 +1,6 @@
+task_type: fling
+# Bimanual fling, Grasp-style object targeting:
+#   ["Fling", robot_id, obj_type, obj_name, obj_id, group_name]
+#   ["Fling", robot_id, obj_type, obj_name, obj_id, left_kp, right_kp]
+# group_name ∈ {bottom, sleeve, shoulder}.
+fling_command: ["Fling", 0, "garment", "garment_items", 0, "sleeve"]

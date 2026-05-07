@@ -1,0 +1,5 @@
+defaults:
+  - scene: test_camera_move_env
+  - sim: sim_config
+  - camera: test_camera_move_camera
+  - robot: single_franka  # Minimal robot config for SyncRobotEnv (not used in test)

@@ -1,0 +1,75 @@
+G1_1: # This is the robot name
+  name: "g1_mobile" # this is used for retreival articulation cfg
+  type: "humanoid"
+  common:
+    # Wide random pos range matching ``single_g1.yaml`` (loco grasp). The
+    # MobileMoveL planner navigates the base to the bin during pre_grasp,
+    # so the start pose is loose: x∈[-1.2,-0.8], y∈[-0.6,0.6].
+    initial_pos_range: [-1.2, -0.6, 0.9, -0.8, 0.6, 0.9]
+    initial_ori_range: [0, 0, 0, 0, 0, 0]
+
+  action:
+    base_action: wbc
+    arm_action: ik_abs
+    eef_action: joint_pos
+
+  planner:
+    dual_mode: true
+    base_joint_names: ["base_x", "base_y", "base_h", "base_z"]
+    ik:
+      type: "g1_simple"
+      enable: true
+      ik_num_instances: 1
+      ik_batch_size: 1
+      ik_num_seeds: 20
+      ik_position_threshold: 0.005
+      ik_rotation_threshold: 0.05
+      microbatch_wait_ms: 400.0
+      relative_to_world_frame: false
+      eef_num: 2
+      debug: False
+      paired: true
+    motiongen:
+      type: "g1_simple"
+      enable: true
+      batch_size: 1
+      debug: False
+      motiongen_num_instances: 1
+      microbatch_wait_ms: 400.0
+      mode: position
+      relative_to_world_frame: false
+      eef_num: 2
+    body:
+      type: nav
+      dwb_holonomic:
+        max_accel_vx: 13.5
+        max_accel_vy: 13.5
+        max_yaw_accel: 13.5
+        w_goal: 4.0
+        w_path: 2.6
+        w_vy: 2.6
+        num_rollout_steps: 120
+        dilate_radius: 0.4
+        robot_type: humanoid
+      p_controller:
+        kp_linear_x: 6
+        kp_linear_y: 3
+        kp_angular: 2
+        kd_linear_x: 1.5
+        kd_linear_y: 1
+        min_vel: -0.4
+        max_vel: 0.8
+        linear_dead_zone: 0.1
+        angular_dead_zone: 0.05
+    arm:
+      type: default
+    eef:
+      type: default
+
+  reset: default
+  randomize_joint:
+    mean: 0.0
+    std: 0.1
+  physics:
+    wheel_base: 0.5
+    robot_radius: 0.46

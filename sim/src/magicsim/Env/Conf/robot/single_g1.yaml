@@ -1,0 +1,42 @@
+G1_1: # This is the robot name
+  name: "g1" # this is used for retreival articulation cfg
+  type: "humanoid"
+  common:
+    # Initial position range (relative to environment offset)
+    initial_pos_range: [0, 0, 0.8, 0, 0, 0.8]  # Format: [x_min, y_min, z_min, x_max, y_max, z_max]
+    # Initial orientation range
+    initial_ori_range: [0, 0, 0, 0, 0, 0]  # [min_rx, min_ry, min_rz, max_rx, max_ry, max_rz]
+
+  action: # This is used for action manager
+    base_action: wbc
+    # arm_action: joint_pos
+    arm_action: ik_abs
+    eef_action: interpolated
+
+  planner: # This is used for planner manager
+    body:
+      type: p_controller
+      p_controller:
+        # P-controller parameters
+        kp_angular_turning_only: 0.4
+        kp_linear_x: 50
+        kp_linear_y: 50
+        kp_angular: 0.05
+        kd_angular_turning_only: 0.1
+        kd_linear_x: 10
+        kd_linear_y: 10
+        kd_angular: 0.1
+        min_vel: -0.4
+        max_vel: 0.4
+        linear_dead_zone: 0.1
+        angular_dead_zone: 0.1
+    arm:
+      type: default
+    eef:
+      type: default
+
+  reset: default # default or random - default: use default joint positions, random: randomize joints with gaussian offset
+  # Parameters for random reset (only used when reset: random)
+  randomize_joint:
+    mean: 0.0  # Mean of gaussian noise
+    std: 0.1   # Standard deviation of gaussian noise

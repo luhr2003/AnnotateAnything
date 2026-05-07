@@ -1,0 +1,3 @@
+defaults:
+  - scene: test_inflate_env
+  - sim: sim_config

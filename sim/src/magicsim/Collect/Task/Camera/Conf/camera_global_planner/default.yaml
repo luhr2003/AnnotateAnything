@@ -1,0 +1,13 @@
+NavTo:
+  translation_threshold: 0.02
+  rotation_threshold: 0.1
+  visualize_path: true
+  # If false, camera will move directly in 3D (not constrained to NavMesh surface)
+  use_navmesh: true
+  # Path simplification parameters to reduce number of path segments
+  # Minimum distance (in meters) between path segments. Points closer than this will be skipped.
+  # Increase this value to reduce the number of path segments.
+  min_path_segment_distance: 0.3
+  # Maximum number of path segments. If set > 0, path will be downsampled to this many segments.
+  # Set to 0 to disable (no limit).
+  max_path_segments: 5

@@ -1,0 +1,3 @@
+defaults:
+  - scene: test_femcloth_env
+  - sim: sim_config

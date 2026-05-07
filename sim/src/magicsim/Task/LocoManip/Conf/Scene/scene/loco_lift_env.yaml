@@ -1,0 +1,134 @@
+room:
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+light:
+  light_1:
+    types: ["Rect", "Sphere", "Cylinder"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+  light_2:
+    types: ["Rect", "Sphere", "Cylinder"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+      radius_range: [8.0, 12.0]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+
+objects:
+  common:
+    initial_pos_range: [-0.2, -0.2, 0.5, 0.2, 0.5, 0.8]
+    initial_ori_range: [-30, -30, -30, 30, 30, 30]
+    scale: [2, 1.5, 1.0]
+
+  # Taller table than loco_bi_grasp (0.55 there → 0.7 here).
+  simple_desk:
+    usd: [
+      "$MAGICSIM_ASSETS/Desk/Collected_cline/cline_inst_base.usd",
+    ]
+    random: true
+    num_per_env: 1
+    default_material: True
+    simple_desk_1:
+      pos: [0.0, 0.0, 0.0]
+      ori: [0.0, 0.0, 0.0]
+      visual:
+        scale: [1, 1, 0.65]
+        color:
+          - [0.8, 0.7, 0.6]
+          - [0.6, 0.5, 0.4]
+          - [0.4, 0.3, 0.2]
+          - [0.2, 0.1, 0.0]
+        visual_material:
+          material_usd_folder: "$MAGICSIM_ASSETS/Material/Garment"
+      physics:
+        type: "geometry"
+        collision: true
+
+  # Bin spawn higher (table is taller); no orientation randomization so
+  # the bbox axes align with world axes after settle.
+  bin:
+    common:
+      initial_pos_range: [-0.45, 0.0, 0.95, -0.45, 0.0, 0.95]
+      initial_ori_range: [0, 0, 0, 0, 0, 0]
+      # Narrow y (width) so the two forearms can squeeze it. Annotation
+      # no longer used — we derive everything from the bbox — so arbitrary
+      # y-scale is fine.
+      scale: [1.0, 1.0, 1.5]
+    usd: ["$MAGICSIM_ASSETS/Object/Bin"]
+    num_per_env: 1
+    random: True
+    default_material: False
+    bin_1:
+      visual:
+        scale: [1.0, 1.0, 1.5]
+        color:
+          - [0.8, 0.7, 0.6]
+          - [0.6, 0.5, 0.4]
+          - [0.4, 0.3, 0.2]
+          - [0.2, 0.1, 0.0]
+          - [1.0, 0.0, 0.0]
+          - [0.0, 1.0, 0.0]
+          - [0.0, 0.0, 1.0]
+          - [1.0, 1.0, 0.0]
+          - [1.0, 0.0, 1.0]
+          - [0.0, 1.0, 1.0]
+      physics:
+        type: "dynamic"
+        collision: true
+        mass: 0.1
+        physics_material:
+          static_friction: 30
+          dynamic_friction: 30
+          restitution: 0.2

@@ -1,0 +1,6 @@
+defaults:
+  - scene: test_dwb_env
+  - sim: room_sim_config
+  - camera: agent_camera
+  - nav: test_nav_env
+  - robot: single_novaCarter

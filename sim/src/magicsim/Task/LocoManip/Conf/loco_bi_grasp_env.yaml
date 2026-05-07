@@ -1,0 +1,6 @@
+timeout_steps: 10000
+defaults:
+  - Scene: loco_bi_grasp_scene
+  - Observation: empty_observation
+  - Reward: empty_reward
+  - Termination: empty_termination

@@ -1,0 +1,106 @@
+default_joint_positions:
+  left_hand_thumb_0_joint: 0.0
+  left_hand_thumb_1_joint: 0.0
+  left_hand_thumb_2_joint: 0.0
+  left_hand_middle_0_joint: 0.0
+  left_hand_middle_1_joint: 0.0
+  left_hand_index_0_joint: 0.0
+  left_hand_index_1_joint: 0.0
+
+collision:
+  geometry: "collision_spheres"
+
+self_collision:
+  geometry: "collision_spheres"
+  ignore:
+    left_hand_palm_link:
+      - "left_hand_thumb_0_link"
+      - "left_hand_middle_0_link"
+      - "left_hand_index_0_link"
+    left_hand_thumb_0_link:
+      - "left_hand_thumb_1_link"
+    left_hand_thumb_1_link:
+      - "left_hand_thumb_2_link"
+    left_hand_middle_0_link:
+      - "left_hand_middle_1_link"
+    left_hand_index_0_link:
+      - "left_hand_index_1_link"
+  buffer:
+    left_hand_palm_link: 0.0
+    left_hand_thumb_0_link: 0.0
+    left_hand_thumb_1_link: 0.002
+    left_hand_thumb_2_link: 0.0
+    left_hand_middle_0_link: 0.0
+    left_hand_middle_1_link: 0.002
+    left_hand_index_0_link: 0.0
+    left_hand_index_1_link: 0.002
+
+geometry:
+  collision_spheres:
+    spheres:
+      left_hand_palm_link:
+        - center: [0.015, 0.0,  0.014]
+          radius: 0.015
+        - center: [0.015, 0.0, -0.014]
+          radius: 0.015
+        - center: [0.038, 0.0,  0.025]
+          radius: 0.015
+        - center: [0.038, 0.0, -0.025]
+          radius: 0.015
+        - center: [0.038, 0.0,  0.0]
+          radius: 0.015
+        - center: [0.06,  0.0,  0.028]
+          radius: 0.015
+        - center: [0.06,  0.0, -0.028]
+          radius: 0.015
+        - center: [0.06,  0.0,  0.0]
+          radius: 0.015
+      left_hand_thumb_0_link:
+        - center: [-0.001, -0.01875, 0.0]
+          radius: 0.012
+      left_hand_thumb_1_link:
+        - center: [-0.00119, -0.01237, 0.0]
+          radius: 0.008
+        - center: [ 0.00108, -0.03224, 0.0]
+          radius: 0.015
+      left_hand_thumb_2_link:
+        - center: [0.0, -0.00422, 0.0]
+          radius: 0.008
+        - center: [0.0, -0.01893, 0.0]
+          radius: 0.007
+        - center: [0.0, -0.03372, 0.0]
+          radius: 0.006
+        - center: [0.0, -0.04572, 0.0]
+          radius: 0.003
+      left_hand_middle_0_link:
+        - center: [0.0,     0.0, 0.0]
+          radius: 0.014
+        - center: [0.0148,  0.0, 0.0]
+          radius: 0.008
+        - center: [0.03261, 0.0, 0.0]
+          radius: 0.015
+      left_hand_middle_1_link:
+        - center: [0.00316, 0.0, 0.0]
+          radius: 0.008
+        - center: [0.01825, 0.0, 0.0]
+          radius: 0.008
+        - center: [0.03393, 0.0, 0.0]
+          radius: 0.006
+        - center: [0.04586, 0.0, 0.0]
+          radius: 0.003
+      left_hand_index_0_link:
+        - center: [0.0,     0.0, 0.0]
+          radius: 0.014
+        - center: [0.0148,  0.0, 0.0]
+          radius: 0.008
+        - center: [0.03261, 0.0, 0.0]
+          radius: 0.015
+      left_hand_index_1_link:
+        - center: [0.00316, 0.0, 0.0]
+          radius: 0.008
+        - center: [0.01825, 0.0, 0.0]
+          radius: 0.008
+        - center: [0.03393, 0.0, 0.0]
+          radius: 0.006
+        - center: [0.04586, 0.0, 0.0]
+          radius: 0.003

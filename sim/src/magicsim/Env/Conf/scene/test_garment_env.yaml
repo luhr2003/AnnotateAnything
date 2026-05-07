@@ -1,0 +1,171 @@
+# room:
+  # hide_top_walls: true
+  # simple_room:
+  #   usd: ["$MAGICSIM_ASSETS/Room/Collected_SimpleRoom"]
+  #   random: True
+  #   simple_room_1:
+  #     pos: [0.0, 0.0, 0.8]
+  #     ori: [0.0, 0.0, 0.0]
+
+background:
+  intensity: [1000, 2000]
+  texture: [
+    "$MAGICSIM_ASSETS/Background/champagne_castle_1_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/evening_road_01_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloofendal_48d_partly_cloudy_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/kloppenheim_02_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/mealie_road_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/moonlit_golf_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/noon_grass_4k.hdr",
+    "$MAGICSIM_ASSETS/Background/qwantani_4k.hdr"
+  ]
+
+light:
+  light_1:
+    types: ["Rect", "Sphere", "Cylinder"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+  light_2:
+    types: ["Rect", "Sphere", "Cylinder"]
+    common:
+      initial_pos_range: [-0.2, -0.2, 0, 0.2, 0.5, 0]
+      initial_ori_range: [-30, -30, -30, 30, 30, 30]
+      color_temperature_range: [3000, 9000]
+      color_range: [[0.8, 0.8, 0.8], [1.2, 1.2, 1.2]]
+    Dome:
+      intensity_range: [800, 1500]
+      radius_range: [8.0, 12.0]
+    Rect:
+      intensity_range: [2000, 5000]
+      width_range: [1.0, 3.0]
+      height_range: [1.0, 3.0]
+    Distant:
+      intensity_range: [2000, 5000]
+      angle_range: [0.5, 2.0]
+    Sphere:
+      intensity_range: [5000, 10000]
+      radius_range: [0.1, 0.5]
+    Cylinder:
+      intensity_range: [4000, 8000]
+      radius_range: [0.1, 0.3]
+      length_range: [1.0, 2.0]
+    Disk:
+      intensity_range: [6000, 12000]
+      radius_range: [0.2, 0.8]
+
+objects:
+  simple_desk:
+    usd: [
+      "$MAGICSIM_ASSETS/Desk/Collected_appleseed_coffeetable/appleseed_coffeetable_inst_base.usd",
+      "$MAGICSIM_ASSETS/Desk/Collected_cline/cline_inst_base.usd",
+      "$MAGICSIM_ASSETS/Desk/Collected_oaktablesmall/oaktablesmall_inst_base.usd",
+      "$MAGICSIM_ASSETS/Desk/Collected_willowbench/willowbench_inst_base.usd",
+    ]
+    random: true
+    default_material: True
+    num_per_env: 1
+    semantic_label:
+    simple_desk_1:
+      pos: [0.0, 0.0, 0.0] # z is fixed
+      ori: [0.0, 0.0, 90.0]
+      visual:
+        scale: [2.0, 2.0, 1.0]
+        color:
+          - [0.8, 0.7, 0.6]
+          - [0.6, 0.5, 0.4]
+          - [0.4, 0.3, 0.2]
+          - [0.2, 0.1, 0.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+      physics:
+        type: "geometry" # Defines it as a static object
+        collision: true  # This is the key to enable collision
+
+  garment_items:
+    common:
+      primitive_scale: [0.5,0.5,0.5]
+    num_per_env: 1
+    random: True
+    usd: ["$MAGICSIM_ASSETS/Object/Garment/Pants"]
+    semantic_label:
+
+    garment_items_1:
+      pos: [0.4, -0.2, 1.2]
+      ori: [0.0,0.0, 90]
+
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        visible: true
+        color:
+          - [1.0, 0.0,0.0]
+          - [0.0, 1.0,0.0]
+          - [0.0, 0.0,1.0]
+          - [1.0, 1.0,0.0]
+          - [1.0, 0.0,1.0]
+          - [0.0, 1.0,1.0]
+        visual_material:
+          mdl_folder: "$MAGICSIM_ASSETS/Material/Base/Textiles"
+
+      physics:
+        type: "garment"
+        ratio: 1.1  # Physics parameter randomization ratio (default: 1.0)
+        particle_system:
+          particle_system_enabled: True
+          enable_ccd: True
+          solver_position_iteration_count: 16
+          max_depenetration_velocity: null
+          global_self_collision_enabled: true
+          non_particle_collision_enabled: true
+          contact_offset: 0.010
+          rest_offset: 0.006
+          particle_contact_offset: 0.010
+          fluid_rest_offset: 0.006
+          solid_rest_offset: 0.006
+          wind: null
+          max_neighborhood: null
+          max_velocity: null
+        particle_material:
+          adhesion: 10
+          adhesion_offset_scale: 0.0
+          cohesion: 0.1
+          particle_adhesion_scale: 3.0
+          particle_friction_scale: 3.0
+          drag: 0.0
+          lift: 0.0
+          friction: 10.0
+          damping: 5.0
+          gravity_scale: 1.0
+          viscosity: null
+          vorticity_confinement: null
+          surface_tension: null
+        garment_config:
+          particle_mass: 5e-10
+          self_collision: true
+          self_collision_filter: true
+          stretch_stiffness: 1e12
+          bend_stiffness: 1e3
+          shear_stiffness: 1e3
+          spring_damping: 5.0

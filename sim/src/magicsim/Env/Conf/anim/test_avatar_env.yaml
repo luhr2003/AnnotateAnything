@@ -1,0 +1,34 @@
+Avatar:
+  Medical:
+    common:
+      primitive_scale: [1.0,1.0,1.0]
+      initial_pos_range: [-2, -2, 0.0, 2, 2, 0.0]
+      initial_ori_range: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      scale: [1.0,1.0, 1.0]
+    usd: ["$MAGICSIM_ASSETS/Avatar/"]
+    num_per_env: 1
+    random: True
+    semantic_label:
+
+    Medical_1:
+      visual:
+        scale: [1.0, 1.0, 1.0]
+        visible: true
+        color: [1.0, 0.0, 0.0]
+        visual_material:
+          material_usd_folder: "$MAGICSIM_ASSETS/Material/Garment"
+      physics:
+        type: "SkelRoot"
+        mass: 70.0
+        ratio: 1.0
+        physics_material:
+          static_friction: 0.2
+          dynamic_friction: 1.0
+          restitution: 0.0
+        linear_velocity:
+        angular_velocity:
+        collision: True
+        track_contact_forces:
+        prepare_contact_sensor:
+        disable_stablization:
+        contact_filter_prim_paths_expr:

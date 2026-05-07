@@ -1,0 +1,22 @@
+MoveL:
+  translation_threshold: 0.001
+  rotation_threshold: 0.001
+  motiongen_distance_threshold: 0.35
+  timeout_steps: 50
+  input:
+    base_dim: 0
+    arm_dim: 7
+    eef_dim: 12
+
+  debug: true
+
+ParallelGripper:
+  gripper_threshold: 0.001
+
+DexHand:
+  hand_threshold: 0.01
+  timeout_steps: 50
+  input:
+    base_dim: 0
+    arm_dim: 7
+    eef_dim: 12

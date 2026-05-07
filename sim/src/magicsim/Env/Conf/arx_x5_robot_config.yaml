@@ -1,0 +1,5 @@
+defaults:
+  - scene: empty_env
+  - sim: sim_config
+  - camera: agent_camera
+  - robot: single_arx_x5

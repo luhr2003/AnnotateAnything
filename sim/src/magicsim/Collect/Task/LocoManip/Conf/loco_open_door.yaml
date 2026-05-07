@@ -1,0 +1,8 @@
+env_string: LocoOpenDoorEnv-V0
+defaults:
+  - env: loco_open_door_env
+  - global_planner: default
+  - atomic_skill: default
+  - auto_collect: default
+  - record: default
+  - task: default
